@@ -1,0 +1,19 @@
+#selected {
+  background-color: #7ADFBB;
+  border: 2px solid #45A1FF;
+  color: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0px 20px 40px rgba(0,0,0,0.25);
+}
+
+#notSelected {
+  background: #C8C4CB;
+  border: 2px solid transparent;
+  color: #FFFFFF;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+#notSelected:hover {
+  box-shadow: 0px 20px 40px rgba(0,0,0,0.25);
+}

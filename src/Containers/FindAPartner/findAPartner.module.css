@@ -1,0 +1,72 @@
+.Header {
+  height: 40px;
+  background-color: #EDF2F4;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+
+.GymLocation {
+  font-size: 16px;
+  color: rgba(72,66,82,0.6);
+}
+
+.LiftsText {
+  font-size: 24px;
+}
+
+.Picture {
+  border-radius: 50%!important;
+  margin: 20px auto;
+}
+
+.Location {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 2px solid rgba(72,66,82,0.6);
+  padding: 3px;
+}
+
+.Lifts {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  padding: 5px;
+  justify-content: space-around;
+}
+.FirstLifts {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  padding: 5px;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.LastLifts {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  padding: 5px;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.Body {
+  padding: 3px;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Schedule {
+  padding: 3px;
+  width: 80%;
+  margin: auto;
+}

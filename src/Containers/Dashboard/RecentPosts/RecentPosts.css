@@ -1,0 +1,17 @@
+.fa-heart {
+  cursor: pointer;
+}
+
+.fa-trash-alt {
+  cursor: pointer;
+}
+
+#liked {
+  color: #D5212E;
+}
+
+.recentPostsCard {
+  border: 1px solid #EBE8EE;
+  border-bottom: none;
+  border-radius: 0.5rem;
+}

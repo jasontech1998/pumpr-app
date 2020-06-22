@@ -1,0 +1,37 @@
+.about {
+  width: 80%;
+  margin: auto;
+}
+
+.about p {
+  display: flex;
+  align-items: center;
+  text-align: left !important;
+}
+
+.about .reviewDate {
+  display: block;
+}
+
+.about .reviewBlock {
+  border: 1px solid #818D92;
+  color: #818D92;
+  display: block;
+  text-align: center !important;
+}
+
+.profileLifts {
+  font-weight: 500;
+}
+
+
+.cardProfile {
+  max-width: 170px;
+  background-color: #7ADFBB;
+  color: #FFFFFF;
+  border: 1px solid #CAC4CB;
+  padding: 10px;
+  margin: 3px;
+  font-size: 18px;
+  border-radius: 0.25rem;
+}

@@ -1,0 +1,26 @@
+.timeInput {
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  margin-right: 10px;
+  padding: 5px 5px;
+}
+
+
+.topInput label {
+  margin-top: 30px;
+  margin-right: 10px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.fa-plus-circle {
+  color: #70A9A1;
+  cursor: pointer;
+}
+
+.fa-minus-circle {
+  color: red;
+  cursor: pointer;
+}

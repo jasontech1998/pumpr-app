@@ -1,0 +1,42 @@
+.sendTitle {
+  font-size: 16px;
+}
+
+.sendWhen {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.month,
+.day,
+.time {
+  border: 1px solid #495057;
+  color: #495057;
+  border-radius: 0.25rem;
+  width: 100%;
+}
+
+.month {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.day {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.time {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+
+.feedbackOptions {
+  font-size: 14px;
+  cursor: pointer;
+}

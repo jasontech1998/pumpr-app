@@ -1,0 +1,30 @@
+
+.table-input {
+  height: 150px;
+  width: 150px;
+}
+
+.thead {
+  background-color: #70A9A1;
+  color: #fff;
+}
+
+
+.table thead th {
+  border-bottom: none;
+
+}
+
+.table th {
+  border-top: none !important;
+  font-weight: normal;
+  vertical-align: inherit;
+}
+.table {
+  box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.table tbody th {
+  border-right: 1px solid #cac4cb;
+  cursor: pointer;
+}

@@ -1,0 +1,20 @@
+.Goals .card-body{
+  padding: 10px;
+  margin: 3px;
+  font-size: 18px;
+}
+
+.experience .card-body {
+  font-size: 18px;
+  background: #C8C4CB;
+  cursor: pointer;
+  border: 2px solid transparent;
+  color: #FFFFFF;
+  margin: 5px;
+  padding: 10px;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.15);
+}
+
+.experience .card-body:hover {
+  box-shadow: 0px 20px 40px rgba(0,0,0,0.25);
+}

@@ -1,0 +1,20 @@
+.SignUp {
+
+}
+
+.Card {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border-radius: 5px;
+}
+
+
+.SignUp h5{
+  font-weight: 600;
+}
+

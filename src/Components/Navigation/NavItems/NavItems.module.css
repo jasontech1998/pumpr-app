@@ -1,0 +1,20 @@
+.NavItems {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.NavItems a {
+  color: #818D92;
+  font-size: 1.3rem;
+}
+
+
+@media (min-width: 500px) {
+  .NavItems {
+    flex-flow: row;
+  }
+}

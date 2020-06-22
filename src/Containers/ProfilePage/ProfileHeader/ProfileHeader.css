@@ -1,0 +1,16 @@
+.nameBio, .experienceBio {
+  margin-left: 50px;
+}
+
+.nameExp {
+  display: flex;
+  flex-direction: column;
+  text-align: initial;
+  justify-content: center;
+}
+
+.experienceBio {
+  color: #45A1FF;
+  font-weight: 500;
+  font-size: 18px;
+}
