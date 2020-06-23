@@ -53,23 +53,21 @@ class OfferModal extends Component {
     let day = new Date().getDate();
     let year = new Date().getFullYear();
     const dateSent = `${month} ${day}, ${year}`;
-    // store as sender id
-    console.log(this.props.modalData)
-    console.log(this.props.ownData.userSetup.profile.profileURL)
+    // store sender name and picture
+    const {fullName} = this.props.ownData.userSetup;
+    const senderName = `${fullName.firstName} ${fullName.lastName}`;
+    const senderPic = this.props.ownData.userSetup.profile.profileURL;
+    // store correct user Id
     let userId = this.props.modalData.senderUserId;
-    let senderPic = this.props.ownData.userSetup.profile.profileURL;
-    let senderName = this.props.modalData.receiverName;
-    // if current user id is not senderUserId, change to receiver
-    if (localStorage.getItem('userId') === this.props.modalData.senderUserId) {
-      userId = this.props.receiverUserId;
-      senderName = this.props.modalData.senderName;
-      senderPic = this.props.modalData.senderPic;
+    if (userId === localStorage.getItem('userId')) {
+      userId = this.props.modalData.receiverUserId;
     }
     const review = {
       options: this.state.selectedFeedback,
       msg: this.state.feedbackMsg,
       senderPic: senderPic,
       senderName: senderName,
+      senderUserId: localStorage.getItem('userId'),
       date: dateSent
     }
     const feedbackObj = {

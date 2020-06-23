@@ -12,6 +12,10 @@ class Reviews extends Component {
       showReviews = (
         <Aux>
           {reverseReviews.map((review, index) => {
+            let options = null;
+            if (review.options) {
+              options =  <Options options={review.options}/>
+            }
             const picture = review.senderPic;
             return (
               <Aux key={index}>
@@ -28,7 +32,7 @@ class Reviews extends Component {
                     <p>{review.msg}</p>
                     <div className="row mt-3">
                       {/* Feedback Options */}
-                      <Options options={review.options}/>
+                      {options}
                     </div>
                   </div>
                 </div>

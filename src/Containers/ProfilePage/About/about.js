@@ -17,12 +17,40 @@ class About extends Component {
       this.props.onFetchProfile(token, userId);
       this.props.onFetchReviews(token, userId);
     }
+    // fetch current user's reviews
+    else if (this.props.history.location.state === undefined) {
+      // remove prop.data from state
+      if (this.props.data) {
+        console.log('remove data')
+        this.props.removeDataPropHandler();
+      }
+      let userId = localStorage.getItem('userId');
+      let token = localStorage.getItem('token');
+      this.props.onFetchReviews(token, userId);
+    }
+    else if (this.props.history.location.state === null && this.props.data === "") {
+      let userId = localStorage.getItem('userId');
+      let token = localStorage.getItem('token');
+      this.props.onFetchReviews(token, userId);
+    }
   }
 
   
 
 
   render () {
+    // Initialize number of reviews
+    let reviewLength = 0;
+    let numReviews = null;
+    if (this.props.reviews) {
+      reviewLength = this.props.reviews.length;
+    }
+    if (reviewLength > 1) {
+      numReviews = `${reviewLength} Reviews`;
+    }
+    else {
+      numReviews = `${reviewLength} Review`;
+    }
     // Initialize variables as null first
     let showGoals = null;
     let location = null;
@@ -39,12 +67,9 @@ class About extends Component {
 
     // if location.state is undefined, remove prop.data and display current user's data 
     if (this.props.history.location.state === undefined) {
+      
       console.log('user just logged in or clicked on own user profile')
-      // remove prop.data from state
-      if (this.props.data) {
-        console.log('remove data')
-        this.props.removeDataPropHandler();
-      }
+      
       if (this.props.ownData) {
         // Object destructuring
         const {lifts} = this.props.ownData.userSetup
@@ -121,9 +146,9 @@ class About extends Component {
         location = profile.location
       }
     }
-    // if state is null, user clicked from timeline to about
+    // if state is null, user clicked from timeline to about or refreshed page
     else if (this.props.history.location.state === null) {
-      console.log('clicked from timeline to about')
+      console.log('clicked from timeline to about or refreshed page')
       // if no data prop, display current user
       if (this.props.data === '') {
         if (this.props.ownData) {
@@ -257,7 +282,10 @@ class About extends Component {
           {/* End of User Lifts */}
           {/* User Reviews */}
           <div className={classes.reviews}>
-            <h4 className="my-3">Reviews</h4>
+            <div className="review_Wrapper d-flex align-items-baseline justify-content-between">
+              <h4 className="my-3">Reviews</h4>
+              <span className="my-3">{numReviews}</span>
+            </div>
             <div className="row">
               <Reviews reviews={this.props.reviews}/>
             </div>
