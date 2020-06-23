@@ -8,24 +8,27 @@ class PumprSchedule extends Component {
     profile: null
   }
   componentDidMount() {
-    if (!this.props.data) {
-      console.log('no data')
-      let token = localStorage.getItem('token')
-      let userId = localStorage.getItem('userId')
-      this.props.onFetchProfile(token, userId)
+    console.log('schedule mounted')
+    if (this.props.data === "" && this.props.ownData) {
+      const {profile} = this.props.ownData.userSetup;
+      this.setState({profile: profile}, () => this.updateCalender());
     }
     else if (this.props.data) {
       const {profile} = this.props.data.userSetup
-      this.setState({profile: profile}, () => this.updateCalender())
+      this.setState({profile: profile}, () => this.updateCalender());
     }
-    console.log('schedule mounted')
   }
 
   componentDidUpdate() {
     if (this.props.data && this.state.profile === null) {
-      console.log('data collected, set calendar data')
+      console.log('set calendar data for other user')
       const {profile} = this.props.data.userSetup
-      this.setState({profile: profile}, () => this.updateCalender())
+      this.setState({profile: profile}, () => this.updateCalender());
+    }
+    if (this.props.ownData && this.state.profile === null) {
+      console.log('set calendar data for current user')
+      const {profile} = this.props.ownData.userSetup;
+      this.setState({profile: profile}, () => this.updateCalender());
     }
   }
 

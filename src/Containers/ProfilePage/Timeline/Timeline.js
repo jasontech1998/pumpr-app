@@ -20,7 +20,8 @@ class Timeline extends Component {
           </Modal>
           <PumprSchedule
             clicked={(day) => this.showModalHandler(day)} 
-            data={this.props.data}/>
+            data={this.props.data}
+            ownData={this.props.ownData}/>
         </div>
       </div>
     )
@@ -30,7 +31,8 @@ class Timeline extends Component {
 const mapStateToProps = state => {
   return {
     submitting: state.setup.submitting,
-    data: state.pumpr.data
+    data: state.pumpr.data,
+    ownData: state.pumpr.ownData
   }
 }
 

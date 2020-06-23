@@ -21,8 +21,6 @@ class NavItems extends Component {
   }
   componentDidUpdate = (prevProps) => {
     if (prevProps.userId !== this.props.userId) {
-      console.log(prevProps.userId)
-      console.log(this.props.userId)
       this.props.onFetchProfile(this.props.token, this.props.userId)
     }
   }

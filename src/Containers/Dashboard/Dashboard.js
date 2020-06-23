@@ -10,10 +10,11 @@ import * as actionCreators from '../../store/actions/actionPumpr';
 
 class Dashboard extends Component {
   componentDidMount() {
-    if (!this.props.data) {
-      let token = localStorage.getItem('token')
-      let userId = localStorage.getItem('userId')
-      this.props.onFetchProfile(token, userId)
+    console.log('dashboard mounted')
+    // remove data prop
+    if (this.props.data) {
+      console.log('remove data')
+      this.props.removeDataPropHandler();
     }
   }
   render () {
@@ -21,11 +22,10 @@ class Dashboard extends Component {
       <Aux>
         <div className="col-12">
           <h4>Dashboard</h4>
-          <PumprSchedule data={this.props.data}/>
+          <PumprSchedule data={this.props.ownData}/>
         </div>
         <CreateAPost history={this.props.history} />
         <div className="col-12 mt-3" style={{padding: '0 90px'}}>
-          {/* <h4 className="mt-2">recent posts</h4> */}
           <RecentPosts history={this.props.history}/>
         </div>
       </Aux>
@@ -35,13 +35,13 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   return {
     data: state.pumpr.data,
-    token: state.auth.token,
-    userId: state.auth.userId
+    ownData: state.pumpr.ownData
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchProfile: (token, userId) => dispatch(actionCreators.fetchProfile(token, userId))
+    onFetchProfile: (token, userId) => dispatch(actionCreators.fetchProfile(token, userId)),
+    removeDataPropHandler: () => dispatch(actionCreators.removeData())
   }
 }
 

@@ -21,7 +21,6 @@ class ProfileHeader extends Component {
 
     // if location.state is undefined or null, display current user's data
     if (this.props.history.location.state === undefined || this.props.history.location.state === null) {
-      console.log('user just logged in or clicked on own user profile')
       if (this.props.ownData) {
         experience = this.props.ownData.userSetup.goals.experience
         const userId = localStorage.getItem('userId');
@@ -43,7 +42,7 @@ class ProfileHeader extends Component {
       }
     }
     else if (this.props.history.location.state) {
-      console.log('clciked on other user')
+      console.log('clicked on other user')
       if (this.props.data) {
         experience = this.props.data.userSetup.goals.experience
         const userId = localStorage.getItem('userId');

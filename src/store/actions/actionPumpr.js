@@ -57,7 +57,14 @@ export const FETCH_MESSAGES_FAIL = 'FETCH_MESSAGES_FAIL';
 // Log Out Remove State other User Datas
 export const LOGOUT_PUMPR = 'LOGOUT_PUMPR';
 
+// Remove data from state
+export const REMOVE_DATA = 'REMOVE_DATA';
 
+export const removeData = () => {
+  return {
+    type: REMOVE_DATA
+  }
+}
 export const logoutPumpr = () => {
   return {
     type: LOGOUT_PUMPR

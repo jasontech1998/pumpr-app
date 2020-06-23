@@ -9,26 +9,17 @@ import * as actionCreators from '../../../store/actions/actionPumpr';
 class About extends Component {
 
   componentDidMount() {
-    console.log('mounted')
-    console.log(this.props.history.location)
-    // if location.state, clicked from find a partner
+    // if location.state, clicked from find a partner to display other user's profile
     if (this.props.history.location.state) {
-      console.log(this.props.history.location.state)
-      console.log('props contains userId, display clicked user profile')
+      console.log('View other user profile and update data prop')
       let userId = this.props.history.location.state
       let token = localStorage.getItem('token')
       this.props.onFetchProfile(token, userId);
       this.props.onFetchReviews(token, userId);
     }
-    // logged in display current user's profile
-    else if (!this.props.data) {
-      console.log(this.props.history.location.state)
-      console.log('logged in')
-      let token = localStorage.getItem('token')
-      let userId = localStorage.getItem('userId')
-      this.props.onFetchProfile(token, userId);
-    }
   }
+
+  
 
 
   render () {
@@ -46,9 +37,14 @@ class About extends Component {
     let deadReps = null;
     let deadSets = null;
 
-    // if location.state is undefined, display current user's data
+    // if location.state is undefined, remove prop.data and display current user's data 
     if (this.props.history.location.state === undefined) {
       console.log('user just logged in or clicked on own user profile')
+      // remove prop.data from state
+      if (this.props.data) {
+        console.log('remove data')
+        this.props.removeDataPropHandler();
+      }
       if (this.props.ownData) {
         // Object destructuring
         const {lifts} = this.props.ownData.userSetup
@@ -102,8 +98,8 @@ class About extends Component {
           <Aux>
             {goals.goals.map((goal, index) => {
               return (
-                <div key={index} className="d-flex col-12 col-md-6 col-lg-4 mb-3">
-                  <div className="card card-body flex-fill">{goal}
+                <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                  <div className="cardProfile card-body flex-fill">{goal}
                   </div>
                 </div>
               )
@@ -125,43 +121,84 @@ class About extends Component {
         location = profile.location
       }
     }
+    // if state is null, user clicked from timeline to about
     else if (this.props.history.location.state === null) {
-      console.log('state is null')
-      // Check if data has been fetched from firebase
-      if (this.props.data) {
-        // Object destructuring
-        const {lifts} = this.props.data.userSetup
-        const {goals} = this.props.data.userSetup
-        const {profile} = this.props.data.userSetup
-        const {bench} = lifts[0]
-        const {squat} = lifts[1]
-        const {deadlift} = lifts[2] 
-        // Dynamically render goals
+      console.log('clicked from timeline to about')
+      // if no data prop, display current user
+      if (this.props.data === '') {
+        if (this.props.ownData) {
+          // Object destructuring
+          const {lifts} = this.props.ownData.userSetup
+          const {goals} = this.props.ownData.userSetup
+          const {profile} = this.props.ownData.userSetup
+          const {bench} = lifts[0]
+          const {squat} = lifts[1]
+          const {deadlift} = lifts[2]
+          // Dynamically render goals
         showGoals = (
           <Aux>
             {goals.goals.map((goal, index) => {
               return (
-                <div key={index} className="d-flex col-12 col-md-6 col-lg-4 mb-3">
-                  <div className="card card-body flex-fill">{goal}
+                <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                  <div className="cardProfile card-body flex-fill">{goal}
                   </div>
                 </div>
               )
             })}
           </Aux>
         )
-        // Insert data into initialized variables
-        benchWeight = `${bench.weight} lbs`;
-        benchReps = `${bench.reps} reps`;
-        benchSets = `${bench.sets} sets`;
-        squatWeight = `${squat.weight} lbs`;
-        squatReps = `${squat.reps} reps`;
-        squatSets = `${squat.sets} sets`;
-        deadWeight = `${deadlift.weight} lbs`;
-        deadReps = `${deadlift.reps} reps`;
-        deadSets = `${deadlift.sets} sets`;
- 
-        bio = profile.profileBio
-        location = profile.location
+          // Insert data into initialized variables
+          benchWeight = `${bench.weight} lbs`;
+          benchReps = `${bench.reps} reps`;
+          benchSets = `${bench.sets} sets`;
+          squatWeight = `${squat.weight} lbs`;
+          squatReps = `${squat.reps} reps`;
+          squatSets = `${squat.sets} sets`;
+          deadWeight = `${deadlift.weight} lbs`;
+          deadReps = `${deadlift.reps} reps`;
+          deadSets = `${deadlift.sets} sets`;
+  
+          bio = profile.profileBio
+          location = profile.location
+        }
+      }
+      // if data prop, display other user
+      else if (this.props.data) {
+        if (this.props.data) {
+          // Object destructuring
+          const {lifts} = this.props.data.userSetup
+          const {goals} = this.props.data.userSetup
+          const {profile} = this.props.data.userSetup
+          const {bench} = lifts[0]
+          const {squat} = lifts[1]
+          const {deadlift} = lifts[2] 
+          // Dynamically render goals
+        showGoals = (
+          <Aux>
+            {goals.goals.map((goal, index) => {
+              return (
+                <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                  <div className="cardProfile card-body flex-fill">{goal}
+                  </div>
+                </div>
+              )
+            })}
+          </Aux>
+        )
+          // Insert data into initialized variables
+          benchWeight = `${bench.weight} lbs`;
+          benchReps = `${bench.reps} reps`;
+          benchSets = `${bench.sets} sets`;
+          squatWeight = `${squat.weight} lbs`;
+          squatReps = `${squat.reps} reps`;
+          squatSets = `${squat.sets} sets`;
+          deadWeight = `${deadlift.weight} lbs`;
+          deadReps = `${deadlift.reps} reps`;
+          deadSets = `${deadlift.sets} sets`;
+   
+          bio = profile.profileBio
+          location = profile.location
+        }
       }
     }
     
@@ -243,7 +280,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onFetchProfile: (token, userId) => dispatch(actionCreators.fetchProfile(token, userId)),
-    onFetchReviews: (token, userId) => dispatch(actionCreators.fetchReviews(token, userId))
+    onFetchReviews: (token, userId) => dispatch(actionCreators.fetchReviews(token, userId)),
+    removeDataPropHandler: () => dispatch(actionCreators.removeData())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(About);

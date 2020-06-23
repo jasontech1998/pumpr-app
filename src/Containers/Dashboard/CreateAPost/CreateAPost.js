@@ -33,9 +33,9 @@ class CreateAPost extends Component {
 
   onSubmitHandler = (event) => {
     event.preventDefault();
-    if (this.state.postInput !== '' && this.props.data) {
-      const {fullName} = this.props.data.userSetup
-      const userProfilePic = this.props.data.userSetup.profile.profileURL
+    if (this.state.postInput !== '' && this.props.ownData) {
+      const {fullName} = this.props.ownData.userSetup
+      const userProfilePic = this.props.ownData.userSetup.profile.profileURL
       let month = new Date().toLocaleString('en-US', {month: 'short'})
       let day = new Date().getDate()
       let datePosted = `${month} ${day}`
@@ -64,8 +64,8 @@ class CreateAPost extends Component {
                         src={require('../../../Components/UI/Icons/social.svg')} 
                         alt="icon" 
                         height="100" width="100"/>
-    if (this.props.data) {
-      const {profile} = this.props.data.userSetup
+    if (this.props.ownData) {
+      const {profile} = this.props.ownData.userSetup
       postProfilePic = <img 
                       className='ml-3 mb-3 rounded-circle'
                       src={profile.profileURL}
@@ -118,7 +118,7 @@ class CreateAPost extends Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.pumpr.data
+    ownData: state.pumpr.ownData
   }
 }
 

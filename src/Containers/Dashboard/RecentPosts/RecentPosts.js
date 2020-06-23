@@ -82,7 +82,7 @@ class RecentPosts extends Component {
             }
             // show delete icon if matches userID
             let deleteIcon = null
-            if (data.userId === this.props.data.userId) {
+            if (data.userId === this.props.ownData.userId) {
               deleteIcon = <i 
                 onClick={() => this.onDeleteHandler(post.key)}
                 className="mt-3 ml-auto fas fa-trash-alt"></i>
@@ -140,7 +140,7 @@ class RecentPosts extends Component {
 const mapStateToProps = state => {
   return {
     posts: state.pumpr.posts,
-    data: state.pumpr.data,
+    ownData: state.pumpr.ownData,
     postSuccess: state.pumpr.loading
   }
 }

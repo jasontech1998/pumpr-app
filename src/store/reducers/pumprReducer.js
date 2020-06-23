@@ -62,6 +62,12 @@ const pumprReducer = (state = initialState, action) => {
         otherUsers: '',
         messages: []
       }
+    case actionTypes.REMOVE_DATA:
+      return {
+        ...state,
+        data: '',
+        reviewsArray: null
+      }
     case actionTypes.FETCH_PROFILE_START:
       return {
         ...state
