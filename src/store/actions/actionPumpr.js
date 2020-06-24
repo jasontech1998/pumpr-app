@@ -60,6 +60,46 @@ export const LOGOUT_PUMPR = 'LOGOUT_PUMPR';
 // Remove data from state
 export const REMOVE_DATA = 'REMOVE_DATA';
 
+// Update Calendar
+export const UPDATE_CALENDAR_START = 'UPDATE_CALENDAR_START';
+export const UPDATE_CALENDAR_SUCCESS = 'UPDATE_CALENDAR_SUCCESS';
+export const UPDATE_CALENDAR_FAIL = 'UPDATE_CALENDAR_FAIL';
+
+
+export const updateCalendarStart = () => {
+  return {
+    type: UPDATE_CALENDAR_START
+  }
+}
+
+export const updateCalendarSuccess = (ownData) => {
+  return {
+    type: UPDATE_CALENDAR_SUCCESS,
+    ownData: ownData
+  }
+}
+
+export const updateCalendarFail = (error) => {
+  return {
+    type: UPDATE_CALENDAR_FAIL,
+    error: error
+  }
+}
+
+export const updateCalendar = (key, profile, token) => {
+  return dispatch => {
+    dispatch(updateCalendarStart())
+    axios.put(`https://pumpr-182dc.firebaseio.com/userProfiles/${key}.json?auth=${token}`, profile)
+      .then(response => {
+        console.log(response.data)
+        dispatch(updateCalendarSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(updateCalendarFail(error));
+      })
+  }
+}
+
 export const removeData = () => {
   return {
     type: REMOVE_DATA

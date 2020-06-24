@@ -39,10 +39,10 @@ class FindAPartner extends Component {
   // Navigate to clicked user's profile
   showProfileHandler = (userId, showCard) => {
     if (showCard) {
-      this.props.history.push('/profile-about', userId)
+      this.props.history.push('/profile-about', userId);
     }
     else {
-      console.log('dont push')
+      console.log('dont push');
     }
   }
 

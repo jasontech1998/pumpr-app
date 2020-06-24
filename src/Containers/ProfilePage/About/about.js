@@ -9,6 +9,13 @@ import * as actionCreators from '../../../store/actions/actionPumpr';
 class About extends Component {
 
   componentDidMount() {
+    // if user just created account, fetch own profile data
+    if (this.props.data == "" && this.props.ownData === undefined) {
+      console.log('user just created account')
+      let userId = localStorage.getItem('userId');
+      let token = localStorage.getItem('token');
+      this.props.onFetchOwnProfile(token, userId);
+    }
     // if location.state, clicked from find a partner to display other user's profile
     if (this.props.history.location.state) {
       console.log('View other user profile and update data prop')
@@ -308,6 +315,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onFetchProfile: (token, userId) => dispatch(actionCreators.fetchProfile(token, userId)),
+    onFetchOwnProfile: (token, userId) => dispatch(actionCreators.fetchNavProfile(token, userId)),
     onFetchReviews: (token, userId) => dispatch(actionCreators.fetchReviews(token, userId)),
     removeDataPropHandler: () => dispatch(actionCreators.removeData())
   }

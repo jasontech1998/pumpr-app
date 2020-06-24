@@ -26,10 +26,6 @@
   border-bottom: 1px solid #cac4cb;
 }
 
-.closeInput {
-  cursor: pointer;
-}
-
 
 .msg {
   text-align: initial;
@@ -37,6 +33,13 @@
   background-color: #f2f7f6;
   border-radius: 0.5rem 0.5rem;
   padding: 10px 20px;
+}
+
+.msgOffer {
+  font-size: 0.9rem;
+  border: 1px solid #484252;
+  border-radius: 0.5rem 0.5rem;
+  padding: 10px 60px;
 }
 
 .msgInput {

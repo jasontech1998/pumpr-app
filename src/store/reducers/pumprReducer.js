@@ -68,6 +68,11 @@ const pumprReducer = (state = initialState, action) => {
         data: '',
         reviewsArray: null
       }
+    case actionTypes.UPDATE_CALENDAR_SUCCESS:
+      return {
+        ...state,
+        ownData: action.ownData
+      }
     case actionTypes.FETCH_PROFILE_START:
       return {
         ...state

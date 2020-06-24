@@ -43,7 +43,8 @@ class Messages extends Component {
             return (
               <Message
                 key={data[0].data.groupId}
-                msgData={data}/>
+                msgData={data}
+                history={this.props.history}/>
             )
           })}
         </Aux>
@@ -57,7 +58,6 @@ class Messages extends Component {
           show={this.props.submitting}>
             <OfferModal />
         </Modal>
-        {/* {fullMessage} */}
         {showMessages}
       </div>
     )

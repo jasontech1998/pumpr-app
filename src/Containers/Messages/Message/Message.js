@@ -56,11 +56,11 @@ class Message extends Component {
   }
 
   expandHandler = () => {
-    console.log('expand');
     this.setState({expand: !this.state.expand});
   }
 
-  sendOfferHandler = () => {
+  sendOfferHandler = (e) => {
+    e.stopPropagation();
     const {msgData} = this.props.msgData[0].data;
     const modalData = {
       groupId: this.props.msgData[0].data.groupId,
@@ -71,7 +71,8 @@ class Message extends Component {
     this.props.openModalHandler(modalData);
   }
 
-  sendFeedbackHandler = () => {
+  sendFeedbackHandler = (e) => {
+    e.stopPropagation();
     const {msgData} = this.props.msgData[0].data;
     const feedbackData = {
       receiverName: msgData.receiverName,
@@ -81,6 +82,12 @@ class Message extends Component {
       senderUserId: msgData.senderUserId
     }
     this.props.openModalHandler(feedbackData);
+  }
+
+  showProfileHandler = (e, userId) => {
+    e.stopPropagation();
+    console.log(userId)
+    this.props.history.push('/profile-about', userId);
   }
 
   render () {
@@ -104,18 +111,19 @@ class Message extends Component {
         }
       })
       const {msgData} = this.props.msgData[0].data;
-      const userId = localStorage.getItem('userId');
+      let userId = msgData.senderUserId;
       let date = null;
       let content = '';
       let picture = msgData.senderPic;
       let name = msgData.senderName;
-      if (msgData.senderUserId === userId) {
+      if (localStorage.getItem('userId') === userId) {
         if (!msgData.receiverPic) {
           picture = `/static/media/social.15eeae14.svg`;
         }
         else {
           picture = msgData.receiverPic;
         }
+        userId = msgData.receiverUserId;
         name = msgData.receiverName;
       }
       // store the last message sent
@@ -216,18 +224,19 @@ class Message extends Component {
       else if (lastMsg.data.msgOfferData) {
         date = lastMsg.data.msgOfferData.date
       }
-      const userId = localStorage.getItem('userId')
-      let picture = msgData.senderPic
-      let name = msgData.senderName
-      if (msgData.senderUserId === userId) {
+      let userId = msgData.senderUserId;
+      let picture = msgData.senderPic;
+      let name = msgData.senderName;
+      if (localStorage.getItem('userId') === userId) {
         // if no picture, use icon
         if (!msgData.receiverPic) {
           picture = `/static/media/social.15eeae14.svg`
         }
         else {
-          picture = msgData.receiverPic
+          picture = msgData.receiverPic;
         }
-        name = msgData.receiverName
+        userId = msgData.receiverUserId;
+        name = msgData.receiverName;
       }
       // dynamically generate messages
       allMessages = (
@@ -266,136 +275,220 @@ class Message extends Component {
             }
             // if offer message
             else if (msg.data.msgOfferData) {
-              const {msgOfferData} = msg.data
-              console.log(msg)
-              let offerMsg = null
+              const {msgOfferData} = msg.data;
+              let offerMsg = `${msgOfferData.fullName} has sent you an offer to workout on`;
+              let seperateMsg = null;
               // if other user sent offer
               if (msg.data.senderUserId !== userId) {
                 if (msgOfferData.message) {
-                  offerMsg = `Offer Received: Lets workout on ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}. Location: ${msgOfferData.selectedLocation} Message: ${msgOfferData.message}`
-                }
-                else {
-                  offerMsg = `Offer Received: Lets workout on ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}. Location: ${msgOfferData.selectedLocation}`
+                  seperateMsg = (
+                    <div
+                    key={msg.data.groupId + index} 
+                    className="d-flex">
+                    <div className="col-6 mt-3 d-flex">
+                      <span className="msg">{msgOfferData.message}</span>
+                    </div>
+                    <div className="col-6"></div>
+                  </div>
+                  )
                 }
                 // if workout offer is accepted
                 if (msg.data.offerAccepted) {
                   return (
+                    <div key={msg.data.groupId + index}>
+                      <div
+                        className="d-flex">
+                        <div className="col-6 mt-3 d-flex">
+                          <div className="msgOffer d-flex flex-column">
+                            <span>{offerMsg}</span>
+                            <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
+                            <div className="row justify-content-center mt-2">
+                              <button className="accepted mr-3">Accept</button>
+                              <button className="offerDisable mr-3" >Decline</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-6"></div>
+                      </div>
+                      {seperateMsg}
+                      <div className="d-flex">
+                        <div className="col-6"></div>
+                        <div className="col-6 mt-3 d-flex justify-content-end">
+                          <div className="msgOffer d-flex flex-column">
+                            <span>{`You have accepted ${msgOfferData.fullName}'s offer to work out on`}</span>
+                            <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
+                            <div className="row justify-content-center mt-2">
+                              <button className="accepted mr-3">Offer Accepted</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                // if workout offer is not accepted
+                else if (msg.data.offerAccepted === false) {
+                  return (
+                    <div key={msg.data.groupId + index}>
+                      <div
+                        className="d-flex">
+                        <div className="col-6 mt-3 d-flex">
+                          <div className="msgOffer d-flex flex-column">
+                            <span>{offerMsg}</span>
+                            <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
+                            <div className="row justify-content-center mt-2">
+                              <button className="offerDisable mr-3">Accept</button>
+                              <button className="declined mr-3">Decline</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-6"></div>
+                      </div>
+                      {seperateMsg}
+                      <div className="d-flex">
+                        <div className="col-6"></div>
+                        <div className="col-6 mt-3 d-flex justify-content-end">
+                          <div className="msgOffer d-flex flex-column">
+                            <span>{`You have declined ${msgOfferData.fullName}'s offer to work out on`}</span>
+                            <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
+                            <div className="row justify-content-center mt-2">
+                              <button className="declined mr-3">Offer Declined</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                // other user's sent offer bare skeleton 
+                return (
+                  <div key={msg.data.groupId + index} >
                     <div
-                      key={msg.data.groupId + index} 
                       className="d-flex">
                       <div className="col-6 mt-3 d-flex">
-                        <div className="msg d-flex flex-column">
+                        <div className="msgOffer d-flex flex-column">
                           <span>{offerMsg}</span>
+                          <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
                           <div className="row justify-content-center mt-2">
-                            <button className="accepted mr-3">Offer Accepted
+                            <button 
+                              onClick={() => this.onOfferHandler('accept', msg)}
+                              className="acceptOffer mr-3">Accept
+                            </button>
+                            <button 
+                              onClick={() => this.onOfferHandler('decline', msg)}
+                              className="declineOffer">Decline
                             </button>
                           </div>
                         </div>
                       </div>
                       <div className="col-6"></div>
                     </div>
-                  )
-                }
-                // if workout offer is not accepted
-                else if (msg.data.offerAccepted === false) {
-                  return (
-                    <div
-                    key={msg.data.groupId + index} 
-                    className="d-flex">
-                    <div className="col-6 mt-3 d-flex">
-                      <div className="msg d-flex flex-column">
-                        <span>{offerMsg}</span>
-                        <div className="row justify-content-center mt-2">
-                          <button className="declined mr-3">Offer Declined
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-6"></div>
-                  </div>
-                  )
-                }
-                return (
-                  <div
-                    key={msg.data.groupId + index} 
-                    className="d-flex">
-                    <div className="col-6 mt-3 d-flex">
-                      <div className="msg d-flex flex-column">
-                        <span>{offerMsg}</span>
-                        <div className="row justify-content-center mt-2">
-                          <button 
-                            onClick={() => this.onOfferHandler('accept', msg)}
-                            className="acceptOffer mr-3">Accept
-                          </button>
-                          <button 
-                            onClick={() => this.onOfferHandler('decline', msg)}
-                            className="declineOffer">Decline
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-6"></div>
+                    {seperateMsg}
                   </div>
                 )
               }
               // if current user sent offer
               else if (msg.data.senderUserId === userId) {
                 if (msgOfferData.message) {
-                  offerMsg = `Offer Sent: Lets workout on ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}. Location: ${msgOfferData.selectedLocation} Message: ${msgOfferData.message}`
-                }
-                else {
-                  offerMsg = `Offer Sent: Lets workout on ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}. Location: ${msgOfferData.selectedLocation}`
+                  seperateMsg = (
+                    <div
+                    key={msg.data.groupId + index} 
+                    className="d-flex">
+                    <div className="col-6"></div>
+                    <div className="col-6 mt-3 d-flex justify-content-end">
+                      <span className="msg">{msgOfferData.message}</span>
+                    </div>
+                  </div>
+                  )
                 }
                 // if workout offer is accepted
                 if (msg.data.offerAccepted) {
                   return (
-                    <div
-                    key={msg.data.groupId + index} 
-                    className="d-flex">
-                    <div className="col-6"></div>
-                    <div className="col-6 mt-3 d-flex justify-content-end">
-                      <div className="msg d-flex flex-column">
-                        <span>{offerMsg}</span>
-                        <div className="row justify-content-center mt-2">
-                          <div className="row justify-content-center mt-2">
-                            <button className="accepted mr-3">Offer Accepted
-                            </button>
+                    <div key={msg.data.groupId + index} >
+                      <div className="d-flex">
+                        <div className="col-6"></div>
+                        <div className="col-6 mt-3 d-flex justify-content-end">
+                          <div className="msgOffer d-flex flex-column">
+                            <span>You have sent an offer to workout on</span>
+                            <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
+                            <div className="row justify-content-center mt-2">
+                              <button className="accepted mr-3">Accept</button>
+                              <button className="offerDisable mr-3" >Decline</button>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      {seperateMsg}
+                      <div
+                        className="d-flex">
+                        <div className="col-6 mt-3 d-flex">
+                          <div className="msgOffer d-flex flex-column">
+                            <span>{`${name} has accepted your offer to work out on`}</span>
+                            <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
+                            <div className="row justify-content-center mt-2">
+                              <div className="row justify-content-center mt-2">
+                                <button className="accepted mr-3">Offer Accepted
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-6"></div>
+                      </div>
                     </div>
-                  </div>
                   )
                 }
-                // if workout offer is not accepted
+                // if workout offer is declined
                 else if (msg.data.offerAccepted === false) {
                   return (
-                    <div
-                    key={msg.data.groupId + index} 
-                    className="d-flex">
-                    <div className="col-6"></div>
-                    <div className="col-6 mt-3 d-flex justify-content-end">
-                    <div className="msg d-flex flex-column">
-                        <span>{offerMsg}</span>
-                        <div className="row justify-content-center mt-2">
-                          <div className="row justify-content-center mt-2">
-                            <button className="declined mr-3">Offer Declined
-                            </button>
+                    <div key={msg.data.groupId + index}>
+                      <div className="d-flex">
+                        <div className="col-6"></div>
+                        <div className="col-6 mt-3 d-flex justify-content-end">
+                          <div className="msgOffer d-flex flex-column">
+                            <span>You have sent an offer to workout on</span>
+                            <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
+                            <div className="row justify-content-center mt-2">
+                              <button className="offerDisable mr-3">Accept</button>
+                              <button className="declined mr-3" >Decline</button>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      {seperateMsg}
+                      <div
+                        className="d-flex">
+                        <div className="col-6 mt-3 d-flex">
+                          <div className="msgOffer d-flex flex-column">
+                            <span>{`${name} has declined your offer to work out on`}</span>
+                            <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput} at ${msgOfferData.selectedLocation}`}</span>
+                            <div className="row justify-content-center mt-2">
+                              <div className="row justify-content-center mt-2">
+                                <button className="declined mr-3">Offer Declined
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-6"></div>
+                      </div>
                     </div>
-                  </div>
                   )
                 }
+                // current user's sent offer bare skeleton 
                 return (
-                  <div
-                    key={msg.data.groupId + index} 
-                    className="d-flex">
-                    <div className="col-6"></div>
-                    <div className="col-6 mt-3 d-flex justify-content-end">
-                      <span className="msg">{offerMsg}</span>
+                  <div key={msg.data.groupId + index} > 
+                    <div className="d-flex">
+                      <div className="col-6"></div>
+                      <div className="col-6 mt-3 d-flex justify-content-end">
+                        <div className="msgOffer d-flex flex-column">
+                          <span>You have sent an offer to workout on</span>
+                          <span style={{fontWeight: '600'}}>{`${msgOfferData.weekDate}, ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}`}</span>
+                          <span style={{fontWeight: '600'}}>{`at ${msgOfferData.selectedLocation}`}</span>
+                        </div>
+                      </div>
                     </div>
+                    {seperateMsg}
                   </div>
                 )
               }
@@ -404,33 +497,36 @@ class Message extends Component {
         </Aux>
       )
       let msgHeaderButton =  
-        <button className="offerBtn" onClick={this.sendOfferHandler}>Send Offer</button>
+        <button className="offerBtn" onClick={(event) => this.sendOfferHandler(event)}>Send Offer</button>
       if (responseStyle === 'confirm') {
         msgHeaderButton = 
           <button 
-            onClick={this.sendFeedbackHandler}
+            onClick={(event) => this.sendFeedbackHandler(event)}
             className="feedbackBtn">Leave Feedback</button>
       }
-      // Message Component
+      // Expanded Message Component
       message = (
         <div className="expandMsg">
           {/* Message Header */}
             <div 
-              className="d-flex align-items-center fullMessage">
-              <div className="col-2 closeInput" onClick={this.expandHandler}>
-              <img 
-                className='ml-3 my-3 rounded-circle'
-                src={picture}
-                alt="icon" 
-                height="80" width="80"/>
+              className="d-flex align-items-center fullMessage" onClick={this.expandHandler}>
+              <div className="col-2">
+                <img 
+                  className='ml-3 my-3 rounded-circle'
+                  onClick={(event) => this.showProfileHandler(event, userId)}
+                  src={picture}
+                  alt="icon" 
+                  height="80" width="80"
+                  style={{cursor: "pointer"}}/>
               </div>
               <div className="col-2 d-flex flex-column align-items-baseline">
-                <span>{name}</span>
+                <span 
+                  onClick={(event) => this.showProfileHandler(event, userId)}
+                  style={{cursor: "pointer"}}>{name}</span>
                 <span>{date}</span>
               </div>
               <div className="col-5"></div>
               <div className="col-3">
-                {/* <button className="offerBtn" onClick={this.sendOfferHandler}>Send Offer</button> */}
                 {msgHeaderButton}
               </div>
             </div>

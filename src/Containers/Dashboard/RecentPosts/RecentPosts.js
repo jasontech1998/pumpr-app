@@ -32,7 +32,6 @@ class RecentPosts extends Component {
     }
     // if there is userLikes and it includes the users ID, remove like
     else if (post.userLikes.includes(userId)) {
-      console.log('user liked')
       let updateLikes = likes - 1
       post['likes'] = updateLikes
       const userIndex = post['userLikes'].indexOf(userId)
@@ -50,6 +49,12 @@ class RecentPosts extends Component {
     let token = localStorage.getItem('token')
     this.props.onDeletePostHandler(token, key)
   }
+
+  showProfileHandler = (userId) => {
+    this.props.history.push('profile-about', userId);
+  }
+
+
   render () {
     let showPosts = null;
     if (this.props.posts) {
@@ -60,24 +65,29 @@ class RecentPosts extends Component {
             let data = post.value
             let profilePicture = <img 
                                     className='ml-3 mb-3'
+                                    onClick={() => this.showProfileHandler(data.userId)}
                                     src={require('../../../Components/UI/Icons/social.svg')} 
                                     alt="icon" 
-                                    height="100" width="100"/>
+                                    height="100" width="100"
+                                    style={{cursor: "pointer"}}/>
             if (data.userProfilePic !== '') {
               profilePicture = <img
                               className='ml-3 mb-3 rounded-circle'
+                              onClick={() => this.showProfileHandler(data.userId)}
                               alt="profile-pic" 
                               src={data.userProfilePic} 
                               height="100"
                               width="100"
+                              style={{cursor: "pointer"}}
                               />
             }
             // Show post picture if there is picture URL 
             let postPicture = null
             if (data.postPictureURL !== undefined) {
               postPicture = <img
+                              className="img-fluid"
                               src={data.postPictureURL}
-                              alt="icon" 
+                              alt="postPicture" 
                               height="200" width="200"/>
             }
             // show delete icon if matches userID
@@ -94,7 +104,6 @@ class RecentPosts extends Component {
             }
 
             return (
-              // <div key={post.key} className={classes.PostInputBox}>
               <div key={post.key} style={{borderBottom: "1px solid #EBE8EE"}}>
                 <div className="row">
                   <div className="col-2 d-flex mt-3 justify-content-center">
@@ -102,7 +111,10 @@ class RecentPosts extends Component {
                   </div>
                   <div className="col-10 d-flex flex-column">
                     <div className="d-flex mr-3">
-                      <span className="mt-3" style={{fontWeight: '600'}}>{data.fullName}</span>
+                      <span 
+                        onClick={() => this.showProfileHandler(data.userId)}
+                        className="mt-3" 
+                        style={{fontWeight: "600", cursor: "pointer"}}>{data.fullName}</span>
                       <span className="ml-3 mt-3" style={{color: '#818D92'}}>{data.datePosted}</span>
                       {/* Only show Icon if user's post */}
                       {deleteIcon}

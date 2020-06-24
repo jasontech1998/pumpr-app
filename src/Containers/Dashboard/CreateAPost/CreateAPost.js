@@ -37,9 +37,9 @@ class CreateAPost extends Component {
       const {fullName} = this.props.ownData.userSetup
       const userProfilePic = this.props.ownData.userSetup.profile.profileURL
       let month = new Date().toLocaleString('en-US', {month: 'short'})
-      let day = new Date().getDate()
-      let datePosted = `${month} ${day}`
-      const userId = localStorage.getItem('userId')
+      let day = new Date().getDate();
+      let datePosted = `${month} ${day}`;
+      const userId = localStorage.getItem('userId');
       const post = {
         fullName: `${fullName.firstName} ${fullName.lastName}`,
         userProfilePic: userProfilePic, 
@@ -49,9 +49,9 @@ class CreateAPost extends Component {
         postPictureURL: this.state.url,
         postText: this.state.postInput
       }
-      this.setState({postInput: ''})
-      const token = localStorage.getItem('token')
-      this.props.submitPostHandler(token, post)
+      this.setState({postInput: '', url: '', image: null});
+      const token = localStorage.getItem('token');
+      this.props.submitPostHandler(token, post);
     }
   }
 
@@ -63,14 +63,16 @@ class CreateAPost extends Component {
                         className='ml-3 mb-3'
                         src={require('../../../Components/UI/Icons/social.svg')} 
                         alt="icon" 
-                        height="100" width="100"/>
+                        height="130" width="130"/>
     if (this.props.ownData) {
       const {profile} = this.props.ownData.userSetup
-      postProfilePic = <img 
-                      className='ml-3 mb-3 rounded-circle'
-                      src={profile.profileURL}
-                      alt="icon" 
-                      height="100" width="100"/>
+      if (profile.profileURL !== "") {
+        postProfilePic = <img 
+                        className='ml-3 mb-3 rounded-circle'
+                        src={profile.profileURL}
+                        alt="profileImage" 
+                        height="130" width="130"/>
+      }
     }
     return (
       <div className="col-12" style={{padding: '0 90px'}}>
@@ -103,7 +105,8 @@ class CreateAPost extends Component {
                       <img
                         onClick={(event) => this.upload.click()}
                         className={classes.EnterInputImage} 
-                        src={nature} alt="picture"/>
+                        src={nature} 
+                        alt="icon"/>
                       <button className={classes.EnterInput}>Post</button>
                     </div>
                   </div>
