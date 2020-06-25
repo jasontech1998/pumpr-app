@@ -73,6 +73,44 @@ export const UPDATE_CALENDAR_START = 'UPDATE_CALENDAR_START';
 export const UPDATE_CALENDAR_SUCCESS = 'UPDATE_CALENDAR_SUCCESS';
 export const UPDATE_CALENDAR_FAIL = 'UPDATE_CALENDAR_FAIL';
 
+// Update Profile Data
+export const UPDATE_PROFILE_START = 'UPDATE_PROFILE_START';
+export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
+export const UPDATE_PROFILE_FAIL = 'UPDATE_PROFILE_FAIL';
+
+export const updateProfileStart = () => {
+  return {
+    type: UPDATE_PROFILE_START
+  }
+}
+
+export const updateProfileSuccess = (ownData) => {
+  return {
+    type: UPDATE_PROFILE_SUCCESS,
+    ownData: ownData
+  }
+}
+
+export const updateProfileFail = (error) => {
+  return {
+    type: UPDATE_PROFILE_FAIL,
+    error: error
+  }
+}
+
+export const updateProfile = (key, token, userProfile) => {
+  return dispatch => {
+    dispatch(updateProfileStart());
+    axios.put(`https://pumpr-182dc.firebaseio.com/userProfiles/${key}.json?auth=${token}`, userProfile)
+      .then(response => {
+        console.log(response.data)
+        dispatch(updateProfileSuccess(response.data))
+      })
+      .catch(error => {
+        dispatch(updateProfileFail(error));
+      })
+  }
+}
 
 export const updateCalendarStart = () => {
   return {

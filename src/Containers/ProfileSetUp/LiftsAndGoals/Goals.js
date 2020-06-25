@@ -6,6 +6,7 @@ import GoalsList from './GoalsList';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionSetup';
+import * as actionUpdates from '../../../store/actions/actionPumpr';
 
 class Goals extends Component {
   state  = {
@@ -68,6 +69,32 @@ class Goals extends Component {
     }
   }
 
+  onSaveHandler = () => {
+    const userKey = this.props.ownData.id;
+    const token = localStorage.getItem('token');
+    const copyGoals = Object.assign({}, this.props.ownData.userSetup.goals);
+    const goals = {
+      experience: this.state.selectedExp,
+      goals: this.state.selectedGoals
+    }
+    const updatedGoals = Object.assign(copyGoals, goals);
+    //  initialize data to be sent to database
+    const userSetup = {
+      fullName: this.props.ownData.userSetup.fullName,
+      profile: this.props.ownData.userSetup.profile,
+      lifts: this.props.ownData.userSetup.lifts,
+      goals: goals
+    }
+    const userProfile = {
+      userSetup: userSetup,
+      userId: localStorage.getItem('userId'),
+      id: userKey
+    }
+    console.log(userProfile);
+    // send data to database to be patched with updated userProfile data
+    this.props.onUpdateProfileHandler(userKey, token, userProfile);
+  }
+
   render () {
     if (this.state.isSubmit) {
       console.log('is submit')
@@ -112,11 +139,17 @@ class Goals extends Component {
   }
 }
 
-
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    submitGoalsHandler: (goals) => dispatch(actionCreators.submitGoals(goals))
+    ownData: state.pumpr.ownData
   }
 }
 
-export default connect(null, mapDispatchToProps)(Goals);
+const mapDispatchToProps = dispatch => {
+  return {
+    submitGoalsHandler: (goals) => dispatch(actionCreators.submitGoals(goals)),
+    onUpdateProfileHandler: (key, token, userProfile) => dispatch(actionUpdates.updateProfile(key, token, userProfile))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Goals);

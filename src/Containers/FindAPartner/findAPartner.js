@@ -53,7 +53,6 @@ class FindAPartner extends Component {
       prevChev =  <i className="fas fa-2x fa-chevron-circle-left mt-3"
         onClick={this.onPrevHandler}></i>
     }
-
     let nextChev = <i className="fas fa-2x fa-chevron-circle-right mt-3"
                       onClick={this.onNextHandler}></i>
     if (this.props.otherUsers) {
@@ -154,8 +153,6 @@ class FindAPartner extends Component {
     return (
       <div className="col">
         <h3>Find A Partner</h3>
-        {/* {prevChev}
-        {nextChev} */}
         <div className="cards-slider my-3">
           <div className="cards-slider-wrapper" style={{transform: `translateX(-${this.state.nextCount*(200)}%)`}}>
             {showUsers}

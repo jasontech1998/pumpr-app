@@ -23,6 +23,7 @@ class Settings extends Component {
       this.setState({showSettings: 2})
     }
   }
+
   render () {
     let basicInfo = null;
     let liftSetting = null;

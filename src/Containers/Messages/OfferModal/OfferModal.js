@@ -144,12 +144,57 @@ class OfferModal extends Component {
     let name = null;
     let receiverGym = null;
     let senderGym = null;
+    let selectGyms = null;
     if (this.props.modalData) {
       // if clicked on send offer, show send offer modal display
       if (this.props.modalData.receiverGym) {
         name = this.props.modalData.receiverName;
         receiverGym = this.props.modalData.receiverGym;
         senderGym = this.props.modalData.senderGym;
+        // if both users go to the same gym
+        if (receiverGym === senderGym) {
+          selectGyms = (
+            <div className="row justify-content-center mb-3">
+              <div className="col-6">
+                <div 
+                  onClick={() => this.selectedHandler(receiverGym)}
+                  style={{padding: '10px 5px'}}
+                  className={
+                    `card card-body flex-fill 
+                    ${this.state.selectedLocation === receiverGym ? 'selected' : 'notSelected'}`}>
+                  {receiverGym}
+                </div>
+              </div>
+            </div>
+          )
+        }
+        // users have different gym locations
+        else {
+          selectGyms = (
+            <div className="row justify-content-center mb-3">
+              <div className="col-6" style={{maxWidth: '200px', fontSize: '14px'}}>
+                <div 
+                  onClick={() => this.selectedHandler(receiverGym)}
+                  style={{padding: '10px 5px'}}
+                  className={
+                    `card card-body flex-fill 
+                    ${this.state.selectedLocation === receiverGym ? 'selected' : 'notSelected'}`}>
+                  {receiverGym}
+                </div>
+              </div>
+              <div className="col-6" style={{maxWidth: '200px', fontSize: '14px'}}>
+                <div 
+                  onClick={() => this.selectedHandler(senderGym)}
+                  style={{padding: '10px 5px'}}
+                  className={
+                    `card card-body flex-fill 
+                    ${this.state.selectedLocation === senderGym ? 'selected' : 'notSelected'}`}>
+                  {senderGym}
+                </div>
+              </div>
+            </div>
+          )
+        }
         modalDisplay = (
             <div>
               <h3 className="sendTitle my-3 ml-3">Send an offer to work out with {name}</h3>
@@ -181,28 +226,8 @@ class OfferModal extends Component {
               <div className="d-flex my-3 ml-3">
                 <span>Choose the gym location</span>
               </div>
-              <div className="row justify-content-center mb-3">
-                <div className="col-6" style={{maxWidth: '200px', fontSize: '14px'}}>
-                  <div 
-                    onClick={() => this.selectedHandler(receiverGym)}
-                    style={{padding: '10px 5px'}}
-                    className={
-                      `card card-body flex-fill 
-                      ${this.state.selectedLocation === receiverGym ? 'selected' : 'notSelected'}`}>
-                    {receiverGym}
-                  </div>
-                </div>
-                <div className="col-6" style={{maxWidth: '200px', fontSize: '14px'}}>
-                  <div 
-                    onClick={() => this.selectedHandler(senderGym)}
-                    style={{padding: '10px 5px'}}
-                    className={
-                      `card card-body flex-fill 
-                      ${this.state.selectedLocation === senderGym ? 'selected' : 'notSelected'}`}>
-                    {senderGym}
-                  </div>
-                </div>
-              </div>
+              {/* Gym Location Selections */}
+              {selectGyms}
               {/* Text area to add message */}
               <div>
                 <textarea

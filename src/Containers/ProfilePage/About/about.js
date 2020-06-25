@@ -45,10 +45,7 @@ class About extends Component {
       let token = localStorage.getItem('token');
       this.props.onFetchReviews(token, userId);
     }
-  }
-
-  
-
+  }  
 
   render () {
     // Initialize number of reviews
@@ -298,7 +295,7 @@ class About extends Component {
               <span className="my-3">{numReviews}</span>
             </div>
             <div className="row">
-              <Reviews reviews={this.props.reviews}/>
+              <Reviews reviews={this.props.reviews} history={this.props.history}/>
             </div>
           </div>
           {/* User Reviews End */}

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classes from './NavItems.module.css';
 import './NavItems.css';
 import NavItem from '../NavItem/NavItem';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 class NavItems extends Component {
@@ -46,7 +46,11 @@ class NavItems extends Component {
         )
       }
     }
-    
+    const profileTarget = {
+      pathname: "/profile-about",
+      key: Math.random,
+      userId: userId
+    }
     return (
       <ul className={classes.NavItems}>
         {this.props.token 
@@ -63,9 +67,9 @@ class NavItems extends Component {
               {showProfilePic}
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <NavLink 
+              <NavLink
                 className="dropdown-item"
-                to={{pathname: '/profile-about', userId}}>Profile
+                to={profileTarget}>Profile
               </NavLink>
               <NavLink 
                 to='/profile-settings'

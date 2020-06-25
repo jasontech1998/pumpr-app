@@ -13,7 +13,6 @@ class GoalsList extends Component {
 
   
   render () {
-    console.log(this.props.selectedGoals)
     const goalsList = (
       <Aux>
         {this.state.goalsArray.map((goal, index) => {

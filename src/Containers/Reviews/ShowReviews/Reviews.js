@@ -28,7 +28,8 @@ class Reviews extends Component {
                 </div>
                 <div className="col-8 d-flex align-items-end">
                   <div>
-                    <p style={{fontWeight: '500'}}>{review.senderName}</p>
+                    <p
+                      style={{fontWeight: '500'}}>{review.senderName}</p>
                     <p>{review.msg}</p>
                     <div className="row mt-3">
                       {/* Feedback Options */}

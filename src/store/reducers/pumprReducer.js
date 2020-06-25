@@ -73,6 +73,11 @@ const pumprReducer = (state = initialState, action) => {
         ...state,
         posts: ''
       }
+    case actionTypes.UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        ownData: action.ownData
+      }
     case actionTypes.UPDATE_CALENDAR_SUCCESS:
       return {
         ...state,

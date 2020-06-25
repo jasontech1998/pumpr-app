@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import classes from '../../ProfileSetUp/LiftsAndGoals/Lifts/Lifts.module.css';
+import {connect} from 'react-redux';
+import * as actionCreators from '../../../store/actions/actionPumpr';
 
 class GymInfo extends Component {
   state = {
@@ -20,14 +22,54 @@ class GymInfo extends Component {
     })
   }
 
+  onSaveHandler = (event) => {
+    event.preventDefault();
+    const userKey = this.props.ownData.id;
+    const token = localStorage.getItem('token');
+    console.log(this.state);
+    console.log(this.props.ownData.userSetup.lifts)
+    const copyLifts = Object.assign({}, this.props.ownData.userSetup.lifts);
+    const lifts = [
+      {bench: {
+        weight: this.state.benchWeight,
+        reps: this.state.benchReps,
+        sets: this.state.benchSets}
+      },
+      {squat: {
+        weight: this.state.squatWeight,
+        reps: this.state.squatReps,
+        sets: this.state.squatSets}
+      },
+      {deadlift: {
+        weight: this.state.dlWeight,
+        reps: this.state.dlReps,
+        sets: this.state.dlSets}
+      }
+    ]
+    const updateLifts = Object.assign(copyLifts, lifts);
+    //  initialize data to be sent to database
+    const userSetup = {
+      fullName: this.props.ownData.userSetup.fullName,
+      profile: this.props.ownData.userSetup.profile,
+      lifts: lifts,
+      goals: this.props.ownData.userSetup.goals
+    }
+    const userProfile = {
+      userSetup: userSetup,
+      userId: localStorage.getItem('userId'),
+      id: userKey
+    }
+    // send data to database to be patched with updated userProfile data
+    this.props.onUpdateProfileHandler(userKey, token, userProfile);
+  }
+
 
   render () {
- 
     return (
       <>
         <h3>Your Lifts</h3>
         <div className="col">
-          <form onSubmit={(event) => this.onSubmitHandler(event)}>
+          <form>
             <div className="row mb-3">
               <div className="col-12 col-lg-4 px-4">
                 <div className="card my-3 p-2">
@@ -137,7 +179,7 @@ class GymInfo extends Component {
               </div>
             </div>
             <button
-              onClick={this.onSaveHandler} 
+              onClick={(event) => this.onSaveHandler(event)} 
               className="offerBtn">Save</button>
           </form>
         </div>
@@ -146,5 +188,16 @@ class GymInfo extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    ownData: state.pumpr.ownData
+  }
+}
 
-export default GymInfo;
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateProfileHandler: (key, token, userProfile) => dispatch(actionCreators.updateProfile(key, token, userProfile))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GymInfo);
