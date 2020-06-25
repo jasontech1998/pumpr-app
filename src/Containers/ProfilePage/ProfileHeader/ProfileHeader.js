@@ -5,8 +5,6 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 
 class ProfileHeader extends Component {
-  
-
 
   render () {
     let fullName = null;

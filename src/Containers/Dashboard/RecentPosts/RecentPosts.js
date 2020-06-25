@@ -9,23 +9,63 @@ import * as actionCreators from '../../../store/actions/actionPumpr';
 class RecentPosts extends Component {
 
   componentDidMount() {
-    let token = localStorage.getItem('token')
-    this.props.onFetchPosts(token)
+    const token = localStorage.getItem('token');
+    // Viewing posts on Profile Timeline
+    if (this.props.history.location.pathname === "/profile-timeline") {
+      console.log('switched from timeline')
+      // if this.props.data, user is viewing other user's profile timeline
+      if (this.props.data) {
+        // Use other user's userId to fetch their posts
+        const userId = this.props.data.userId;
+        // fetch other user's posts
+        this.props.onFetchOwnPostsHandler(token ,userId);
+      }
+      // user is viewing their own timeline
+      else {
+        // fetch own user's post data
+        const userId = localStorage.getItem('userId');
+        this.props.onFetchOwnPostsHandler(token, userId);
+      }
+    }
+    // Viewing posts on Dashboard, show all recent posts
+    else {
+      this.props.onFetchPosts(token);
+    }
   }
 
   componentDidUpdate = (prevProps) => {
+    const token = localStorage.getItem('token');
     if (this.props.postSuccess !== prevProps.postSuccess) {
-      let token = localStorage.getItem('token')
-      this.props.onFetchPosts(token)
+      if (this.props.history.location.pathname === "/profile-timeline") {
+        // if this.props.data, user is viewing other user's profile timeline
+        if (this.props.data) {
+          // fetch other user's post data
+          // Use other user's userId to fetch their posts
+          const userId = this.props.data.userId;
+          // fetch other user's posts
+          this.props.onFetchOwnPostsHandler(token ,userId);
+        }
+        // user is viewing their own timeline
+        else {
+          // fetch own user's post data
+          console.log('viewing own profile timeline')
+          const userId = localStorage.getItem('userId');
+          this.props.onFetchOwnPostsHandler(token, userId);
+        }
+      }
+      // Viewing posts on Dashboard, show all recent posts
+      else {
+        this.props.onFetchPosts(token);
+      }
     }
   }
 
   onLikeHandler = (post, likes, key) => {
     // if user already liked the post, remove the like
-    let userId = localStorage.getItem('userId')
-    let token = localStorage.getItem('token')
-    let updateLikes = likes + 1
-    post['likes'] = updateLikes
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+    let updateLikes = likes + 1;
+    post['likes'] = updateLikes;
     // if no one has liked the post, make new array
     if (post['userLikes'] === undefined) {
       post['userLikes'] = new Array(userId)
@@ -151,6 +191,7 @@ class RecentPosts extends Component {
 }
 const mapStateToProps = state => {
   return {
+    data: state.pumpr.data,
     posts: state.pumpr.posts,
     ownData: state.pumpr.ownData,
     postSuccess: state.pumpr.loading
@@ -160,7 +201,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onFetchPosts: (token) => dispatch(actionCreators.fetchPosts(token)),
     updateLikesHandler: (post, key, token) => dispatch(actionCreators.updateLikes(post, key, token)),
-    onDeletePostHandler: (token, key) => dispatch(actionCreators.deletePost(token, key))
+    onDeletePostHandler: (token, key) => dispatch(actionCreators.deletePost(token, key)),
+    onFetchOwnPostsHandler: (token, userId) => dispatch(actionCreators.fetchOwnPosts(token, userId))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RecentPosts);

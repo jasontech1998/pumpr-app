@@ -190,8 +190,85 @@ class PumprSchedule extends Component {
     this.props.updateCalendarHandler(userKey, userProfile, token);
   }
   render () {
-    return (
-      <div className="my-3">
+    let calendarDisplay = null;
+    // if viewing other user's timeline page, display calendar without update functionality
+    if (this.props.data.userId !== localStorage.getItem('userId')) {
+      calendarDisplay = (
+        <div className="my-3">
+        <table className="table">
+          <thead className="thead">
+            <tr>
+              <th scope="col">Monday</th>
+              <th scope="col">Tuesday</th>
+              <th scope="col">Wednesday</th>
+              <th scope="col">Thursday</th>
+              <th scope="col">Friday</th>
+              <th scope="col">Saturday</th>
+              <th scope="col">Sunday</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {/* Monday */}
+              <th scope="row" 
+                className="table-input"
+                style={{cursor: "default"}}>
+                <p>{this.state.monFreeTime}</p>
+                <p>{this.state.monFreeTime2}</p>
+                <p>{this.state.monFreeTime3}</p>
+              </th>
+              {/* Tuesday */}
+              <th className="table-input"
+              style={{cursor: "default"}}>
+                <p>{this.state.tuesFreeTime}</p>
+                <p>{this.state.tuesFreeTime2}</p>
+                <p>{this.state.tuesFreeTime3}</p>
+              </th>
+              {/* Wednesday */}
+              <th className="table-input"
+              style={{cursor: "default"}}>
+                <p>{this.state.wedFreeTime}</p>
+                <p>{this.state.wedFreeTime2}</p>
+                <p>{this.state.wedFreeTime3}</p>
+              </th>
+              {/* Thursday */}
+              <th className="table-input"
+              style={{cursor: "default"}}>
+                <p>{this.state.thurFreeTime}</p>
+                <p>{this.state.thurFreeTime2}</p>
+                <p>{this.state.thurFreeTime3}</p>
+              </th>
+              {/* Friday */}
+              <th className="table-input"
+              style={{cursor: "default"}}>
+                <p>{this.state.friFreeTime}</p>
+                <p>{this.state.friFreeTime2}</p>
+                <p>{this.state.friFreeTime3}</p>
+              </th>
+              {/* Saturday */}
+              <th className="table-input"
+              style={{cursor: "default"}}>
+                <p>{this.state.satFreeTime}</p>
+                <p>{this.state.satFreeTime2}</p>
+                <p>{this.state.satFreeTime3}</p>
+              </th>
+              {/* Sunday */}
+              <th className="table-input border-right-0"
+                style={{cursor: "default"}}>
+                <p>{this.state.sunFreeTime}</p>
+                <p>{this.state.sunFreeTime2}</p>
+                <p>{this.state.sunFreeTime3}</p>
+                </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      )
+    }
+    // else, viewing own timeline, calendarDisplay has update calendar functionality
+    else {
+      calendarDisplay = (
+        <div className="my-3">
         <table className="table">
           <thead className="thead">
             <tr>
@@ -267,6 +344,12 @@ class PumprSchedule extends Component {
           </tbody>
         </table>
       </div>
+      )
+    }
+    return (
+      <>
+        {calendarDisplay}
+      </>
     )
   }
 }

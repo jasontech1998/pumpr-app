@@ -68,6 +68,11 @@ const pumprReducer = (state = initialState, action) => {
         data: '',
         reviewsArray: null
       }
+    case actionTypes.REMOVE_POSTS:
+      return {
+        ...state,
+        posts: ''
+      }
     case actionTypes.UPDATE_CALENDAR_SUCCESS:
       return {
         ...state,
@@ -125,6 +130,8 @@ const pumprReducer = (state = initialState, action) => {
       }
     case actionTypes.FETCH_POSTS_SUCCESS:
       // Returns an array of posts
+      return intoArray(state, action)
+    case actionTypes.FETCH_OWN_POSTS_SUCCESS:
       return intoArray(state, action)
     case actionTypes.FETCH_POSTS_FAIL:
       return {

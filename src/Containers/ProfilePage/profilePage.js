@@ -25,7 +25,7 @@ class ProfilePage extends Component {
       profileRender = <About history={this.props.history} ownData={this.props.ownData}/>
     }
     else if (this.props.history.location.pathname ==='/profile-timeline') {
-      profileRender = <Timeline />
+      profileRender = <Timeline history={this.props.history} ownData={this.props.ownData}/>
     }
     return (
       <div className="col">

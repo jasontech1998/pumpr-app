@@ -9,6 +9,11 @@ import * as actionCreators from '../../../store/actions/actionPumpr';
 class About extends Component {
 
   componentDidMount() {
+    // Remove posts if in state
+    if (this.props.posts) {
+      console.log('there are posts')
+      this.props.removePostsHandler();
+    }
     // if user just created account, fetch own profile data
     if (this.props.data == "" && this.props.ownData === undefined) {
       console.log('user just created account')
@@ -25,7 +30,7 @@ class About extends Component {
       this.props.onFetchReviews(token, userId);
     }
     // fetch current user's reviews
-    else if (this.props.history.location.state === undefined) {
+    if (this.props.history.location.state === undefined) {
       // remove prop.data from state
       if (this.props.data) {
         console.log('remove data')
@@ -72,7 +77,7 @@ class About extends Component {
     let deadReps = null;
     let deadSets = null;
 
-    // if location.state is undefined, remove prop.data and display current user's data 
+    // if location.state is undefined, display current user's data 
     if (this.props.history.location.state === undefined) {
       
       console.log('user just logged in or clicked on own user profile')
@@ -155,7 +160,6 @@ class About extends Component {
     }
     // if state is null, user clicked from timeline to about or refreshed page
     else if (this.props.history.location.state === null) {
-      console.log('clicked from timeline to about or refreshed page')
       // if no data prop, display current user
       if (this.props.data === '') {
         if (this.props.ownData) {
@@ -308,7 +312,8 @@ const mapStateToProps = state => {
     data: state.pumpr.data,
     token: state.auth.token,
     userId: state.auth.userId,
-    reviews: state.pumpr.reviewsArray
+    reviews: state.pumpr.reviewsArray,
+    posts: state.pumpr.posts
   }
 }
 
@@ -317,7 +322,8 @@ const mapDispatchToProps = dispatch => {
     onFetchProfile: (token, userId) => dispatch(actionCreators.fetchProfile(token, userId)),
     onFetchOwnProfile: (token, userId) => dispatch(actionCreators.fetchNavProfile(token, userId)),
     onFetchReviews: (token, userId) => dispatch(actionCreators.fetchReviews(token, userId)),
-    removeDataPropHandler: () => dispatch(actionCreators.removeData())
+    removeDataPropHandler: () => dispatch(actionCreators.removeData()),
+    removePostsHandler: () => dispatch(actionCreators.removePosts())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(About);

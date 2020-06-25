@@ -26,10 +26,15 @@ export const POST_FB_START = 'POST_FB_START';
 export const POST_FB_SUCCESS = 'POST_FB_SUCCESS';
 export const POST_FB_FAIL = 'POST_FB_FAIL';
 
-// Fetch Posts on Dashboard
+// Fetch All User's Posts on Dashboard
 export const FETCH_POSTS_START = 'FETCH_POSTS_START';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POSTS_FAIL = 'FETCH_POSTS_FAIL';
+
+// Fetch one user's posts on Timeline
+export const FETCH_OWN_POSTS_START = 'FETCH_OWN_POSTS_START';
+export const FETCH_OWN_POSTS_SUCCESS = 'FETCH_OWN_POSTS_SUCCESS';
+export const FETCH_OWN_POSTS_FAIL = 'FETCH_OWN_POSTS_FAIL';
 
 // Update Likes on Post
 export const UPDATE_LIKES_START = 'UPDATE_LIKES_START';
@@ -59,6 +64,9 @@ export const LOGOUT_PUMPR = 'LOGOUT_PUMPR';
 
 // Remove data from state
 export const REMOVE_DATA = 'REMOVE_DATA';
+
+// Remove posts from state
+export const REMOVE_POSTS = 'REMOVE_POSTS';
 
 // Update Calendar
 export const UPDATE_CALENDAR_START = 'UPDATE_CALENDAR_START';
@@ -91,12 +99,17 @@ export const updateCalendar = (key, profile, token) => {
     dispatch(updateCalendarStart())
     axios.put(`https://pumpr-182dc.firebaseio.com/userProfiles/${key}.json?auth=${token}`, profile)
       .then(response => {
-        console.log(response.data)
         dispatch(updateCalendarSuccess(response.data));
       })
       .catch(error => {
         dispatch(updateCalendarFail(error));
       })
+  }
+}
+
+export const removePosts = () => {
+  return {
+    type: REMOVE_POSTS
   }
 }
 
@@ -272,7 +285,7 @@ export const deletePost = (token, key) => {
       })
   }
 }
-// Fetches Posts from Database
+// Fetches All User Posts for Dashboard
 export const fetchPosts = (token) => {
   return dispatch => {
     dispatch(postStart())
@@ -283,6 +296,42 @@ export const fetchPosts = (token) => {
       .catch(error => {
         dispatch(fetchPostsFail(error))
       })
+  }
+}
+
+// Fetches One User Posts for Profile Timeline
+export const fetchOwnPosts = (token, userId) => {
+  return dispatch => {
+    dispatch(fetchOwnPostsStart());
+    const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
+    axios.get('/userPosts.json' + queryParams)
+      .then(response => {
+        dispatch(fetchOwnPostsSuccess(response.data))
+      })
+      .catch(error => {
+        dispatch(fetchOwnPostsFail(error))
+      })
+  }
+}
+
+
+export const fetchOwnPostsStart = () => {
+  return {
+    type: FETCH_OWN_POSTS_START
+  }
+}
+
+export const fetchOwnPostsSuccess = (posts) => {
+  return {
+    type: FETCH_OWN_POSTS_SUCCESS,
+    posts: posts
+  }
+}
+
+export const fetchOwnPostsFail = (error) => {
+  return {
+    type: FETCH_OWN_POSTS_FAIL,
+    error: error
   }
 }
 
