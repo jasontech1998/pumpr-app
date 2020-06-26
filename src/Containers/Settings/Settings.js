@@ -40,12 +40,13 @@ class Settings extends Component {
       const {goals} = this.props.ownData.userSetup;
       expGoals = <Goals history={this.props.history} goals={goals}/>
     }
+
     return (
       <div className="col-12">
         <div className="row">
           <div 
             className="col-3 d-flex flex-column justify-content-end"
-            style={{height: '200px'}}>
+            style={{height: '250px'}}>
               <h3 
                 onClick={() => this.changeInfoDisplay('basic')}
                 className={`settingsNav mb-3 ${this.state.showSettings === 0 ? "activeSet" : ""}`}>Basic Info</h3>
@@ -55,7 +56,6 @@ class Settings extends Component {
               <h3 
                 onClick={() => this.changeInfoDisplay('exp')}
                 className={`settingsNav ${this.state.showSettings === 2 ? "activeSet" : ""}`}>Experience & Goals</h3>
-                
           </div>
           <div className="col-9">
             {basicInfo}

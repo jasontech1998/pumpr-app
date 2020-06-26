@@ -115,8 +115,8 @@ class Goals extends Component {
       <div className="col d-flex flex-column justify-content-center">
         <div className="experience mb-3">
           <div className="mb-3">
-            <h2 className="text-center">what's your experience level?</h2>
-            <small className="text-muted">this data will be used to match you with a partner of a similar strength level</small>
+            <h2 className="text-center">What's your experience level?</h2>
+            <small className="text-muted">this data will be used to match you with a partner of a similar experience level</small>
           </div>
             <ExperienceList 
               selectedExp={this.state.selectedExp}
@@ -124,8 +124,8 @@ class Goals extends Component {
         </div>
         <div className="Goals">
           <div className="mb-3">
-            <h2 className="text-center">what are your interests?</h2>
-            <small className="text-muted">this data will be used to match ou with a partner of a similar strength level</small>
+            <h2 className="text-center">What are your interests?</h2>
+            <small className="text-muted">this data will be used to match you with a partner of common interest</small>
           </div>
           <GoalsList
               selectedGoals={this.state.selectedGoals} 
