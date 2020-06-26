@@ -48,96 +48,106 @@ class OfferModal extends Component {
   }
 
   submitFeedbackHandler = () => {
-    // store date sent
-    let month = new Date().toLocaleString('en-US', {month: 'short'});
-    let day = new Date().getDate();
-    let year = new Date().getFullYear();
-    const dateSent = `${month} ${day}, ${year}`;
-    // store sender name and picture
-    const {fullName} = this.props.ownData.userSetup;
-    const senderName = `${fullName.firstName} ${fullName.lastName}`;
-    const senderPic = this.props.ownData.userSetup.profile.profileURL;
-    // store correct user Id
-    let userId = this.props.modalData.senderUserId;
-    if (userId === localStorage.getItem('userId')) {
-      userId = this.props.modalData.receiverUserId;
+    if (this.state.feedbackMsg !== '') {
+      // store date sent
+      let month = new Date().toLocaleString('en-US', {month: 'short'});
+      let day = new Date().getDate();
+      let year = new Date().getFullYear();
+      const dateSent = `${month} ${day}, ${year}`;
+      // store sender name and picture
+      const {fullName} = this.props.ownData.userSetup;
+      const senderName = `${fullName.firstName} ${fullName.lastName}`;
+      const senderPic = this.props.ownData.userSetup.profile.profileURL;
+      // store correct user Id
+      let userId = this.props.modalData.senderUserId;
+      if (userId === localStorage.getItem('userId')) {
+        userId = this.props.modalData.receiverUserId;
+      }
+      const review = {
+        options: this.state.selectedFeedback,
+        msg: this.state.feedbackMsg,
+        senderPic: senderPic,
+        senderName: senderName,
+        senderUserId: localStorage.getItem('userId'),
+        date: dateSent
+      }
+      const feedbackObj = {
+        userId: userId,
+        review: review
+      }
+      console.log(feedbackObj)
+      const token = localStorage.getItem('token');
+      this.props.onPostFeedback(token, feedbackObj)
     }
-    const review = {
-      options: this.state.selectedFeedback,
-      msg: this.state.feedbackMsg,
-      senderPic: senderPic,
-      senderName: senderName,
-      senderUserId: localStorage.getItem('userId'),
-      date: dateSent
+    else {
+      alert('Please fill out the whole form')
     }
-    const feedbackObj = {
-      userId: userId,
-      review: review
-    }
-    console.log(feedbackObj)
-    const token = localStorage.getItem('token');
-    this.props.onPostFeedback(token, feedbackObj)
   }
 
 
   submitOfferHandler = () => {
-    // store sender name
-    const fullName = `${this.props.ownData.userSetup.fullName.firstName} ${this.props.ownData.userSetup.fullName.lastName}`;
-    // store date sent
-    let month = new Date().toLocaleString('en-US', {month: 'short'});
-    let day = new Date().getDate();
-    let year = new Date().getFullYear();
-    const dateSent = `${month} ${day}, ${year}`;
-    let date = new Date(`${this.state.monthInput} ${this.state.dayInput}, 2020`).getDay();
-    switch (date) {
-      case 0:
-        date = 'Sunday';
-        break;
-      case 1:
-        date = 'Monday';
-        break;
-      case 2:
-        date = 'Tuesday';
-        break;
-      case 3:
-        date = 'Wednesday';
-        break;
-      case 4:
-        date = 'Thursday';
-        break;
-      case 5:
-        date = 'Friday';
-        break;
-      case 6: 
-        date = 'Saturday';
-        break;
+    if (this.state.selectedLocation === null || this.state.monthInput === '' || this.state.dayInput === '' || this.state.timeInput === '') {
+      alert('Please fill out the whole form')
     }
-    const offerMsg = {
-      fullName: fullName,
-      selectedLocation: this.state.selectedLocation,
-      monthInput: this.state.monthInput,
-      dayInput: this.state.dayInput,
-      timeInput: this.state.timeInput,
-      message: this.state.message,
-      weekDate: date,
-      date: dateSent
-    };
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('token');
-    const groupMessage = {
-      groupId: this.props.modalData.groupId,
-      msgOfferData: offerMsg,
-      senderUserId: userId
-    };
-    // reset state
-    this.setState({
-      selectedLocation: null,
-      monthInput: '',
-      dayInput: '',
-      timeInput: '',
-      message: ''
-    })
-    this.props.onPostOfferMsg(token, groupMessage);
+    else {
+      // store sender name
+      const fullName = `${this.props.ownData.userSetup.fullName.firstName} ${this.props.ownData.userSetup.fullName.lastName}`;
+      // store date sent
+      let month = new Date().toLocaleString('en-US', {month: 'short'});
+      let day = new Date().getDate();
+      let year = new Date().getFullYear();
+      const dateSent = `${month} ${day}, ${year}`;
+      let date = new Date(`${this.state.monthInput} ${this.state.dayInput}, 2020`).getDay();
+      switch (date) {
+        case 0:
+          date = 'Sunday';
+          break;
+        case 1:
+          date = 'Monday';
+          break;
+        case 2:
+          date = 'Tuesday';
+          break;
+        case 3:
+          date = 'Wednesday';
+          break;
+        case 4:
+          date = 'Thursday';
+          break;
+        case 5:
+          date = 'Friday';
+          break;
+        case 6: 
+          date = 'Saturday';
+          break;
+      }
+      const offerMsg = {
+        fullName: fullName,
+        selectedLocation: this.state.selectedLocation,
+        monthInput: this.state.monthInput,
+        dayInput: this.state.dayInput,
+        timeInput: this.state.timeInput,
+        message: this.state.message,
+        weekDate: date,
+        date: dateSent
+      };
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+      const groupMessage = {
+        groupId: this.props.modalData.groupId,
+        msgOfferData: offerMsg,
+        senderUserId: userId
+      };
+      // reset state
+      this.setState({
+        selectedLocation: null,
+        monthInput: '',
+        dayInput: '',
+        timeInput: '',
+        message: ''
+      })
+      this.props.onPostOfferMsg(token, groupMessage);
+    }
   }
   render () {
     let modalDisplay = null;

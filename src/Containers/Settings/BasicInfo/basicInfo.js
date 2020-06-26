@@ -54,10 +54,7 @@ class BasicInfo extends Component {
       profile = {profileBio: this.state.bio};
     }
     const updateProfile = Object.assign(copyProfile, profile);
-    //  copy fullName data for changing name
-     const copyFullName = Object.assign({}, this.props.ownData.userSetup.fullName);
      const fullName = {firstName: this.state.firstName, lastName: this.state.lastName};
-     const updateFullName = Object.assign(copyFullName, fullName);
     
     //  initialize data to be sent to database
     const userSetup = {

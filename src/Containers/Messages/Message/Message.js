@@ -91,11 +91,15 @@ class Message extends Component {
   }
 
   render () {
-    // Beginning of unexpanded messages
+    let messageDisabled = false;
+    if (this.state.messageInput === '') {
+      messageDisabled = 'true';
+    }
     let message = null;
     let allMessages = null;
     let workoutResponse = null;
     let responseStyle = null;
+    // Beginning of unexpanded messages
     // multiple message
     if (this.props.msgData.length >= 2) {
       // The first message should be a normal message if fetched in order
@@ -547,6 +551,7 @@ class Message extends Component {
                 <button 
                   onClick={this.onSendMessageHandler}
                   className="sendBtn"
+                  disabled={messageDisabled}
                   >Send</button>
               </div>
             </div>
