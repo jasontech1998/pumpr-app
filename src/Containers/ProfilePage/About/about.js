@@ -110,9 +110,11 @@ class About extends Component {
         deadWeight = `${deadlift.weight} lbs`;
         deadReps = `${deadlift.reps} reps`;
         deadSets = `${deadlift.sets} sets`;
-
-        bio = profile.profileBio
-        location = profile.location
+        bio = profile.profileBio;
+        location = profile.location;
+        if (profile.location === "") {
+          location = 'Missing Location';
+        }
       }
     }
     // If there is location.state, the user is viewing other user's profile
@@ -153,6 +155,9 @@ class About extends Component {
  
         bio = profile.profileBio
         location = profile.location
+        if (profile.location === "") {
+          location = 'Missing Location';
+        }
       }
     }
     // if state is null, user clicked from timeline to about or refreshed page
@@ -190,9 +195,12 @@ class About extends Component {
           deadWeight = `${deadlift.weight} lbs`;
           deadReps = `${deadlift.reps} reps`;
           deadSets = `${deadlift.sets} sets`;
-  
+      
           bio = profile.profileBio
           location = profile.location
+          if (profile.location === "") {
+            location = 'Missing Location';
+          }
         }
       }
       // if data prop, display other user
@@ -231,6 +239,9 @@ class About extends Component {
    
           bio = profile.profileBio
           location = profile.location
+          if (profile.location === "") {
+            location = 'Missing Location';
+          }
         }
       }
     }

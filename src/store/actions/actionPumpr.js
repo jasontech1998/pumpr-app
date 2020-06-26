@@ -58,6 +58,8 @@ export const POST_MESSAGE_SUCCESS = 'POST_MESSAGE_SUCCESS';
 export const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
 export const FETCH_MESSAGES_SUCCESS = 'FETCH_MESSAGES_SUCCESS';
 export const FETCH_MESSAGES_FAIL = 'FETCH_MESSAGES_FAIL';
+// Fetch Group Messages Success
+export const FETCH_GROUP_MSG_SUCCESS = 'FETCH_GROUP_MSG_SUCCESS';
 
 // Log Out Remove State other User Datas
 export const LOGOUT_PUMPR = 'LOGOUT_PUMPR';
@@ -582,6 +584,9 @@ export const fetchMessages = (token, userId) => {
     // get all groupMsgs
     axios.get('/groupMsgs.json' + queryParams)
       .then(response => {
+        // save groupMsg data in state
+        const groupMsgArray = Object.values(response.data);
+        dispatch(fetchGroupMsgSuccess(groupMsgArray))
         // Loop through response and find all groupMsgs the user is in
         // initialize empty array to store promises in
         let promiseArray = []
@@ -631,6 +636,13 @@ export const fetchMessages = (token, userId) => {
       .catch(error => {
         dispatch(fetchMessagesFail(error))
       })
+  }
+}
+
+export const fetchGroupMsgSuccess = (group) => {
+  return {
+    type: FETCH_GROUP_MSG_SUCCESS,
+    group: group
   }
 }
 

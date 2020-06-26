@@ -53,12 +53,19 @@ class CreateAPost extends Component {
       const token = localStorage.getItem('token');
       this.props.submitPostHandler(token, post);
     }
+    else {
+      alert('Please fill out the text input');
+    }
   }
 
   onChangeHandler = (event) => {
     this.setState({postInput: event.target.value})
   }
   render () {
+    let showSelectedPic = <span className="ml-2" style={{color: "#C8C4CB"}}>None Selected</span>
+    if (this.state.image) {
+      showSelectedPic = <span className="ml-2" style={{fontWeight: "500"}}>Image Selected</span>
+    }
     let postProfilePic = <img 
                         className='ml-3 mb-3'
                         src={require('../../../Components/UI/Icons/social.svg')} 
@@ -95,18 +102,21 @@ class CreateAPost extends Component {
                     placeholder="Say something..."/>
                   <div className="row">
                     <div className="col-12 d-flex justify-content-between py-2">
-                    <input 
-                      onChange={(event) => this.onChooseHandler(event)}
-                      type="file" 
-                      accept="image/*"
-                      multiple= {false}
-                      ref={(ref) => this.upload = ref}
-                      hidden="hidden" />
-                      <img
-                        onClick={(event) => this.upload.click()}
-                        className={classes.EnterInputImage} 
-                        src={nature} 
-                        alt="icon"/>
+                      <input 
+                        onChange={(event) => this.onChooseHandler(event)}
+                        type="file" 
+                        accept="image/*"
+                        multiple= {false}
+                        ref={(ref) => this.upload = ref}
+                        hidden="hidden" />
+                      <div className="d-flex align-items-center">
+                        <img
+                          onClick={(event) => this.upload.click()}
+                          className={classes.EnterInputImage} 
+                          src={nature} 
+                          alt="icon"/>
+                        {showSelectedPic}
+                      </div>
                       <button className={classes.EnterInput}>Post</button>
                     </div>
                   </div>

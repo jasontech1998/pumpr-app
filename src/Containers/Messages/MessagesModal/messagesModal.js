@@ -39,7 +39,8 @@ class MessagesModal extends Component {
     const senderName = `${senderFullName.firstName} ${senderFullName.lastName}`
     const content = this.state.messageInput;
     const token = localStorage.getItem('token')
-    this.props.onPostGroupMsg(token, groupMsgUsers, content, dateSent, receiverName, senderName, receiverPic, senderPic, receiverGym, senderGym)
+    this.props.onPostGroupMsg(token, groupMsgUsers, content, dateSent, receiverName, senderName, receiverPic, senderPic, receiverGym, senderGym);
+    this.props.history.push('/messages');
   }
   render() {
     return (

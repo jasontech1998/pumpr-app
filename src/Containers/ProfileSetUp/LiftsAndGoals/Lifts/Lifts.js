@@ -22,25 +22,38 @@ class Lifts extends Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
     // Add rules for entering in info
-    const lifts = [
-      {bench: {
-        weight: this.state.benchWeight,
-        reps: this.state.benchReps,
-        sets: this.state.benchSets}
-      },
-      {squat: {
-        weight: this.state.squatWeight,
-        reps: this.state.squatReps,
-        sets: this.state.squatSets}
-      },
-      {deadlift: {
-        weight: this.state.dlWeight,
-        reps: this.state.dlReps,
-        sets: this.state.dlSets}
-      }
-    ]
-    this.setState({isSubmit: true});
-    this.props.submitLiftsHandler(lifts);
+    if ((this.state.benchWeight === '') ||
+        (this.state.benchReps === '') ||
+        (this.state.benchSets === '') ||
+        (this.state.squatWeight === '') ||
+        (this.state.squatReps === '') ||
+        (this.state.squatSets === '') ||
+        (this.state.dlWeight === '') ||
+        (this.state.dlReps === '') ||
+        (this.state.dlSets === '') ) {
+          alert('Please fill out the whole form')
+    }
+    else {
+      const lifts = [
+        {bench: {
+          weight: this.state.benchWeight,
+          reps: this.state.benchReps,
+          sets: this.state.benchSets}
+        },
+        {squat: {
+          weight: this.state.squatWeight,
+          reps: this.state.squatReps,
+          sets: this.state.squatSets}
+        },
+        {deadlift: {
+          weight: this.state.dlWeight,
+          reps: this.state.dlReps,
+          sets: this.state.dlSets}
+        }
+      ]
+      this.setState({isSubmit: true});
+      this.props.submitLiftsHandler(lifts);
+    }
     
   }
 

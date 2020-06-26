@@ -195,6 +195,11 @@ const pumprReducer = (state = initialState, action) => {
         ...state,
         reviewsArray: action.reviews
       }
+    case actionTypes.FETCH_GROUP_MSG_SUCCESS:
+      return {
+        ...state,
+        groupMsgs: action.group
+      }
     case actionTypes.FETCH_MESSAGES_SUCCESS:
       // CONVERT INTO FUNCTION LATER
       // Organize all messages by GroupID

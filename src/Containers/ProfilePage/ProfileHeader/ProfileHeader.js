@@ -6,6 +6,10 @@ import * as actionCreators from '../../../store/actions/actionPumpr';
 
 class ProfileHeader extends Component {
 
+
+  goToMessagesHandler = () => {
+    this.props.history.push('/messages');
+  }
   render () {
     let fullName = null;
     let experience = null;
@@ -16,7 +20,9 @@ class ProfileHeader extends Component {
           alt="icon" 
           height="125" width="125"/>
     let showButton = <Button click={this.props.click}>Message</Button>
-
+    if (this.props.hasMessaged) {
+      showButton = <Button click={this.goToMessagesHandler}>Go to Messages</Button>;
+    }
     // if location.state is undefined or null, display current user's data
     if (this.props.history.location.state === undefined || this.props.history.location.state === null) {
       if (this.props.ownData) {
@@ -40,8 +46,8 @@ class ProfileHeader extends Component {
       }
     }
     else if (this.props.history.location.state) {
-      console.log('clicked on other user')
       if (this.props.data) {
+        console.log('other user')
         experience = this.props.data.userSetup.goals.experience
         const userId = localStorage.getItem('userId');
         // if viewing own profile, remove message button

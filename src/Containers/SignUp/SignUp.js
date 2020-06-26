@@ -74,7 +74,6 @@ class SignIn extends Component {
         {/* Right Side */}
         <div className="col col-lg-4" style={{marginTop: '80px'}}>
           <div className="card">
-            {/* <div className="card-header">Sign Up</div> */}
             <div className="card-body">
               <form 
                 className="form-inline flex-column justify-content-center"
@@ -87,7 +86,6 @@ class SignIn extends Component {
                     name="firstName" 
                     value={this.state.firstName}
                     className="form-control inputTop" 
-                    // id="signUpInput"
                     placeholder="First name"/>
                   <input 
                     onChange={(event) => this.onChangeHandler(event)}
@@ -95,7 +93,6 @@ class SignIn extends Component {
                     name="lastName" 
                     value={this.state.lastName}
                     className="form-control inputBot"
-                    // id="signUpInput"
                     placeholder="Last name"/>
                 </div>
                 <div className="form-group">
@@ -124,13 +121,6 @@ class SignIn extends Component {
             </div>
           </div>
         </div>
-        {/* In case I want to push the Chevron down */}
-        {/* <div id='push'></div> */}
-        {/* <div className="d-none d-md-block col-lg-12">
-          <div className="mt-5">
-            <i onClick={this.scrollToBottom}className="fas fa-chevron-down fa-2x"></i>
-          </div>
-        </div> */}
       </React.Fragment>
     )
   }

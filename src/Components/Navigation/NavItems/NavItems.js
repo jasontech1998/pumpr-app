@@ -25,6 +25,7 @@ class NavItems extends Component {
     }
   }
   render () {
+    let showNavBar = null;
     let userId = localStorage.getItem('userId')
     let showProfilePic =  <img
                             alt="profile-pic" 
@@ -51,12 +52,13 @@ class NavItems extends Component {
       key: Math.random,
       userId: userId
     }
+    
     return (
       <ul className={classes.NavItems}>
         {this.props.token 
           ? <NavItem link="/find-a-partner">Find a Partner</NavItem> 
           : <NavItem link="/help">Help</NavItem> }
-        {this.props.token 
+        {this.props.token
           ? <NavItem link="/messages"> Messages</NavItem>
           : null
         }

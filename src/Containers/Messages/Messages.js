@@ -15,9 +15,9 @@ class Messages extends Component {
   }
   // Fetch Messages
   componentDidMount = () => {
-    let token = localStorage.getItem('token')
-    let userId = localStorage.getItem('userId')
-    this.props.onFetchMessages(token, userId)
+    let token = localStorage.getItem('token');
+    let userId = localStorage.getItem('userId');
+    this.props.onFetchMessages(token, userId);
   }
   componentDidUpdate = (prevProps) => {
     console.log(prevProps.msgSuccess)
