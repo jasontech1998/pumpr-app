@@ -64,8 +64,8 @@ class GymSchedule extends Component {
     this.props.submitUserProfile(key, token, userProfile);
     // clear Set Up data
     this.props.clearSetUpHandler();
-    // Wait 1 second before pushing to profile page
-    setTimeout(() => this.props.history.push('/profile-about'), 1000)
+    // Wait 1 second before pushing to dashboard
+    setTimeout(() => this.props.history.push('/dashboard'), 1000)
   }
   showModalHandler = (day) => {
     this.setState({day: day})

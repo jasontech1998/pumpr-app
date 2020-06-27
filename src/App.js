@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import * as actionCreators from './store/actions/actionAuth';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import Layout from './Components/Layout/Layout';
@@ -28,33 +28,47 @@ class App extends Component {
   }
 
   render () {
+    // User is not logged in
+    let routes = (
+        <Switch>
+          {/* Auth */}
+          <Route path="/" exact component={SignUp}/>
+          <Route path="/help" exact component={Help} />
+          <Route path="/log-in" exact component={LogIn} />
+          <Redirect to="/" />
+        </Switch>
+    )
+    // User is logged in
+    if (this.props.isAuth) {
+      routes = (
+        <Switch>
+          <Route path="/" exact component={SignUp}/>
+          <Route path="/log-out" exact component={Logout} />
+          {/* Routes for onboarding process */}
+          <Route path="/lifts" exact component={Lifts}/>
+          <Route path="/goals" exact component={Goals} />
+          <Route path="/profile-bio-setup" exact component={PicAndBio} />
+          <Route path="/profile-location" exact component={Location} />
+          <Route path="/gym-schedule" exact component={GymSchedule} />
+          
+          {/* User Profile*/}
+          <Route path="/profile-about" exact component={ProfilePage} />
+          <Route path="/profile-timeline" exact component={ProfilePage} />
+          <Route path="/profile-settings" exact component={Settings} />
+          {/* Pumpr */}
+          <Route path="/find-a-partner" exact component={FindAPartner} />
+          <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/messages" exact component={Messages} />
+          <Redirect to="/dashboard" />
+        </Switch>  
+      )
+    }
+    
     return (
       <>
         <div className="App">
           <Layout history={this.props.history}>
-            <Switch>
-              {/* Auth */}
-              <Route path="/" exact component={SignUp}/>
-              <Route path="/help" exact component={Help} />
-              <Route path="/log-in" exact component={LogIn} />
-              <Route path="/log-out" exact component={Logout} />
-              {/* User Setup */}
-              <Route path="/lifts" exact component={Lifts}/>
-              <Route path="/goals" exact component={Goals} />
-              <Route path="/profile-bio-setup" exact component={PicAndBio} />
-              <Route path="/profile-location" exact component={Location} />
-              <Route path="/gym-schedule" exact component={GymSchedule} />
-              {/* User Profile*/}
-              <Route path="/profile-about" exact component={ProfilePage} />
-              <Route path="/profile-timeline" exact component={ProfilePage} />
-              <Route path="/profile-settings" exact component={Settings} />
-              {/* Pumpr */}
-              <Route path="/find-a-partner" exact component={FindAPartner} />
-              <Route path="/dashboard" exact component={Dashboard} />
-              <Route path="/messages" exact component={Messages} />
-              {/* 404 Not Found */}
-              <Route render={() => <h2 className='text-center display-1' style={{color: 'red'}}>404 Not Found</h2>}/>
-            </Switch>
+            {routes}
           </Layout>
           <Footer />
         </div>
@@ -62,11 +76,17 @@ class App extends Component {
     )
   }
 }
-
+const mapStateToProps = state => {
+  return {
+    isAuth: state.auth.token !== null,
+    ownData: state.pumpr.ownData,
+    hasUserKey: state.setup.userKey !== null
+  }
+}
 const mapDispatchToProps = dispatch => {
   return {
     onAutoSignUp: () => dispatch(actionCreators.authCheckState())
   }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

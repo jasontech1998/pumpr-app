@@ -42,7 +42,7 @@ class LogIn extends Component {
       }
     }
     if (this.props.hasToken) {
-      return (<Redirect to='/profile-about' />)
+      return (<Redirect to='/dashboard' />)
     }
     return (
       <>

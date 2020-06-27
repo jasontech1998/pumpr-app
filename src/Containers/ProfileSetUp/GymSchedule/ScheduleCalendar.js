@@ -111,8 +111,8 @@ class scheduleCalendar extends Component {
     this.props.submitUserProfile(key, token, userProfile);
     // Clear Set Up Data
     this.props.clearSetUpHandler();
-    // Wait 1 second before pushing to profile page
-    setTimeout(() => this.props.history.push('/profile-about'), 1000)
+    // Wait 1 second before pushing to dashboard
+    setTimeout(() => this.props.history.push('/dashboard'), 1000)
   }
 
   render () {

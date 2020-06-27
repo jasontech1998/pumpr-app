@@ -11,7 +11,6 @@ class About extends Component {
   componentDidMount() {
     // Remove posts if in state
     if (this.props.posts) {
-      console.log('there are posts')
       this.props.removePostsHandler();
     }
     // if user just created account, fetch own profile data
@@ -76,9 +75,6 @@ class About extends Component {
 
     // if location.state is undefined, display current user's data 
     if (this.props.history.location.state === undefined) {
-      
-      console.log('user just logged in or clicked on own user profile')
-      
       if (this.props.ownData) {
         // Object destructuring
         const {lifts} = this.props.ownData.userSetup
@@ -134,19 +130,24 @@ class About extends Component {
         const {bench} = lifts[0]
         const {squat} = lifts[1]
         const {deadlift} = lifts[2] 
-        // Dynamically render goals
-        showGoals = (
-          <Aux>
-            {goals.goals.map((goal, index) => {
-              return (
-                <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
-                  <div className="cardProfile card-body flex-fill">{goal}
+        if (goals.goals[0] === "") {
+          showGoals = <div>No Goals Selected</div>
+        }
+        else {
+          // Dynamically render goals
+          showGoals = (
+            <Aux>
+              {goals.goals.map((goal, index) => {
+                return (
+                  <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                    <div className="cardProfile card-body flex-fill">{goal}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
-          </Aux>
-        )
+                )
+              })}
+            </Aux>
+          )
+        }
         // Insert data into initialized variables
         benchWeight = `${bench.weight} lbs`;
         benchReps = `${bench.reps} reps`;
@@ -177,19 +178,24 @@ class About extends Component {
           const {bench} = lifts[0]
           const {squat} = lifts[1]
           const {deadlift} = lifts[2]
-          // Dynamically render goals
-        showGoals = (
-          <Aux>
-            {goals.goals.map((goal, index) => {
-              return (
-                <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
-                  <div className="cardProfile card-body flex-fill">{goal}
-                  </div>
-                </div>
-              )
-            })}
-          </Aux>
-        )
+          if (goals.goals[0] === "") {
+            showGoals = <div>No Goals Selected</div>
+          }
+          else {
+            // Dynamically render goals
+            showGoals = (
+              <Aux>
+                {goals.goals.map((goal, index) => {
+                  return (
+                    <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                      <div className="cardProfile card-body flex-fill">{goal}
+                      </div>
+                    </div>
+                  )
+                })}
+              </Aux>
+            )
+          }
           // Insert data into initialized variables
           benchWeight = `${bench.weight} lbs`;
           benchReps = `${bench.reps} reps`;
@@ -218,19 +224,24 @@ class About extends Component {
           const {bench} = lifts[0]
           const {squat} = lifts[1]
           const {deadlift} = lifts[2] 
-          // Dynamically render goals
-        showGoals = (
-          <Aux>
-            {goals.goals.map((goal, index) => {
-              return (
-                <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
-                  <div className="cardProfile card-body flex-fill">{goal}
-                  </div>
-                </div>
-              )
-            })}
-          </Aux>
-        )
+          if (goals.goals[0] === "") {
+            showGoals = <div>No Goals Selected</div>
+          }
+          else {
+            // Dynamically render goals
+            showGoals = (
+              <Aux>
+                {goals.goals.map((goal, index) => {
+                  return (
+                    <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                      <div className="cardProfile card-body flex-fill">{goal}
+                      </div>
+                    </div>
+                  )
+                })}
+              </Aux>
+            )
+          }
           // Insert data into initialized variables
           benchWeight = `${bench.weight} lbs`;
           benchReps = `${bench.reps} reps`;

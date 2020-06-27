@@ -5,7 +5,7 @@ import Goal from './Goal';
 
 class GoalsList extends Component {
   state = {
-    goalsArray: ['Bodybuilding', 'Powerlifting', 'Crossfit ',
+    goalsArray: ['Bodybuilding', 'Powerlifting', 'Crossfit',
                  'Calisthenics', 'Outdoors', 'Endurance',
                  'Running', 'High Intensity', 'Flexibility', 
                  'Agility', 'HITT', 'Gymnastics']

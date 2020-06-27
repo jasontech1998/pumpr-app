@@ -17,9 +17,17 @@ class Goals extends Component {
 
   componentDidMount = () => {
     if (this.props.goals && this.state.selectedGoals.length === 0) {
-      this.setState({
-        selectedGoals: this.props.goals.goals,
-        selectedExp: this.props.goals.experience})
+      if (this.props.goals.goals[0] === "") {
+        console.log(this.props.goals.goals);
+        this.setState({
+          selectedExp: this.props.goals.experience
+        })
+      }
+      else {
+        this.setState({
+          selectedGoals: this.props.goals.goals,
+          selectedExp: this.props.goals.experience})
+      }
     }
   }
 
@@ -72,9 +80,18 @@ class Goals extends Component {
   onSaveHandler = () => {
     const userKey = this.props.ownData.id;
     const token = localStorage.getItem('token');
-    const goals = {
-      experience: this.state.selectedExp,
-      goals: this.state.selectedGoals
+    let goals = null;
+    if (this.state.selectedGoals.length === 0) {
+      goals = {
+        experience: this.state.selectedExp,
+        goals: [""]
+      }
+    }
+    else {
+      goals = {
+        experience: this.state.selectedExp,
+        goals: this.state.selectedGoals
+      }
     }
     //  initialize data to be sent to database
     const userSetup = {
