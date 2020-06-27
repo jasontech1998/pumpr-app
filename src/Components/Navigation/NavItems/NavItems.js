@@ -57,6 +57,7 @@ class NavItems extends Component {
       showNavBar = (
         <>
           <NavItem link="/find-a-partner">Find a Partner</NavItem> 
+          <NavItem link="/messages"> Messages</NavItem>
           <li className="nav-item dropdown">
               <a href="/profile-about" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {/* User Profile Image */}
@@ -110,10 +111,6 @@ class NavItems extends Component {
     }
     return (
       <ul className={classes.NavItems}>
-        {this.props.ownData
-          ? <NavItem link="/messages"> Messages</NavItem>
-          : null
-        }
         {showNavBar}
       </ul>
     )
