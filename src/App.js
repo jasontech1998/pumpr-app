@@ -56,7 +56,6 @@ class App extends Component {
               <Route render={() => <h2 className='text-center display-1' style={{color: 'red'}}>404 Not Found</h2>}/>
             </Switch>
           </Layout>
-          {/* <Route path="/" exact component={HowItWorks}/> */}
           <Footer />
         </div>
       </>

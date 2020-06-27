@@ -110,6 +110,9 @@ class BasicInfo extends Component {
     let userPicture = null;
     if (this.props.ownData) {
       userPicture = this.props.ownData.userSetup.profile.profileURL;
+      if (userPicture === "") {
+        userPicture = `/static/media/social.15eeae14.svg`;
+      }
     }
     if (this.state.url) {
       userPicture = this.state.url;

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classes from './GymSchedule.module.css';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionSetup';
+import * as actionPumpr from '../../../store/actions/actionPumpr';
 
 import Button from '../../../Components/UI/Button/Button';
 import Modal from '../../../Components/UI/Modal/Modal';
@@ -58,7 +59,11 @@ class GymSchedule extends Component {
       userId: localStorage.getItem('userId')
     }
     const token = localStorage.getItem('token');
-    this.props.submitUserProfile(userProfile, token)
+    const key = this.props.userKey;
+    // Submit empty schedule, user can edit later
+    this.props.submitUserProfile(key, token, userProfile);
+    // clear Set Up data
+    this.props.clearSetUpHandler();
     // Wait 1 second before pushing to profile page
     setTimeout(() => this.props.history.push('/profile-about'), 1000)
   }
@@ -195,7 +200,8 @@ const mapStateToProps = state => {
     lifts: state.setup.lifts,
     goals: state.setup.goals,
     profile: state.setup.profile,
-    fullName: state.auth.fullName
+    fullName: state.auth.fullName,
+    userKey: state.setup.userKey
   }
 }
 
@@ -204,7 +210,8 @@ const mapDispatchToProps = dispatch => {
   return {
     closeModalHandler: () => dispatch(actionCreators.closeModal()),
     openModalHandler: () => dispatch(actionCreators.openModal()),
-    submitUserProfile: (userProfile, token) => dispatch(actionCreators.addSetUp(userProfile, token))
+    submitUserProfile: (key, token, userProfile) => dispatch(actionPumpr.updateProfile(key, token, userProfile)),
+    clearSetUpHandler: () => dispatch(actionCreators.clearSetUpData())
   }
 }
 

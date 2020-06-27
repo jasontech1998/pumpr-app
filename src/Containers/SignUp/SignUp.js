@@ -4,7 +4,6 @@ import './SignUp.css';
 import Lottie from 'react-lottie';
 import animationData from '../../Components/UI/Lottie/squat.json';
 import * as actionCreators from '../../store/actions/actionAuth';
-import { animateScroll as scroll } from 'react-scroll'
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
@@ -14,15 +13,10 @@ class SignIn extends Component {
     lastName: '',
     email: '',
     password: '',
-    isSignUp: true,
-    fullName: ''
+    fullName: '',
+    isSignUp: true
   }
   
-  
-  scrollToBottom = () => {
-    scroll.scrollToBottom();
-  }
-
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.state.email.length === 0 || this.state.password === 0) {
@@ -31,9 +25,9 @@ class SignIn extends Component {
     else if(this.state.password.length < 6) {
       alert('Password must be atleast 6 characters in length')
     }
-    const fullName = {firstName: this.state.firstName, lastName: this.state.lastName}
-    // this.setState({fullName: fullName})
-    this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp, fullName)
+    const fullName = {firstName: this.state.firstName, lastName: this.state.lastName};
+
+    this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp, fullName);
   }
 
   onChangeHandler = (event) => {
@@ -57,8 +51,7 @@ class SignIn extends Component {
       return <Redirect to="/lifts"/>
     }
     return (
-      <React.Fragment>
-        {/* <div id='push'></div> */}
+      <>
         {/* Left Side */}
         <div className="col col-lg-8">
           <div className={classes.SignIn}>
@@ -121,7 +114,7 @@ class SignIn extends Component {
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </>
     )
   }
 }
@@ -134,7 +127,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, password, isSignUp, fullName) => dispatch(actionCreators.auth(email, password, isSignUp, fullName))
+    onAuth: (email, password, isSignUp, info) => dispatch(actionCreators.auth(email, password, isSignUp, info))
   }
 }
 

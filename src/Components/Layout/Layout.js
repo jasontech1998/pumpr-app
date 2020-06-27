@@ -22,6 +22,7 @@ class Layout extends Component {
       <Aux>
         <Toolbar 
           token={this.props.hasToken}
+          ownData={this.props.ownData}
           clicked={this.onClickHandler}/>
         <main className="Layout">
           <div className="container">
@@ -37,7 +38,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    hasToken: state.auth.token !== null
+    hasToken: state.auth.token !== null,
+    ownData: state.pumpr.ownData
   }
 }
 

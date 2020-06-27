@@ -87,19 +87,24 @@ class About extends Component {
         const {bench} = lifts[0]
         const {squat} = lifts[1]
         const {deadlift} = lifts[2]
+        if (goals.goals[0] === "") {
+          showGoals = <div>No Goals Selected</div>
+        }
         // Dynamically render goals
-        showGoals = (
-          <Aux>
-            {goals.goals.map((goal, index) => {
-              return (
-                <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
-                  <div className="cardProfile card-body flex-fill">{goal}
+        else {
+          showGoals = (
+            <Aux>
+              {goals.goals.map((goal, index) => {
+                return (
+                  <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                    <div className="cardProfile card-body flex-fill">{goal}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
-          </Aux>
-        )
+                )
+              })}
+            </Aux>
+          )
+        }
         // Insert data into initialized variables
         benchWeight = `${bench.weight} lbs`;
         benchReps = `${bench.reps} reps`;

@@ -3,6 +3,7 @@ import './scheduleCalendar.css';
 import Button from '../../../Components/UI/Button/Button';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionSetup';
+import * as actionPumpr from '../../../store/actions/actionPumpr';
 
 class scheduleCalendar extends Component {
   state = {
@@ -104,8 +105,12 @@ class scheduleCalendar extends Component {
       userSetup: userSetUp,
       userId: this.props.userId
     }
+    const key = this.props.userKey;
+    const token = this.props.token;
     // User Profile Set Up Complete, send to database
-    this.props.submitUserProfile(userProfile, this.props.token)
+    this.props.submitUserProfile(key, token, userProfile);
+    // Clear Set Up Data
+    this.props.clearSetUpHandler();
     // Wait 1 second before pushing to profile page
     setTimeout(() => this.props.history.push('/profile-about'), 1000)
   }
@@ -197,12 +202,14 @@ const mapStateToProps = state => {
     lifts: state.setup.lifts,
     goals: state.setup.goals,
     profile: state.setup.profile,
-    fullName: state.auth.fullName
+    fullName: state.auth.fullName,
+    userKey: state.setup.userKey
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    submitUserProfile: (userProfile, token) => dispatch(actionCreators.addSetUp(userProfile, token))
+    submitUserProfile: (key, token, userProfile) => dispatch(actionPumpr.updateProfile(key, token, userProfile)),
+    clearSetUpHandler: () => dispatch(actionCreators.clearSetUpData())
   }
 }
 

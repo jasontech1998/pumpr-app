@@ -72,12 +72,10 @@ class Goals extends Component {
   onSaveHandler = () => {
     const userKey = this.props.ownData.id;
     const token = localStorage.getItem('token');
-    const copyGoals = Object.assign({}, this.props.ownData.userSetup.goals);
     const goals = {
       experience: this.state.selectedExp,
       goals: this.state.selectedGoals
     }
-    const updatedGoals = Object.assign(copyGoals, goals);
     //  initialize data to be sent to database
     const userSetup = {
       fullName: this.props.ownData.userSetup.fullName,

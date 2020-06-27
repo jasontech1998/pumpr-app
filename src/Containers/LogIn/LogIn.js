@@ -21,7 +21,6 @@ class LogIn extends Component {
     else if(this.state.password.length < 6) {
       alert('Password must be atleast 6 characters in length')
     }
-    console.log('account created')
     this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp)
     
   }

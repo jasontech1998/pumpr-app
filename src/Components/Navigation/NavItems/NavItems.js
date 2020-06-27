@@ -52,38 +52,69 @@ class NavItems extends Component {
       key: Math.random,
       userId: userId
     }
-    
+    // User is logged in
+    if (this.props.token && this.props.ownData) {
+      showNavBar = (
+        <>
+          <NavItem link="/find-a-partner">Find a Partner</NavItem> 
+          <li className="nav-item dropdown">
+              <a href="/profile-about" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {/* User Profile Image */}
+                {showProfilePic}
+              </a>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <NavLink
+                  className="dropdown-item"
+                  to={profileTarget}>Profile
+                </NavLink>
+                <NavLink 
+                  to='/profile-settings'
+                  className="dropdown-item">Settings
+                </NavLink>
+                <NavLink 
+                  to='/log-out'
+                  className="dropdown-item">Log Out
+                </NavLink>
+              </div>
+            </li>
+          </>
+      )
+    }
+    // if user is on onboarding process
+    else if (this.props.token && !this.props.ownData) {
+      showNavBar = (
+        <>
+          <li className="nav-item dropdown">
+              <a href="/profile-about" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {/* User Profile Image */}
+                {showProfilePic}
+              </a>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <NavLink 
+                  to='/log-out'
+                  className="dropdown-item">Log Out
+                </NavLink>
+              </div>
+            </li>
+          </>
+      )
+    }
+    // Not logged in
+    else if (!this.props.token) {
+      showNavBar = (
+        <>
+          <NavItem link="/help">Help</NavItem>
+          <NavItem link="/log-in">Log In</NavItem>
+        </>
+      )
+    }
     return (
       <ul className={classes.NavItems}>
-        {this.props.token 
-          ? <NavItem link="/find-a-partner">Find a Partner</NavItem> 
-          : <NavItem link="/help">Help</NavItem> }
-        {this.props.token
+        {this.props.ownData
           ? <NavItem link="/messages"> Messages</NavItem>
           : null
         }
-        {this.props.token
-        ? <li className="nav-item dropdown">
-            <a href="/profile-about" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {/* User Profile Image */}
-              {showProfilePic}
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <NavLink
-                className="dropdown-item"
-                to={profileTarget}>Profile
-              </NavLink>
-              <NavLink 
-                to='/profile-settings'
-                className="dropdown-item">Settings
-              </NavLink>
-              <NavLink 
-                to='/log-out'
-                className="dropdown-item">Log Out
-              </NavLink>
-            </div>
-          </li>
-        : <NavItem link="/log-in">Log In</NavItem>}
+        {showNavBar}
       </ul>
     )
   }

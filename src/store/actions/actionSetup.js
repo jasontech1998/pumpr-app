@@ -9,45 +9,55 @@ export const SUBMIT_SCHEDULE = 'SUBMIT_SCHEDULE';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const OPEN_MODAL = 'OPEN_MODAL';
 
-export const ADD_SETUP_START = 'ADD_SET_UP_START';
-export const ADD_SETUP_SUCCESS = 'ADD_SET_UP_SUCCESS';
-export const ADD_SETUP_FAIL = 'ADD_SET_UP_FAIL';
+// For initializing profile after sign up 
+export const SET_PROFILE_START = 'SET_PROFILE_START';
+export const SET_PROFILE_SUCCESS = 'SET_PROFILE_SUCCESS';
+export const SET_PROFILE_FAIL = 'SET_PROFILE_FAIL';
 
-export const addSetUp = (userProfile, token) => {
-  return dispatch => {
-    // Start
-    dispatch(addSetUpStart())
-    // Send to database with token
-    axios.post('/userProfiles.json?auth=' + token, userProfile)
-      .then(response => {
-        // dispatch success (userProfile)
-        console.log(response.data.name)
-        dispatch(addSetUpSuccess(response.data.name, userProfile))
-      })
-      // dispatch fail (error)
-      .catch(error => {
-        dispatch(addSetUpFail(error))
-      })
+// Clear Profile Set Up Data
+export const CLEAR_SET_UP_DATA = 'CLEAR_SET_UP_DATA';
+
+export const setProfileStart = () => {
+  return {
+    type: SET_PROFILE_START
   }
 }
-export const addSetUpStart = () => {
+
+export const setProfileSuccess = (userKey) => {
   return {
-    type: ADD_SETUP_START
+    type: SET_PROFILE_SUCCESS,
+    userKey: userKey
   }
 }
-export const addSetUpSuccess = (id, userProfile) => {
+
+export const setProfileFail = (error) => {
   return {
-    type: ADD_SETUP_SUCCESS,
-    profileId: id,
-    userProfile: userProfile
-  }
-}
-export const addSetUpFail = (error) => {
-  return {
-    type: ADD_SETUP_FAIL,
+    type: SET_PROFILE_FAIL,
     error: error
   }
 }
+
+export const setUpProfile = (token, userProfile) => {
+  return dispatch => {
+    dispatch(setProfileStart());
+    axios.post('/userProfiles.json?auth=' + token, userProfile)
+      .then(response => {
+        console.log(response.data.name)
+        dispatch(setProfileSuccess(response.data.name))
+      })
+      .catch(error => {
+        dispatch(setProfileFail(error))
+      })
+  }
+
+}
+
+export const clearSetUpData = () => {
+  return {
+    type: CLEAR_SET_UP_DATA
+  }
+}
+
 export const openModal = (data) => {
   return {
     type: OPEN_MODAL,
