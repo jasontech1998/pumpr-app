@@ -91,6 +91,10 @@ class Message extends Component {
     this.props.history.push('/profile-about', userId);
   }
 
+  onSubmitHandler = (e) => {
+    e.preventDefault();
+  }
+
   render () {
     let messageDisabled = false;
     if (this.state.messageInput === '') {
@@ -539,23 +543,26 @@ class Message extends Component {
             {allMessages}
             {/* End of displaying messages */}
             {/* Start of Send Message Input */}
-            <div className="d-flex mt-2">
-              <div className="col-11">
-                <input 
-                  onChange={(event) => this.onInputHandler(event)}
-                  className="form-control my-3 msgInput" 
-                  value={this.state.messageInput}
-                  type="text" 
-                  placeholder="Write a message"/>
+            <form onSubmit={(event) => this.onSubmitHandler(event)}>
+              <div className="d-flex mt-2">
+                <div className="col-11">
+                  <input 
+                    onChange={(event) => this.onInputHandler(event)}
+                    className="form-control my-3 msgInput" 
+                    value={this.state.messageInput}
+                    type="text" 
+                    placeholder="Write a message"/>
+                </div>
+                <div className="col-1 d-flex my-3 justify-content-center">
+                  <button
+                    type="submit" 
+                    onClick={this.onSendMessageHandler}
+                    className="sendBtn"
+                    disabled={messageDisabled}
+                    >Send</button>
+                </div>
               </div>
-              <div className="col-1 d-flex my-3 justify-content-center">
-                <button 
-                  onClick={this.onSendMessageHandler}
-                  className="sendBtn"
-                  disabled={messageDisabled}
-                  >Send</button>
-              </div>
-            </div>
+            </form>
           </div>
       )
     }
