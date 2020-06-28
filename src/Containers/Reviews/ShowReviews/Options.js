@@ -10,7 +10,8 @@ const options = (props) => {
             </div>
       )
     })
-  )
+  );
+  
   return (
     <Aux>
       {options}

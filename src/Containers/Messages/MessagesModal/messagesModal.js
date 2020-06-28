@@ -10,35 +10,35 @@ class MessagesModal extends Component {
   }
 
   onChangeHandler = (e) => {
-    this.setState({messageInput: e.target.value})
+    this.setState({messageInput: e.target.value});
   }
 
   sendMsgHandler = () => {
-    const userIds = [this.props.ownData.userId, this.props.data.userId]
+    const userIds = [this.props.ownData.userId, this.props.data.userId];
     const groupMsgUsers = {
       userIds: userIds
-    }
+    };
     // Store receiver's gym location
-    const receiverGym = this.props.data.userSetup.profile.gym
+    const receiverGym = this.props.data.userSetup.profile.gym;
     // Store sender's gym location
-    const senderGym = this.props.ownData.userSetup.profile.gym
+    const senderGym = this.props.ownData.userSetup.profile.gym;
     // store receiver profile pic
-    let receiverPic = this.props.data.userSetup.profile.profileURL
+    let receiverPic = this.props.data.userSetup.profile.profileURL;
     // store sender profile pic
-    let senderPic = this.props.ownData.userSetup.profile.profileURL
+    let senderPic = this.props.ownData.userSetup.profile.profileURL;
     // store date sent
-    let month = new Date().toLocaleString('en-US', {month: 'short'})
-    let day = new Date().getDate()
-    let year = new Date().getFullYear()
-    const dateSent = `${month} ${day}, ${year}`
+    let month = new Date().toLocaleString('en-US', {month: 'short'});
+    let day = new Date().getDate();
+    let year = new Date().getFullYear();
+    const dateSent = `${month} ${day}, ${year}`;
     // store receiver's full name
-    const {fullName} = this.props.data.userSetup
-    const receiverName = `${fullName.firstName} ${fullName.lastName}`
+    const {fullName} = this.props.data.userSetup;
+    const receiverName = `${fullName.firstName} ${fullName.lastName}`;
     // store sender's full name
-    const senderFullName = this.props.ownData.userSetup.fullName
-    const senderName = `${senderFullName.firstName} ${senderFullName.lastName}`
+    const senderFullName = this.props.ownData.userSetup.fullName;
+    const senderName = `${senderFullName.firstName} ${senderFullName.lastName}`;
     const content = this.state.messageInput;
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     this.props.onPostGroupMsg(token, groupMsgUsers, content, dateSent, receiverName, senderName, receiverPic, senderPic, receiverGym, senderGym);
     this.props.history.push('/messages');
   }

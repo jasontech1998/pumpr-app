@@ -3,10 +3,10 @@ import React, {Component} from 'react';
 class Option extends Component {
   state = {
     isSelected: false
-  }
+  };
 
   changeColor = () => {
-    this.setState({isSelected: !this.state.isSelected})
+    this.setState({isSelected: !this.state.isSelected});
   }
 
   render () {

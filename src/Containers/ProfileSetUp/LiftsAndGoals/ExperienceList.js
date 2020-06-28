@@ -6,23 +6,24 @@ class ExperienceList extends Component {
   state = {
     expArray: ['Beginner', 'Intermediate', 'Advanced'],
     selected: null
-  }
+  };
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.selectedExp !== this.props.selectedExp) {
-      this.setState({selected: this.props.selectedExp})
-    }
+      this.setState({selected: this.props.selectedExp});
+    };
   }
 
 
   selectedHandler = (level) => {
     if (this.state.selected !== level) {
-      this.setState({selected: level})
+      this.setState({selected: level});
     }
     else if (this.state.selected === level) {
-      this.setState({selected: null})
-    }
+      this.setState({selected: null});
+    };
   }
+
   render () {
     const expList = (
       <Aux>
@@ -43,7 +44,8 @@ class ExperienceList extends Component {
           )
         })}
       </Aux>
-    )
+    );
+
     return (
       <div>
         <div className="d-flex flex-wrap"> 

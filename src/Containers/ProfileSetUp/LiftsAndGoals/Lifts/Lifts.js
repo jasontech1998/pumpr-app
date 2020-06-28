@@ -17,46 +17,7 @@ class Lifts extends Component {
     dlReps: '',
     dlSets: '',
     isSubmit: false
-  }
-
-  componentDidMount = () => {
-    // Set up userProfile in case user leaves onboarding process, when they log back in no error is thrown
-    const token = localStorage.getItem('token');
-    const lifts = [
-      {bench: {
-        weight: 0,
-        reps: 0,
-        sets: 0}
-      },
-      {squat: {
-        weight: 0,
-        reps: 0,
-        sets: 0}
-      },
-      {deadlift: {
-        weight: 0,
-        reps: 0,
-        sets: 0}
-      }
-    ]
-    const userSetup = {
-      lifts: lifts,
-      goals: {
-        experience: '',
-        goals: ['']
-      },
-      fullName: this.props.fullName,
-      profile: {
-        profileURL: '',
-        profileBio: ''
-      }
-    }
-    const userProfile = {
-      userSetup: userSetup,
-      userId: localStorage.getItem('userId')
-    }
-    this.props.setUpProfileHandler(token, userProfile);
-  }
+  };
 
   onSubmitHandler = (event) => {
     event.preventDefault();
@@ -70,7 +31,7 @@ class Lifts extends Component {
         (this.state.dlWeight === '') ||
         (this.state.dlReps === '') ||
         (this.state.dlSets === '') ) {
-          alert('Please fill out the whole form')
+          alert('Please fill out the whole form');
     }
     else {
       const lifts = [
@@ -89,24 +50,24 @@ class Lifts extends Component {
           reps: this.state.dlReps,
           sets: this.state.dlSets}
         }
-      ]
+      ];
       this.setState({isSubmit: true});
       this.props.submitLiftsHandler(lifts);
     }
-    
   }
 
   onChangeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    })
+    });
   }
   
   render () {
     if (this.state.isSubmit) {
-      console.log('is submit')
-      return (<Redirect to="/goals"/>)
-    }
+      console.log('is submit');
+      return (<Redirect to="/goals"/>);
+    };
+    
     return (
       <div className="col">
         <form onSubmit={(event) => this.onSubmitHandler(event)}>
@@ -227,18 +188,13 @@ class Lifts extends Component {
     )
   }
 }
-const mapStateToProps = state => {
-  return {
-    fullName: state.auth.fullName
-  }
-}
+
 const mapDispatchToProps = dispatch => {
   return {
-    submitLiftsHandler: (lifts) => dispatch(actionCreators.submitLifts(lifts)),
-    setUpProfileHandler: (token, userProfile) => dispatch(actionCreators.setUpProfile(token, userProfile))
+    submitLiftsHandler: (lifts) => dispatch(actionCreators.submitLifts(lifts))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lifts);
+export default connect(null, mapDispatchToProps)(Lifts);
 
 

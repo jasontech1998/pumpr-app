@@ -19,7 +19,7 @@ class scheduleCalendar extends Component {
         monFreeTime2: this.props.freeTime.freeTime2,
         monFreeTime3: this.props.freeTime.freeTime3,
         dataInputted: true
-      }}, this.props.clearTime)
+      }}, this.props.clearTime);
     }
     // Tuesday
     else if (this.props.day === 'Tuesday' && this.props.freeTime != null) {
@@ -29,7 +29,7 @@ class scheduleCalendar extends Component {
         tuesFreeTime2: this.props.freeTime.freeTime2,
         tuesFreeTime3: this.props.freeTime.freeTime3,
         dataInputted: true
-      }}, this.props.clearTime)
+      }}, this.props.clearTime);
     }
     // Wednesday
     else if (this.props.day === 'Wednesday' && this.props.freeTime != null) {
@@ -39,7 +39,7 @@ class scheduleCalendar extends Component {
         wedFreeTime2: this.props.freeTime.freeTime2,
         wedFreeTime3: this.props.freeTime.freeTime3,
         dataInputted: true
-      }}, this.props.clearTime)
+      }}, this.props.clearTime);
     }
     // Thursday
     else if (this.props.day === 'Thursday' && this.props.freeTime != null) {
@@ -49,7 +49,7 @@ class scheduleCalendar extends Component {
         thurFreeTime2: this.props.freeTime.freeTime2,
         thurFreeTime3: this.props.freeTime.freeTime3,
         dataInputted: true
-      }}, this.props.clearTime)
+      }}, this.props.clearTime);
     }
     // Friday
     else if (this.props.day === 'Friday' && this.props.freeTime != null) {
@@ -59,7 +59,7 @@ class scheduleCalendar extends Component {
         friFreeTime2: this.props.freeTime.freeTime2,
         friFreeTime3: this.props.freeTime.freeTime3,
         dataInputted: true
-      }}, this.props.clearTime)
+      }}, this.props.clearTime);
     }
     // Saturday
     else if (this.props.day === 'Saturday' && this.props.freeTime != null) {
@@ -69,7 +69,7 @@ class scheduleCalendar extends Component {
         satFreeTime2: this.props.freeTime.freeTime2,
         satFreeTime3: this.props.freeTime.freeTime3,
         dataInputted: true
-      }}, this.props.clearTime)
+      }}, this.props.clearTime);
     }
     // Sunday
     else if (this.props.day === 'Sunday' && this.props.freeTime != null) {
@@ -79,7 +79,7 @@ class scheduleCalendar extends Component {
         sunFreeTime2: this.props.freeTime.freeTime2,
         sunFreeTime3: this.props.freeTime.freeTime3,
         dataInputted: true
-      }}, this.props.clearTime)
+      }}, this.props.clearTime);
     }
   }
   // Submit Schedule to Redux
@@ -92,19 +92,19 @@ class scheduleCalendar extends Component {
       friday: [this.state.friFreeTime, this.state.friFreeTime2, this.state.friFreeTime3, 0],
       saturday: [this.state.satFreeTime, this.state.satFreeTime2, this.state.satFreeTime3, 0],
       sunday: [this.state.sunFreeTime, this.state.sunFreeTime2, this.state.sunFreeTime3, 0],
-    }
-    const copyProfile = Object.assign({}, this.props.profile)
-    const updateProfile = Object.assign(copyProfile, gymSchedule)
+    };
+    const copyProfile = Object.assign({}, this.props.profile);
+    const updateProfile = Object.assign(copyProfile, gymSchedule);
     const userSetUp = {
       lifts: this.props.lifts,
       goals: this.props.goals,
       profile: updateProfile,
       fullName: this.props.fullName
-    }
+    };
     const userProfile = {
       userSetup: userSetUp,
       userId: this.props.userId
-    }
+    };
     const key = this.props.userKey;
     const token = this.props.token;
     // User Profile Set Up Complete, send to database
@@ -112,14 +112,14 @@ class scheduleCalendar extends Component {
     // Clear Set Up Data
     this.props.clearSetUpHandler();
     // Wait 1 second before pushing to dashboard
-    setTimeout(() => this.props.history.push('/dashboard'), 1000)
+    setTimeout(() => this.props.history.push('/dashboard'), 1000);
   }
 
   render () {
-    let showNext = null
+    let showNext = null;
     if (this.state.dataInputted) {
-      showNext = <Button click={this.submitSchedule}>Next</Button>
-    }
+      showNext = <Button click={this.submitSchedule}>Next</Button>;
+    };
     return (
       <div className="my-3">
         <table className="table">
@@ -203,7 +203,7 @@ const mapStateToProps = state => {
     goals: state.setup.goals,
     profile: state.setup.profile,
     fullName: state.auth.fullName,
-    userKey: state.setup.userKey
+    userKey: state.auth.profileKey
   }
 }
 const mapDispatchToProps = dispatch => {

@@ -10,18 +10,18 @@ import * as actionCreators from '../../store/actions/actionPumpr';
 class Settings extends Component {
   state = {
     showSettings: 0
-  }
+  };
 
   changeInfoDisplay = (type) => {
     if (type === 'lifts') {
-      this.setState({showSettings: 1})
+      this.setState({showSettings: 1});
     }
     else if (type === 'basic') {
-      this.setState({showSettings: 0})
+      this.setState({showSettings: 0});
     }
     else if (type === 'exp') {
-      this.setState({showSettings: 2})
-    }
+      this.setState({showSettings: 2});
+    };
   }
 
   render () {
@@ -30,16 +30,16 @@ class Settings extends Component {
     let expGoals = null;
     if (this.props.ownData && this.state.showSettings === 0) {
       const {userSetup} = this.props.ownData;
-      basicInfo = <BasicInfo userSetup={userSetup}/>
+      basicInfo = <BasicInfo userSetup={userSetup}/>;
     }
     else if (this.props.ownData && this.state.showSettings === 1) {
       const {lifts} = this.props.ownData.userSetup;
-      liftSetting = <SettingLifts lifts={lifts}/>
+      liftSetting = <SettingLifts lifts={lifts}/>;
     }
     else if (this.props.ownData && this.state.showSettings === 2) {
       const {goals} = this.props.ownData.userSetup;
-      expGoals = <Goals history={this.props.history} goals={goals}/>
-    }
+      expGoals = <Goals history={this.props.history} goals={goals}/>;
+    };
 
     return (
       <div className="col-12">

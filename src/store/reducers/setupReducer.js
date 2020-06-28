@@ -5,17 +5,11 @@ const initialState = {
   goals: null,
   profile: [],
   modalData: null,
-  userKey: null,
   submitting: false
 }
 
 const setupReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_PROFILE_SUCCESS:
-      return {
-        ...state,
-        userKey: action.userKey
-      }
     case actionTypes.SUBMIT_LIFTS:
       console.log(action.lifts)
       return {

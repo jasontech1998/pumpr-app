@@ -17,36 +17,38 @@ class OfferModal extends Component {
   }
 
   hideModalHandler = () => {
-    this.props.closeModalHandler()
+    this.props.closeModalHandler();
   }
   selectedHandler = (gym) => {
     if (this.state.selectedLocation !== gym) {
-      this.setState({selectedLocation: gym})
+      this.setState({selectedLocation: gym});
     }
     else if (this.state.selectedLocation === gym) {
-      this.setState({selectedLocation: null})
+      this.setState({selectedLocation: null});
     }
   }
 
   onChangeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    })
+    });
   }
+
   optionsHandler = (option) => {
     if (!this.state.selectedFeedback.includes(option)) {
       const copyArray = this.state.selectedFeedback.slice();
-      copyArray.push(option)
-      this.setState({selectedFeedback: copyArray}, () => console.log(this.state.selectedFeedback))
+      copyArray.push(option);
+      this.setState({selectedFeedback: copyArray}, () => console.log(this.state.selectedFeedback));
     }
     else {
       const copyArr = this.state.selectedFeedback.slice();
       const index = copyArr.indexOf(option);
-      copyArr.splice(index, 1)
-      this.setState({selectedFeedback: copyArr}, () => console.log(this.state.selectedFeedback))
+      copyArr.splice(index, 1);
+      this.setState({selectedFeedback: copyArr}, () => console.log(this.state.selectedFeedback));
     }
   }
 
+  // User is sending feedback
   submitFeedbackHandler = () => {
     if (this.state.feedbackMsg !== '') {
       // store date sent
@@ -70,21 +72,21 @@ class OfferModal extends Component {
         senderName: senderName,
         senderUserId: localStorage.getItem('userId'),
         date: dateSent
-      }
+      };
       const feedbackObj = {
         userId: userId,
         review: review
-      }
+      };
       console.log(feedbackObj)
       const token = localStorage.getItem('token');
-      this.props.onPostFeedback(token, feedbackObj)
+      this.props.onPostFeedback(token, feedbackObj);
     }
     else {
       alert('Please fill out the whole form')
     }
   }
 
-
+  // User is sending work out offer
   submitOfferHandler = () => {
     if (this.state.selectedLocation === null || this.state.monthInput === '' || this.state.dayInput === '' || this.state.timeInput === '') {
       alert('Please fill out the whole form')
@@ -120,7 +122,9 @@ class OfferModal extends Component {
         case 6: 
           date = 'Saturday';
           break;
-      }
+        default:
+          break;
+      };
       const offerMsg = {
         fullName: fullName,
         selectedLocation: this.state.selectedLocation,
@@ -145,7 +149,7 @@ class OfferModal extends Component {
         dayInput: '',
         timeInput: '',
         message: ''
-      })
+      });
       this.props.onPostOfferMsg(token, groupMessage);
     }
   }

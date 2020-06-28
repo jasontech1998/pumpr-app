@@ -68,48 +68,47 @@ class RecentPosts extends Component {
     post['likes'] = updateLikes;
     // if no one has liked the post, make new array
     if (post['userLikes'] === undefined) {
-      post['userLikes'] = new Array(userId)
+      post['userLikes'] = new Array(userId);
     }
     // if there is userLikes and it includes the users ID, remove like
     else if (post.userLikes.includes(userId)) {
-      let updateLikes = likes - 1
-      post['likes'] = updateLikes
-      const userIndex = post['userLikes'].indexOf(userId)
-      post['userLikes'].splice(userIndex, 1)
-      
+      let updateLikes = likes - 1;
+      post['likes'] = updateLikes;
+      const userIndex = post['userLikes'].indexOf(userId);
+      post['userLikes'].splice(userIndex, 1);
     }
     // if there are userLikes and it does not include userId, push into array
     else if (post['userLikes']) {
-      post['userLikes'].push(userId)
+      post['userLikes'].push(userId);
     }
-    this.props.updateLikesHandler(post, key, token)
-    
-  }
-  onDeleteHandler = (key) => {
-    let token = localStorage.getItem('token')
-    this.props.onDeletePostHandler(token, key)
+    this.props.updateLikesHandler(post, key, token);
   }
 
+  // Delete Post Handler
+  onDeleteHandler = (key) => {
+    let token = localStorage.getItem('token');
+    this.props.onDeletePostHandler(token, key);
+  }
+  // Navigate to other user's profile
   showProfileHandler = (userId) => {
     this.props.history.push('profile-about', userId);
   }
 
-
   render () {
     let showPosts = null;
     if (this.props.posts) {
-      const posts = this.props.posts
+      const posts = this.props.posts;
       showPosts = (
         <Aux>
           {posts.map((post) => {
-            let data = post.value
+            let data = post.value;
             let profilePicture = <img 
                                     className='ml-3 mb-3'
                                     onClick={() => this.showProfileHandler(data.userId)}
                                     src={require('../../../Components/UI/Icons/social.svg')} 
                                     alt="icon" 
                                     height="100" width="100"
-                                    style={{cursor: "pointer"}}/>
+                                    style={{cursor: "pointer"}}/>;
             if (data.userProfilePic !== '') {
               profilePicture = <img
                               className='ml-3 mb-3 rounded-circle'
@@ -119,30 +118,29 @@ class RecentPosts extends Component {
                               height="100"
                               width="100"
                               style={{cursor: "pointer"}}
-                              />
-            }
+                              />;
+            };
             // Show post picture if there is picture URL 
-            let postPicture = null
+            let postPicture = null;
             if (data.postPictureURL !== undefined) {
               postPicture = <img
                               className="img-fluid"
                               src={data.postPictureURL}
                               alt="postPicture" 
-                              height="200" width="200"/>
-            }
+                              height="200" width="200"/>;
+            };
             // show delete icon if matches userID
-            let deleteIcon = null
+            let deleteIcon = null;
             if (data.userId === this.props.ownData.userId) {
               deleteIcon = <i 
-                onClick={() => this.onDeleteHandler(post.key)}
-                className="mt-3 ml-auto fas fa-trash-alt"></i>
-            }
-            let redHeart = ''
-            let userId = localStorage.getItem('userId')
+                            onClick={() => this.onDeleteHandler(post.key)}
+                            className="mt-3 ml-auto fas fa-trash-alt"></i>;
+            };
+            let redHeart = '';
+            let userId = localStorage.getItem('userId');
             if (data.userLikes && data.userLikes.includes(userId)) {
-              redHeart = 'liked'
-            }
-
+              redHeart = 'liked';
+            };
             return (
               <div key={post.key} style={{borderBottom: "1px solid #EBE8EE"}}>
                 <div className="row">

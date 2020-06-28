@@ -30,46 +30,47 @@ class Dashboard extends Component {
       this.props.removeDataPropHandler();
     }
   }
-
+  // Add Input for Schedule Modal
   addInputHandler = () => {
     this.setState(prevState => {
       return {addedInputs: prevState.addedInputs + 1}
-    })
+    });
   }
+  // Remove Input for Schedule Modal
   removeInputHandler = () => {
     // If secondInput removed, clear inputs
     if (this.state.addedInputs === 1) {
       this.setState(prevState => {
         return {fromInput2: '', toInput2: ''}
-      })
+      });
     }
     // If thirdInput removed, clear inputs
     else if (this.state.addedInputs === 2) {
       this.setState(prevState => {
         return {fromInput3: '', toInput3: ''}
-      })
+      });
     }
     this.setState(prevState => {
       return {addedInputs: prevState.addedInputs - 1}
-    })
+    });
   }
   
-
+  // Show Modal and save the day that was selected
   showModalHandler = (day) => {
     this.setState({day: day});
     this.props.openModalHandler();
   }
 
+  // Hide Modal and change addedInputs back to 0
   hideModalHandler = () => {
     this.setState({freeTime: null, addedInputs: 0})
     this.props.closeModalHandler();
   }
   
-
   onChangeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    })
+    });
   }
 
   onClickSubmit = () => {
@@ -77,7 +78,7 @@ class Dashboard extends Component {
       case 2:
         console.log('2 inputs added')
         if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2 && this.state.fromInput3 && this.state.toInput3) === '') {
-          alert('Please fill out all available inputs')
+          alert('Please fill out all available inputs');
           break;
         }
         else {
@@ -94,14 +95,14 @@ class Dashboard extends Component {
             fromInput2: '',
             toInput2: '',
             fromInput3: '',
-            toInput3: '',})
+            toInput3: '',});
           this.props.closeModalHandler();
           break;
         }
       case 1:
         console.log('1 input added')
         if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2) === '') {
-          alert('Please fill out all available inputs')
+          alert('Please fill out all available inputs');
           break;
         }
         else {
@@ -129,7 +130,7 @@ class Dashboard extends Component {
             ...this.state,
             freeTime,
             fromInput: '',
-            toInput: ''})
+            toInput: ''});
           break;
         }
         else {
@@ -140,7 +141,7 @@ class Dashboard extends Component {
             ...this.state,
             freeTime,
             fromInput: '',
-            toInput: ''})
+            toInput: ''});
           break;
         }
       default:

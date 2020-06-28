@@ -10,47 +10,48 @@ class PicAndBio extends Component {
   state = {
     bioInput: '',
     url: ''
+  };
+
+  onChooseHandler = (event) => {
+    if (event.target.files[0]) {
+      const image = event.target.files[0];
+      this.setState({image: image}, this.showImage)
+    };
   }
 
-onChooseHandler = (event) => {
-  if (event.target.files[0]) {
-    const image = event.target.files[0];
-    this.setState({image: image}, this.showImage)
+  showImage = () => {
+    // object destructuring
+    const { image } = this.state;
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on("state_changed",
+      () => {
+        storage.ref("images").child(image.name).getDownloadURL()
+          .then(url => 
+            this.setState({url}));
+      }
+    );
   }
-}
-showImage = () => {
-  // object destructuring
-  const { image } = this.state;
-  const uploadTask = storage.ref(`images/${image.name}`).put(image);
-  uploadTask.on("state_changed",
-    () => {
-      storage.ref("images").child(image.name).getDownloadURL()
-        .then(url => 
-          this.setState({url}))
-    }
-  )
-}
 
-onSubmitHandler = (event) => {
-  event.preventDefault();
-  const urlBio = {
-      profileURL: this.state.url,
-      profileBio: this.state.bioInput}
-  this.props.submitBioHandler(urlBio)
-  this.props.history.push('/profile-location')
-}
+  onSubmitHandler = (event) => {
+    event.preventDefault();
+    const urlBio = {
+        profileURL: this.state.url,
+        profileBio: this.state.bioInput
+      };
+    this.props.submitBioHandler(urlBio);
+    this.props.history.push('/profile-location');
+  }
 
-changeBioHandler = (event) => {
-  this.setState({
-    bioInput: event.target.value
-  })
-}
+  changeBioHandler = (event) => {
+    this.setState({bioInput: event.target.value});
+  }
+
   render () {
     let profilePic = <img 
                         className={classes.Icon}
                         src={require('../../../Components/UI/Icons/social.svg')} 
                         alt="icon" 
-                        height="125" width="125"/>
+                        height="125" width="125"/>;
     if (this.state.url !== ''){
       profilePic = (
                     <img
@@ -59,8 +60,9 @@ changeBioHandler = (event) => {
                       height="200"
                       width="200"
                       className="rounded-circle"></img>
-      )
+      );
     }
+    
     return (
       <div className="col d-flex justify-content-center">
         <div className={classes.PicAndBio}>

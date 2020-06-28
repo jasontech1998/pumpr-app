@@ -12,29 +12,29 @@ class About extends Component {
     // Remove posts if in state
     if (this.props.posts) {
       this.props.removePostsHandler();
-    }
+    };
     // if user just created account, fetch own profile data
-    if (this.props.data == "" && this.props.ownData === undefined) {
-      console.log('user just created account')
+    if (this.props.data === "" && this.props.ownData === undefined) {
+      console.log('user just created account');
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
       this.props.onFetchOwnProfile(token, userId);
-    }
+    };
     // if location.state, clicked from find a partner to display other user's profile
     if (this.props.history.location.state) {
-      console.log('View other user profile and update data prop')
-      let userId = this.props.history.location.state
-      let token = localStorage.getItem('token')
+      console.log('View other user profile and update data prop');
+      let userId = this.props.history.location.state;
+      let token = localStorage.getItem('token');
       this.props.onFetchProfile(token, userId);
       this.props.onFetchReviews(token, userId);
-    }
+    };
     // fetch current user's reviews
     if (this.props.history.location.state === undefined) {
       // remove prop.data from state
       if (this.props.data) {
-        console.log('remove data')
+        console.log('remove data');
         this.props.removeDataPropHandler();
-      }
+      };
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
       this.props.onFetchReviews(token, userId);
@@ -77,14 +77,14 @@ class About extends Component {
     if (this.props.history.location.state === undefined) {
       if (this.props.ownData) {
         // Object destructuring
-        const {lifts} = this.props.ownData.userSetup
-        const {goals} = this.props.ownData.userSetup
-        const {profile} = this.props.ownData.userSetup
-        const {bench} = lifts[0]
-        const {squat} = lifts[1]
-        const {deadlift} = lifts[2]
+        const {lifts} = this.props.ownData.userSetup;
+        const {goals} = this.props.ownData.userSetup;
+        const {profile} = this.props.ownData.userSetup;
+        const {bench} = lifts[0];
+        const {squat} = lifts[1];
+        const {deadlift} = lifts[2];
         if (goals.goals[0] === "") {
-          showGoals = <div>No Goals Selected</div>
+          showGoals = <div>No Goals Selected</div>;
         }
         // Dynamically render goals
         else {
@@ -124,14 +124,14 @@ class About extends Component {
       // Check if data has been fetched from firebase
       if (this.props.data) {
         // Object destructuring
-        const {lifts} = this.props.data.userSetup
-        const {goals} = this.props.data.userSetup
-        const {profile} = this.props.data.userSetup
-        const {bench} = lifts[0]
-        const {squat} = lifts[1]
-        const {deadlift} = lifts[2] 
+        const {lifts} = this.props.data.userSetup;
+        const {goals} = this.props.data.userSetup;
+        const {profile} = this.props.data.userSetup;
+        const {bench} = lifts[0];
+        const {squat} = lifts[1];
+        const {deadlift} = lifts[2];
         if (goals.goals[0] === "") {
-          showGoals = <div>No Goals Selected</div>
+          showGoals = <div>No Goals Selected</div>;
         }
         else {
           // Dynamically render goals
@@ -159,11 +159,11 @@ class About extends Component {
         deadReps = `${deadlift.reps} reps`;
         deadSets = `${deadlift.sets} sets`;
  
-        bio = profile.profileBio
-        location = profile.location
+        bio = profile.profileBio;
+        location = profile.location;
         if (profile.location === "") {
           location = 'Missing Location';
-        }
+        };
       }
     }
     // if state is null, user clicked from timeline to about or refreshed page
@@ -172,14 +172,14 @@ class About extends Component {
       if (this.props.data === '') {
         if (this.props.ownData) {
           // Object destructuring
-          const {lifts} = this.props.ownData.userSetup
-          const {goals} = this.props.ownData.userSetup
-          const {profile} = this.props.ownData.userSetup
-          const {bench} = lifts[0]
-          const {squat} = lifts[1]
-          const {deadlift} = lifts[2]
+          const {lifts} = this.props.ownData.userSetup;
+          const {goals} = this.props.ownData.userSetup;
+          const {profile} = this.props.ownData.userSetup;
+          const {bench} = lifts[0];
+          const {squat} = lifts[1];
+          const {deadlift} = lifts[2];
           if (goals.goals[0] === "") {
-            showGoals = <div>No Goals Selected</div>
+            showGoals = <div>No Goals Selected</div>;
           }
           else {
             // Dynamically render goals
@@ -207,25 +207,25 @@ class About extends Component {
           deadReps = `${deadlift.reps} reps`;
           deadSets = `${deadlift.sets} sets`;
       
-          bio = profile.profileBio
-          location = profile.location
+          bio = profile.profileBio;
+          location = profile.location;
           if (profile.location === "") {
             location = 'Missing Location';
-          }
+          };
         }
       }
       // if data prop, display other user
       else if (this.props.data) {
         if (this.props.data) {
           // Object destructuring
-          const {lifts} = this.props.data.userSetup
-          const {goals} = this.props.data.userSetup
-          const {profile} = this.props.data.userSetup
-          const {bench} = lifts[0]
-          const {squat} = lifts[1]
-          const {deadlift} = lifts[2] 
+          const {lifts} = this.props.data.userSetup;
+          const {goals} = this.props.data.userSetup;
+          const {profile} = this.props.data.userSetup;
+          const {bench} = lifts[0];
+          const {squat} = lifts[1];
+          const {deadlift} = lifts[2];
           if (goals.goals[0] === "") {
-            showGoals = <div>No Goals Selected</div>
+            showGoals = <div>No Goals Selected</div>;
           }
           else {
             // Dynamically render goals
@@ -253,11 +253,11 @@ class About extends Component {
           deadReps = `${deadlift.reps} reps`;
           deadSets = `${deadlift.sets} sets`;
    
-          bio = profile.profileBio
-          location = profile.location
+          bio = profile.profileBio;
+          location = profile.location;
           if (profile.location === "") {
             location = 'Missing Location';
-          }
+          };
         }
       }
     }

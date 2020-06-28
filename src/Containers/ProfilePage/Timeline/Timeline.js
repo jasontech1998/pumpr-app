@@ -21,27 +21,29 @@ class Timeline extends Component {
     toInput3: '',
     freeTime: null
   }
+
   addInputHandler = () => {
     this.setState(prevState => {
       return {addedInputs: prevState.addedInputs + 1}
-    })
+    });
   }
+  
   removeInputHandler = () => {
     // If secondInput removed, clear inputs
     if (this.state.addedInputs === 1) {
       this.setState(prevState => {
         return {fromInput2: '', toInput2: ''}
-      })
+      });
     }
     // If thirdInput removed, clear inputs
     else if (this.state.addedInputs === 2) {
       this.setState(prevState => {
         return {fromInput3: '', toInput3: ''}
-      })
+      });
     }
     this.setState(prevState => {
       return {addedInputs: prevState.addedInputs - 1}
-    })
+    });
   }
   
 
@@ -51,7 +53,7 @@ class Timeline extends Component {
   }
 
   hideModalHandler = () => {
-    this.setState({freeTime: null, addedInputs: 0})
+    this.setState({freeTime: null, addedInputs: 0});
     this.props.closeModalHandler();
   }
   
@@ -59,15 +61,15 @@ class Timeline extends Component {
   onChangeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    })
+    });
   }
 
   onClickSubmit = () => {
     switch (this.state.addedInputs) {
       case 2:
-        console.log('2 inputs added')
+        console.log('2 inputs added');
         if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2 && this.state.fromInput3 && this.state.toInput3) === '') {
-          alert('Please fill out all available inputs')
+          alert('Please fill out all available inputs');
           break;
         }
         else {
@@ -75,7 +77,7 @@ class Timeline extends Component {
             freeTime: this.state.fromInput + ' - ' + this.state.toInput,
             freeTime2: this.state.fromInput2 + ' - ' + this.state.toInput2,
             freeTime3: this.state.fromInput3 + ' - ' + this.state.toInput3
-          }
+          };
           this.setState({
             ...this.state,
             freeTime,
@@ -84,7 +86,7 @@ class Timeline extends Component {
             fromInput2: '',
             toInput2: '',
             fromInput3: '',
-            toInput3: '',})
+            toInput3: '',});
           this.props.closeModalHandler();
           break;
         }
@@ -98,14 +100,14 @@ class Timeline extends Component {
           freeTime = {
             freeTime: this.state.fromInput + ' - ' + this.state.toInput,
             freeTime2: this.state.fromInput2 + ' - ' + this.state.toInput2
-          }
+          };
           this.setState({
             ...this.state,
             freeTime,
             fromInput: '',
             toInput: '',
             fromInput2: '',
-            toInput2: ''})
+            toInput2: ''});
           this.props.closeModalHandler();
           break;
         }
@@ -114,27 +116,27 @@ class Timeline extends Component {
         if ((this.state.fromInput && this.state.toInput) ==='') {
           freeTime = {
             freeTime: ''
-          }
+          };
           this.setState({
             ...this.state,
             freeTime,
             fromInput: '',
-            toInput: ''})
+            toInput: ''});
           break;
         }
         else {
           freeTime = {
             freeTime: this.state.fromInput + ' - ' + this.state.toInput
-          }
+          };
           this.setState({
             ...this.state,
             freeTime,
             fromInput: '',
-            toInput: ''})
+            toInput: ''});
           break;
         }
       default:
-        console.log('error')
+        console.log('error');
     }
   }
 

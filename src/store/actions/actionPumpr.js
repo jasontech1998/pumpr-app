@@ -105,8 +105,8 @@ export const updateProfile = (key, token, userProfile) => {
     dispatch(updateProfileStart());
     axios.put(`https://pumpr-182dc.firebaseio.com/userProfiles/${key}.json?auth=${token}`, userProfile)
       .then(response => {
-        console.log(response.data)
-        dispatch(updateProfileSuccess(response.data))
+        console.log(response.data);
+        dispatch(updateProfileSuccess(response.data));
       })
       .catch(error => {
         dispatch(updateProfileFail(error));
@@ -136,7 +136,7 @@ export const updateCalendarFail = (error) => {
 
 export const updateCalendar = (key, profile, token) => {
   return dispatch => {
-    dispatch(updateCalendarStart())
+    dispatch(updateCalendarStart());
     axios.put(`https://pumpr-182dc.firebaseio.com/userProfiles/${key}.json?auth=${token}`, profile)
       .then(response => {
         dispatch(updateCalendarSuccess(response.data));
@@ -190,18 +190,17 @@ export const postGroupFail = (error) => {
 // Action for sending offer
 export const postOfferMsg = (token, message) => {
   return dispatch => {
-    dispatch(postGroupStart())
+    dispatch(postGroupStart());
     axios.post('/messages.json?auth=' + token, message)
     .then(response => {
-      dispatch(postMessageSuccess())
-      console.log(response)
+      dispatch(postMessageSuccess());
     })
   }
 }
 // Action for sending first message from user's profile
 export const postGroupMsg = (token, groupMsgUsers, content, date, receiverName, senderName, receiverPic, senderPic, receiverGym, senderGym) => {
   return dispatch => {
-    dispatch(postGroupStart())
+    dispatch(postGroupStart());
     axios.post('/groupMsgs.json?auth=' + token, groupMsgUsers)
       .then(response => {
         const msgData = {
@@ -215,19 +214,19 @@ export const postGroupMsg = (token, groupMsgUsers, content, date, receiverName, 
           senderName: senderName,
           receiverPic: receiverPic,
           senderPic: senderPic
-        }
+        };
         const groupMessage = {
           groupId: response.data.name,
           msgData: msgData
-        }
-        dispatch(postGroupSuccess())
+        };
+        dispatch(postGroupSuccess());
         return axios.post('/messages.json?auth=' + token, groupMessage)
       })
       .then(response => {
-        dispatch(postMessageSuccess())
+        dispatch(postMessageSuccess());
       })
       .catch(error => {
-        dispatch(postGroupFail(error))
+        dispatch(postGroupFail(error));
       })
   }
 }
@@ -236,10 +235,10 @@ export const sendReply = (token, reply) => {
   return dispatch => {
     axios.post('/messages.json?auth=' + token, reply)
       .then(response => {
-        dispatch(postMessageSuccess())
+        dispatch(postMessageSuccess());
       })
       .catch(error => {
-        console.log(error)
+        console.log(error);
       })
   }
 }
@@ -265,7 +264,7 @@ export const updateLikesFail = (error) => {
 // Action for updating likes
 export const updateLikes = (post, key, token) => {
   return dispatch => {
-    dispatch(updateLikesStart())
+    dispatch(updateLikesStart());
     axios.put(`https://pumpr-182dc.firebaseio.com/userPosts/${key}.json?auth=${token}`, post)
       .then(response => {
         dispatch(updateLikesSuccess());
@@ -328,13 +327,13 @@ export const deletePost = (token, key) => {
 // Fetches All User Posts for Dashboard
 export const fetchPosts = (token) => {
   return dispatch => {
-    dispatch(postStart())
+    dispatch(postStart());
     axios.get('/userPosts.json?auth=' + token +'"')
       .then(response => {
-        dispatch(fetchPostsSuccess(response.data))
+        dispatch(fetchPostsSuccess(response.data));
       })
       .catch(error => {
-        dispatch(fetchPostsFail(error))
+        dispatch(fetchPostsFail(error));
       })
   }
 }
@@ -346,10 +345,10 @@ export const fetchOwnPosts = (token, userId) => {
     const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
     axios.get('/userPosts.json' + queryParams)
       .then(response => {
-        dispatch(fetchOwnPostsSuccess(response.data))
+        dispatch(fetchOwnPostsSuccess(response.data));
       })
       .catch(error => {
-        dispatch(fetchOwnPostsFail(error))
+        dispatch(fetchOwnPostsFail(error));
       })
   }
 }
@@ -416,11 +415,11 @@ export const submitFeedback = (token, feedback) => {
     dispatch(feedbackStart());
     axios.post('/reviews.json?auth=' + token, feedback)
       .then(response => {
-        console.log(response)
-        dispatch(feedbackSuccess())
+        console.log(response);
+        dispatch(feedbackSuccess());
       })
       .catch(error => {
-        dispatch(feedbackFail(error))
+        dispatch(feedbackFail(error));
       })
   }
 }
@@ -430,10 +429,10 @@ export const submitPost = (token, post) => {
     dispatch(postStart());
     axios.post('/userPosts.json?auth=' + token, post)
       .then(response => {
-        dispatch(postSuccess())
+        dispatch(postSuccess());
       })
       .catch(error => {
-        dispatch(postFail(error))
+        dispatch(postFail(error));
       })
   }
 }
@@ -486,10 +485,10 @@ export const fetchOtherProfile = (token, userId) => {
     const queryParams = '?auth=' + token + '"';
     axios.get('/userProfiles.json' + queryParams)
       .then(response => {
-        dispatch(fetchOtherProfileSuccess(response.data, userId))
+        dispatch(fetchOtherProfileSuccess(response.data, userId));
       })
       .catch(error => {
-        dispatch(fetchOtherProfileFail(error))
+        dispatch(fetchOtherProfileFail(error));
       })
   }
 }
@@ -546,11 +545,11 @@ export const fetchProfile = (token, userId) => {
             ...response.data[key],
             id: key
           })
-        }
-        dispatch(fetchProfileSuccess(fetchedData[0]))
+        };
+        dispatch(fetchProfileSuccess(fetchedData[0]));
       })
       .catch(error => {
-        dispatch(fetchProfileFail(error))
+        dispatch(fetchProfileFail(error));
       })
   }
 }
@@ -568,28 +567,28 @@ export const fetchReviews = (token, userId) => {
             ...response.data[key].review,
             id: key
           })
-        }
-        dispatch(fetchReviewSuccess(fetchedReviews))
+        };
+        dispatch(fetchReviewSuccess(fetchedReviews));
       })
       .catch(error => {
-        dispatch(fetchReviewFail(error))
+        dispatch(fetchReviewFail(error));
       })
   }
 }
 // Fetches Messages
 export const fetchMessages = (token, userId) => {
   return dispatch => {
-    dispatch(fetchMessagesStart())
+    dispatch(fetchMessagesStart());
     const queryParams = '?auth=' + token + '"';
     // get all groupMsgs
     axios.get('/groupMsgs.json' + queryParams)
       .then(response => {
         // save groupMsg data in state
         const groupMsgArray = Object.values(response.data);
-        dispatch(fetchGroupMsgSuccess(groupMsgArray))
+        dispatch(fetchGroupMsgSuccess(groupMsgArray));
         // Loop through response and find all groupMsgs the user is in
         // initialize empty array to store promises in
-        let promiseArray = []
+        let promiseArray = [];
         for (let key in response.data) {
           // if user is included, use the groupId to find the associated messages
           if (response.data[key].userIds.includes(userId)) {
@@ -605,17 +604,17 @@ export const fetchMessages = (token, userId) => {
         Promise.all(promiseArray)
           .then(response => {
             // initialize empty array 
-            let dataArr = [] 
+            let dataArr = [];
             // turn response object into array
             for (let key of response) {
-              let sortedArr = []
-              let responseObj = key.data
+              let sortedArr = [];
+              let responseObj = key.data;
               for (let [key, value] of Object.entries(responseObj)) {
                 sortedArr.push({
                   key: key,
                   value: value
                 });
-              }
+              };
               // sort the array by key
               sortedArr.sort(function(a,b) {
                 return (a.key < b.key ? -1 : 1)
@@ -630,11 +629,10 @@ export const fetchMessages = (token, userId) => {
             // the reducer will organize the messages by groupId
             dispatch(fetchMessagesSuccess(dataArr));
           })
-
       })
       // catch error
       .catch(error => {
-        dispatch(fetchMessagesFail(error))
+        dispatch(fetchMessagesFail(error));
       })
   }
 }
@@ -693,10 +691,10 @@ export const fetchNavProfile = (token, userId) => {
             id: key
           })
         }
-        dispatch(fetchNavProfileSuccess(fetchedData[0]))
+        dispatch(fetchNavProfileSuccess(fetchedData[0]));
       })
       .catch(error => {
-        dispatch(fetchNavProfileFail(error))
+        dispatch(fetchNavProfileFail(error));
       })
   }
 }

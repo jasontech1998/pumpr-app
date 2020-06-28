@@ -5,8 +5,7 @@ import Option from './Option';
 class ReviewList extends Component {
   state = {
     options: ['Knowledgable', 'Helpful', 'Motivational']
-  }
-
+  };
 
   render () {
     const reviewList = (
@@ -17,7 +16,8 @@ class ReviewList extends Component {
           )
         })}
       </Aux>
-    )
+    );
+    
     return (
       <div className="row mt-3">
         {reviewList}

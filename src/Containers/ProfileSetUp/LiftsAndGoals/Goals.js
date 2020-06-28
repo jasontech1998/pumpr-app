@@ -13,67 +13,65 @@ class Goals extends Component {
     isSubmit: false,
     selectedGoals: [],
     selectedExp: ''
-  }
+  };
 
   componentDidMount = () => {
     if (this.props.goals && this.state.selectedGoals.length === 0) {
       if (this.props.goals.goals[0] === "") {
         console.log(this.props.goals.goals);
-        this.setState({
-          selectedExp: this.props.goals.experience
-        })
+        this.setState({selectedExp: this.props.goals.experience});
       }
       else {
         this.setState({
           selectedGoals: this.props.goals.goals,
           selectedExp: this.props.goals.experience})
-      }
-    }
+      };
+    };
   }
 
   onNextHandler = () => {
     // if everything is filled out, continue
     if (this.state.selectedExp !== '' && this.state.selectedGoals !== []) {
-      this.setState({isSubmit: true})
+      this.setState({isSubmit: true});
       const expGoals = {
         experience: this.state.selectedExp,
         goals:this.state.selectedGoals
-      }
-      this.props.submitGoalsHandler(expGoals)
+      };
+      this.props.submitGoalsHandler(expGoals);
     }
     else {
-      alert('Please fill out the form')
+      alert('Please fill out the form');
     }
   }
 
   selectedExpHandler = (level) => {
     // if state is equal, remove and update state
     if (this.state.selectedExp === level) {
-      this.setState({selectedExp: ''}, () => console.log(this.state.selectedExp))
+      this.setState({selectedExp: ''}, () => console.log(this.state.selectedExp));
     }
     // if state is not equal, update state to new level
     else {
-      this.setState({selectedExp: level}, () => console.log(this.state.selectedExp))
+      this.setState({selectedExp: level}, () => console.log(this.state.selectedExp));
     }
   }
 
   selectedGoalsHandler = (goal) => {
     // if already includes, remove and update state
     if (this.state.selectedGoals.includes(goal)) {
-      const indexOf = this.state.selectedGoals.indexOf(goal)
-      const copySelectedGoals = this.state.selectedGoals.slice()
-      copySelectedGoals.splice(indexOf, 1)
+      const indexOf = this.state.selectedGoals.indexOf(goal);
+      const copySelectedGoals = this.state.selectedGoals.slice();
+      copySelectedGoals.splice(indexOf, 1);
       this.setState(() => {
         return {
           selectedGoals: copySelectedGoals}},
-          () => console.log(this.state.selectedGoals))
+          () => console.log(this.state.selectedGoals));
     }
     // if not includes, concat into array and update state
     else {
       this.setState((prevState) => {
         return {
           selectedGoals: prevState.selectedGoals.concat(goal)}},
-        () => console.log(this.state.selectedGoals))
+        () => console.log(this.state.selectedGoals));
     }
   }
 
@@ -85,13 +83,13 @@ class Goals extends Component {
       goals = {
         experience: this.state.selectedExp,
         goals: [""]
-      }
+      };
     }
     else {
       goals = {
         experience: this.state.selectedExp,
         goals: this.state.selectedGoals
-      }
+      };
     }
     //  initialize data to be sent to database
     const userSetup = {
@@ -99,12 +97,12 @@ class Goals extends Component {
       profile: this.props.ownData.userSetup.profile,
       lifts: this.props.ownData.userSetup.lifts,
       goals: goals
-    }
+    };
     const userProfile = {
       userSetup: userSetup,
       userId: localStorage.getItem('userId'),
       id: userKey
-    }
+    };
     console.log(userProfile);
     // send data to database to be patched with updated userProfile data
     this.props.onUpdateProfileHandler(userKey, token, userProfile);
@@ -112,20 +110,20 @@ class Goals extends Component {
 
   render () {
     if (this.state.isSubmit) {
-      console.log('is submit')
+      console.log('is submit');
       return (<Redirect to="/profile-bio-setup"/>)
-    }
+    };
     let showButton = null;
     // if rendered on /goals
     if (this.props.history.location.pathname === '/goals') {
-      showButton = <Button click={this.onNextHandler}>Continue</Button>
+      showButton = <Button click={this.onNextHandler}>Continue</Button>;
     }
     // if rendered on /profile-settings
     else if (this.props.history.location.pathname === '/profile-settings') {
       showButton = <button
                       onClick={this.onSaveHandler} 
-                      className="offerBtn">Save</button>
-    }
+                      className="offerBtn">Save</button>;
+    };
     return (
       <div className="col d-flex flex-column justify-content-center">
         <div className="experience mb-3">

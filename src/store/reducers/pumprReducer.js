@@ -208,7 +208,6 @@ const pumprReducer = (state = initialState, action) => {
       // add all groupIds into array
       action.data.map((key) => {
         groupIdArray.push(key.data.groupId)
-        // groupIdArray.push(key.groupId)
       })
       // Use Set to remove any duplicate groupIds
       const uniqueId = new Set(groupIdArray)
@@ -218,7 +217,6 @@ const pumprReducer = (state = initialState, action) => {
       let organizedIds = []
       uniqueIdArray.map(id => {
         organizedIds.push(
-          // action.data.filter(key => key.groupId === id))
           action.data.filter(key => key.data.groupId === id))
       })
       organizedIds.reverse()

@@ -20,17 +20,17 @@ class Messages extends Component {
     this.props.onFetchMessages(token, userId);
   }
   componentDidUpdate = (prevProps) => {
-    console.log(prevProps.msgSuccess)
-    console.log(this.props.msgSuccess)
+    // console.log(prevProps.msgSuccess)
+    // console.log(this.props.msgSuccess)
     if (this.props.msgSuccess !== prevProps.msgSuccess) {
-      let token = localStorage.getItem('token')
-      let userId = localStorage.getItem('userId')
-      this.props.onFetchMessages(token, userId)
-    }
+      let token = localStorage.getItem('token');
+      let userId = localStorage.getItem('userId');
+      this.props.onFetchMessages(token, userId);
+    };
   }
 
   hideModalHandler = () => {
-    this.props.closeModalHandler()
+    this.props.closeModalHandler();
   }
 
   render () {

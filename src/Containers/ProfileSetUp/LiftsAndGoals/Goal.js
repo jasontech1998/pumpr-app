@@ -4,21 +4,20 @@ import './Goal.css';
 class Goal extends Component {
   state = {
     isSelected: false
-  }
+  };
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.selectedGoals !== this.props.selectedGoals) {
       if (this.props.selectedGoals.includes(this.props.goal)) {
-        this.setState({
-          isSelected: true
-        })
-      }
-    }
+        this.setState({isSelected: true});
+      };
+    };
   }
 
   changeColor = () => {
-    this.setState({isSelected: !this.state.isSelected})
+    this.setState({isSelected: !this.state.isSelected});
   }
+  
   render () {
     const {isSelected} = this.state;
     return (

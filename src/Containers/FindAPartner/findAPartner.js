@@ -16,26 +16,28 @@ class FindAPartner extends Component {
     this.setState({
       token: localStorage.getItem('token'),
       userId: localStorage.getItem('userId')},
-      () => this.props.onFetchOtherProfile(this.state.token, this.state.userId))
+      () => this.props.onFetchOtherProfile(this.state.token, this.state.userId));
   }
   componentDidUpdate() {
     if (this.props.otherUsers && this.state.displayUsers === null) {
       for (let user in this.props.otherUsers) {
         this.props.otherUsers[user].index = user
-      }
-      this.setState({displayUsers: this.props.otherUsers})
-    }
+      };
+      this.setState({displayUsers: this.props.otherUsers});
+    };
   }
+
   onNextHandler = () => {
     this.setState((prevState) => {
       return {nextCount: prevState.nextCount + 1}
-    })
+    });
   }
   onPrevHandler = () => {
     this.setState((prevState) => {
       return {nextCount: prevState.nextCount -1}
-    })
+    });
   }
+
   // Navigate to clicked user's profile
   showProfileHandler = (userId, showCard) => {
     if (showCard) {
@@ -51,50 +53,50 @@ class FindAPartner extends Component {
     let prevChev = null;
     if (this.state.nextCount >= 1) {
       prevChev =  <i className="fas fa-2x fa-chevron-circle-left mt-3"
-        onClick={this.onPrevHandler}></i>
-    }
+        onClick={this.onPrevHandler}></i>;
+    };
     let nextChev = <i className="fas fa-2x fa-chevron-circle-right mt-3"
-                      onClick={this.onNextHandler}></i>
+                      onClick={this.onNextHandler}></i>;
     if (this.props.otherUsers) {
       // Hide Scroll Next Chevron
-      if (this.state.nextCount + 3 === this.props.otherUsers.length)
-      nextChev = null
-    }
+      if (this.state.nextCount + 3 === this.props.otherUsers.length) {
+        nextChev = null;
+      };
+    };
     
     
     // Dynamically generate other profiles
-    let showUsers = null
-
+    let showUsers = null;
     if (this.state.displayUsers) {
-      const displayedUsers = this.state.displayUsers
+      const displayedUsers = this.state.displayUsers;
       showUsers = (
         <Aux>
           {displayedUsers.map((user,index) => {
-            let userData = user.value.userSetup 
-            const {bench} = userData.lifts[0]
-            const {squat} = userData.lifts[1]
-            const {deadlift} = userData.lifts[2] 
-            let name = `${userData.fullName.firstName} ${userData.fullName.lastName}`
+            let userData = user.value.userSetup ;
+            const {bench} = userData.lifts[0];
+            const {squat} = userData.lifts[1];
+            const {deadlift} = userData.lifts[2];
+            let name = `${userData.fullName.firstName} ${userData.fullName.lastName}`;
             let picture = <img
                             alt="profile-pic" 
                             src={require('../../Components/UI/Icons/social.svg')} 
                             height="130"
                             width="130"
-                            className={classes.Picture}/>
+                            className={classes.Picture}/>;
             if (userData.profile.profileURL !== '') {
               picture = <img
                           alt="profile-pic" 
                           src={userData.profile.profileURL} 
                           height="130"
                           width="130"
-                          className={classes.Picture}/>
-            }
+                          className={classes.Picture}/>;
+            };
             // Dynamically render className to show 3 cards at a time
-            let showCard = ''
-            let cursor = 'default'
+            let showCard = '';
+            let cursor = 'default';
             if (index >= this.state.nextCount && index <= this.state.nextCount + 2) {
-              showCard = 'yesShow'
-              cursor = 'pointer'
+              showCard = 'yesShow';
+              cursor = 'pointer';
             }
             return (
               <div 

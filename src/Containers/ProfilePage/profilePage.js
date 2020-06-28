@@ -13,6 +13,7 @@ class ProfilePage extends Component {
   state = {
     hasMessaged: false
   }
+
   componentDidMount = () => {
     console.log('profile page mounted')
     // fetch for messages if not available
@@ -32,7 +33,7 @@ class ProfilePage extends Component {
           // check if array is equal even if they are out of order
           (group.userIds[0] === groupArray[0] && group.userIds[1] === groupArray[1]) ||
           (group.userIds[1] === groupArray[0] && group.userIds[0] === groupArray[1])) {
-          this.setState({hasMessaged: true})
+          this.setState({hasMessaged: true});
         }
       })
     }
@@ -41,16 +42,18 @@ class ProfilePage extends Component {
   showModalHandler = () => {
     this.props.openModalHandler();
   }
+
   hideModalHandler = () => {
-    this.props.closeModalHandler()
+    this.props.closeModalHandler();
   }
+
   render () {
-    let profileRender = null
+    let profileRender = null;
     if (this.props.history.location.pathname === '/profile-about') {
-      profileRender = <About history={this.props.history} ownData={this.props.ownData}/>
+      profileRender = <About history={this.props.history} ownData={this.props.ownData}/>;
     }
     else if (this.props.history.location.pathname ==='/profile-timeline') {
-      profileRender = <Timeline history={this.props.history} ownData={this.props.ownData}/>
+      profileRender = <Timeline history={this.props.history} ownData={this.props.ownData}/>;
     }
     return (
       <div className="col">

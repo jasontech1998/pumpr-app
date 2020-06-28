@@ -12,24 +12,27 @@ class Location extends Component {
     userLocation: '',
     locationName: '',
     locationCity: ''
-  }
+  };
+
   onSelectLocation = (response) => {
     let userLocation = response.description;
     this.setState({
       userLocation: userLocation,
       locationName: response.terms[0].value,
       locationCity: response.terms[2].value
-    })
+    });
   }
 
   onClickHandler = () => {
     const locationData = {
       location: this.state.userLocation,
       gym: this.state.locationName,
-      city: this.state.locationCity}
+      city: this.state.locationCity
+    };
     this.props.locationHandler(locationData);
     this.props.history.push('/gym-schedule');
   }
+  
   render () {
     return (
       <div className="col d-flex justify-content-center">

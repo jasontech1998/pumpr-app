@@ -3,14 +3,14 @@ import classes from './AboutToolbar.module.css';
 import {NavLink} from 'react-router-dom';
 
 const aboutToolbar = (props) => {
-  let aboutStyle = ''
-  let timelineStyle = ''
+  let aboutStyle = '';
+  let timelineStyle = '';
   if (props.history.location.pathname === '/profile-about') {
-    aboutStyle = classes.active
+    aboutStyle = classes.active;
   }
   else if (props.history.location.pathname === '/profile-timeline') {
-    timelineStyle = classes.active
-  }
+    timelineStyle = classes.active;
+  };
   return (
     <header className={classes.aboutToolbar}>
       <div></div>

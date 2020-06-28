@@ -15,25 +15,25 @@ class SignIn extends Component {
     password: '',
     fullName: '',
     isSignUp: true
-  }
+  };
   
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.state.email.length === 0 || this.state.password === 0) {
-      alert('Please fill out the entire form!')
+      alert('Please fill out the entire form!');
     }
     else if(this.state.password.length < 6) {
-      alert('Password must be atleast 6 characters in length')
+      alert('Password must be atleast 6 characters in length');
     }
     const fullName = {firstName: this.state.firstName, lastName: this.state.lastName};
-
+    // Create account and submit skeleton userProfile to database
     this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp, fullName);
   }
 
   onChangeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    })
+    });
   }
 
   render () {
@@ -45,11 +45,12 @@ class SignIn extends Component {
       rendererSettings: {
         preserveAspectRatio: 'xMidYMid slice'
       }
-    }
+    };
 
     if (this.props.doneSignUp) {
-      return <Redirect to="/lifts"/>
-    }
+      return <Redirect to="/lifts"/>;
+    };
+    
     return (
       <>
         {/* Left Side */}

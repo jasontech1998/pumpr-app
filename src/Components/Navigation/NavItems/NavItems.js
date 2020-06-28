@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classes from './NavItems.module.css';
 import './NavItems.css';
 import NavItem from '../NavItem/NavItem';
-import {NavLink, Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 class NavItems extends Component {
@@ -10,32 +10,30 @@ class NavItems extends Component {
   componentDidMount = () => {
     // user is logged in
     if (localStorage.getItem('userId')) {
-      console.log('user logged in')
-      let userId = localStorage.getItem('userId')
-      let token = localStorage.getItem('token')
-      this.props.onFetchProfile(token ,userId)
-    }
-    else {
-      console.log('user not logged in')
-    }
+      let userId = localStorage.getItem('userId');
+      let token = localStorage.getItem('token');
+      this.props.onFetchProfile(token ,userId);
+    };
   }
+
   componentDidUpdate = (prevProps) => {
     if (prevProps.userId !== this.props.userId) {
       this.props.onFetchProfile(this.props.token, this.props.userId)
-    }
+    };
   }
+
   render () {
     let showNavBar = null;
-    let userId = localStorage.getItem('userId')
+    let userId = localStorage.getItem('userId');
     let showProfilePic =  <img
                             alt="profile-pic" 
                             src={require('../../UI/Icons/social.svg')}
                             height="40"
                             width="40"
-                            className="rounded-circle"></img>
+                            className="rounded-circle"></img>;
     if (this.props.ownData) {
       // Show Profile Pic if uploaded
-      const {profile} = this.props.ownData.userSetup
+      const {profile} = this.props.ownData.userSetup;
       if (profile.profileURL) {
         showProfilePic = (
           <img
@@ -45,13 +43,13 @@ class NavItems extends Component {
             width="40"
             className="rounded-circle"></img>
         )
-      }
-    }
+      };
+    };
     const profileTarget = {
       pathname: "/profile-about",
       key: Math.random,
       userId: userId
-    }
+    };
     // User is logged in
     if (this.props.token && this.props.ownData) {
       showNavBar = (

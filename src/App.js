@@ -37,7 +37,7 @@ class App extends Component {
           <Route path="/log-in" exact component={LogIn} />
           <Redirect to="/" />
         </Switch>
-    )
+    );
     // User is logged in
     if (this.props.isAuth) {
       routes = (
@@ -62,7 +62,7 @@ class App extends Component {
           <Redirect to="/dashboard" />
         </Switch>  
       )
-    }
+    };
     
     return (
       <>
@@ -79,7 +79,6 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     isAuth: state.auth.token !== null,
-    ownData: state.pumpr.ownData,
     hasUserKey: state.setup.userKey !== null
   }
 }

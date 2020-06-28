@@ -14,12 +14,12 @@ class GymInfo extends Component {
     dlWeight: this.props.lifts[2].deadlift.weight,
     dlReps: this.props.lifts[2].deadlift.reps,
     dlSets: this.props.lifts[2].deadlift.sets
-  }
+  };
 
   onChangeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    })
+    });
   }
 
   onSaveHandler = (event) => {
@@ -27,8 +27,7 @@ class GymInfo extends Component {
     const userKey = this.props.ownData.id;
     const token = localStorage.getItem('token');
     console.log(this.state);
-    console.log(this.props.ownData.userSetup.lifts)
-    const copyLifts = Object.assign({}, this.props.ownData.userSetup.lifts);
+    console.log(this.props.ownData.userSetup.lifts);
     const lifts = [
       {bench: {
         weight: this.state.benchWeight,
@@ -45,20 +44,19 @@ class GymInfo extends Component {
         reps: this.state.dlReps,
         sets: this.state.dlSets}
       }
-    ]
-    const updateLifts = Object.assign(copyLifts, lifts);
+    ];
     //  initialize data to be sent to database
     const userSetup = {
       fullName: this.props.ownData.userSetup.fullName,
       profile: this.props.ownData.userSetup.profile,
       lifts: lifts,
       goals: this.props.ownData.userSetup.goals
-    }
+    };
     const userProfile = {
       userSetup: userSetup,
       userId: localStorage.getItem('userId'),
       id: userKey
-    }
+    };
     // send data to database to be patched with updated userProfile data
     this.props.onUpdateProfileHandler(userKey, token, userProfile);
   }

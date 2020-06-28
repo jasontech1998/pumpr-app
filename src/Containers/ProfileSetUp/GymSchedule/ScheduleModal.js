@@ -6,7 +6,7 @@ class ScheduleModal extends Component {
  
   render () {
     // Show secondInput if this.state.addedInputs >= 1
-    let showSecondInput = null
+    let showSecondInput = null;
     if (this.props.addedInputs >= 1) {
       showSecondInput = (
         <div>
@@ -27,10 +27,10 @@ class ScheduleModal extends Component {
             type="text"
             placeholder="7 PM"/>
         </div>
-      )
-    }
+      );
+    };
     // Show thirdInput if this.state.addedInputs >= 2
-    let showThirdInput = null
+    let showThirdInput = null;
     if (this.props.addedInputs >= 2) {
       showThirdInput = (
         <div>
@@ -51,26 +51,25 @@ class ScheduleModal extends Component {
             type="text"
             placeholder="11 PM"/>
         </div>
-      )
-    }
+      );
+    };
 
     // If user addedInputs, show MinusIcon
-    let showMinusIcon = null 
+    let showMinusIcon = null ;
     if (this.props.addedInputs >= 1) {
       showMinusIcon = (
         <i 
           onClick={this.props.minusClicked}
-          className="fas fa-minus-circle fa-2x my-2"></i>)
-    }
+          className="fas fa-minus-circle fa-2x my-2"></i>);
+    };
     // At 3 addedInputs, remove plusIcon
     let showPlusIcon = ( 
       <i 
       onClick={this.props.plusClicked}
-      className="fas fa-plus-circle fa-2x my-2 mr-2"></i>
-    )
+      className="fas fa-plus-circle fa-2x my-2 mr-2"></i>);
     if (this.props.addedInputs === 2) {
       showPlusIcon = null;
-    }
+    };
 
 
     return (

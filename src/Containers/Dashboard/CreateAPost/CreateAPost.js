@@ -14,12 +14,12 @@ class CreateAPost extends Component {
   onChooseHandler = (event) => {
     if (event.target.files[0]) {
       const image = event.target.files[0];
-      this.setState({image: image}, this.showImage)
-    }
+      this.setState({image: image}, this.showImage);
+    };
   }
 
   showImage = () => {
-    // send image to 
+    // send image to storage
     const { image } = this.state;
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on("state_changed",
@@ -28,15 +28,15 @@ class CreateAPost extends Component {
           .then(url => 
             this.setState({url}))
       }
-    )
+    );
   }
 
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.state.postInput !== '' && this.props.ownData) {
-      const {fullName} = this.props.ownData.userSetup
-      const userProfilePic = this.props.ownData.userSetup.profile.profileURL
-      let month = new Date().toLocaleString('en-US', {month: 'short'})
+      const {fullName} = this.props.ownData.userSetup;
+      const userProfilePic = this.props.ownData.userSetup.profile.profileURL;
+      let month = new Date().toLocaleString('en-US', {month: 'short'});
       let day = new Date().getDate();
       let datePosted = `${month} ${day}`;
       const userId = localStorage.getItem('userId');
@@ -48,7 +48,7 @@ class CreateAPost extends Component {
         likes: 0,
         postPictureURL: this.state.url,
         postText: this.state.postInput
-      }
+      };
       this.setState({postInput: '', url: '', image: null});
       const token = localStorage.getItem('token');
       this.props.submitPostHandler(token, post);
@@ -59,28 +59,31 @@ class CreateAPost extends Component {
   }
 
   onChangeHandler = (event) => {
-    this.setState({postInput: event.target.value})
+    this.setState({postInput: event.target.value});
   }
+
+
   render () {
-    let showSelectedPic = <span className="ml-2" style={{color: "#C8C4CB"}}>None Selected</span>
+    let showSelectedPic = <span className="ml-2" style={{color: "#C8C4CB"}}>None Selected</span>;
     if (this.state.image) {
-      showSelectedPic = <span className="ml-2" style={{fontWeight: "500"}}>Image Selected</span>
-    }
+      showSelectedPic = <span className="ml-2" style={{fontWeight: "500"}}>Image Selected</span>;
+    };
     let postProfilePic = <img 
                         className='ml-3 mb-3'
                         src={require('../../../Components/UI/Icons/social.svg')} 
                         alt="icon" 
-                        height="130" width="130"/>
+                        height="130" width="130"/>;
     if (this.props.ownData) {
-      const {profile} = this.props.ownData.userSetup
+      const {profile} = this.props.ownData.userSetup;
       if (profile.profileURL !== "") {
         postProfilePic = <img 
                         className='ml-3 mb-3 rounded-circle'
                         src={profile.profileURL}
                         alt="profileImage" 
                         height="130" width="130"/>
-      }
-    }
+      };
+    };
+    
     return (
       <div className="col-12" style={{padding: '0 90px'}}>
           <div className={classes.PostInputBox} style={{height: '250px'}}>

@@ -9,9 +9,8 @@ class GoalsList extends Component {
                  'Calisthenics', 'Outdoors', 'Endurance',
                  'Running', 'High Intensity', 'Flexibility', 
                  'Agility', 'HITT', 'Gymnastics']
-  }
+  };
 
-  
   render () {
     const goalsList = (
       <Aux>
@@ -25,7 +24,8 @@ class GoalsList extends Component {
           )
         })}
       </Aux>
-    )
+    );
+    
     return (
       <div>
         <div className={classes.Row}>

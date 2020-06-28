@@ -6,10 +6,10 @@ import * as actionCreators from '../../../store/actions/actionPumpr';
 
 class ProfileHeader extends Component {
 
-
   goToMessagesHandler = () => {
     this.props.history.push('/messages');
   }
+
   render () {
     let fullName = null;
     let experience = null;
@@ -18,21 +18,20 @@ class ProfileHeader extends Component {
           className='ml-3 mb-3'
           src={require('../../../Components/UI/Icons/social.svg')} 
           alt="icon" 
-          height="125" width="125"/>
-    let showButton = <Button click={this.props.click}>Message</Button>
+          height="125" width="125"/>;
+    let showButton = <Button click={this.props.click}>Message</Button>;
     if (this.props.hasMessaged) {
-      showButton = <Button click={this.goToMessagesHandler}>Go to Messages</Button>;
-    }
+      showButton = <Button click={this.goToMessagesHandler}>Message</Button>;
+    };
     // if location.state is undefined or null, display current user's data
     if (this.props.history.location.state === undefined || this.props.history.location.state === null) {
       if (this.props.ownData) {
-        experience = this.props.ownData.userSetup.goals.experience
-        const userId = localStorage.getItem('userId');
+        experience = this.props.ownData.userSetup.goals.experience;
         // if viewing own profile, remove message button
-        showButton = null
-        let tempName = this.props.ownData.userSetup.fullName
-        fullName = `${tempName.firstName} ${tempName.lastName}`
-        const {profile} = this.props.ownData.userSetup
+        showButton = null;
+        let tempName = this.props.ownData.userSetup.fullName;
+        fullName = `${tempName.firstName} ${tempName.lastName}`;
+        const {profile} = this.props.ownData.userSetup;
         if (profile.profileURL) {
           showProfilePic = (
             <img
@@ -41,22 +40,22 @@ class ProfileHeader extends Component {
               height="150"
               width="150"
               className="rounded-circle mb-3"></img>
-          )
-        }
+          );
+        };
       }
     }
     else if (this.props.history.location.state) {
       if (this.props.data) {
-        console.log('other user')
-        experience = this.props.data.userSetup.goals.experience
+        console.log('other user');
+        experience = this.props.data.userSetup.goals.experience;
         const userId = localStorage.getItem('userId');
         // if viewing own profile, remove message button
         if (userId === this.props.data.userId) {
-          showButton = null
-        }
-        let tempName = this.props.data.userSetup.fullName
-        fullName = `${tempName.firstName} ${tempName.lastName}`
-        const {profile} = this.props.data.userSetup
+          showButton = null;
+        };
+        let tempName = this.props.data.userSetup.fullName;
+        fullName = `${tempName.firstName} ${tempName.lastName}`;
+        const {profile} = this.props.data.userSetup;
         if (profile.profileURL) {
           showProfilePic = (
             <img
@@ -65,8 +64,8 @@ class ProfileHeader extends Component {
               height="150"
               width="150"
               className="rounded-circle mb-3"></img>
-          )
-        }
+          );
+        };
       }
     }
 

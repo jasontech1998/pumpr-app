@@ -15,7 +15,7 @@ class BasicInfo extends Component {
     bio: this.props.userSetup.profile.profileBio,
     userLocation: this.props.userSetup.profile.location,
     stateChanged: false
-  }
+  };
 
   onSelectLocation = (response) => {
     let userLocation = response.description;
@@ -24,45 +24,45 @@ class BasicInfo extends Component {
       locationName: response.terms[0].value,
       locationCity: response.terms[2].value,
       stateChanged: true
-    })
+    });
   }
 
  onSaveHandler = () => {
    if (!this.state.stateChanged) {
-     console.log('nothing changed')
+     console.log('nothing changed');
    }
   //  if settings have been changed, save data and send to database
    else {
      let profile = null;
-     console.log(this.props.ownData)
+     console.log(this.props.ownData);
      const userKey = this.props.ownData.id;
      const token = localStorage.getItem('token');
      //  copy profile data
     const copyProfile = Object.assign({}, this.props.ownData.userSetup.profile);
     //  check if location has been updated
     if (this.state.locationCity) {
-      console.log('location changed')
+      console.log('location changed');
       // update location and bio
       profile = {
         city: this.state.locationCity,
         gym: this.state.locationName,
         location: this.state.userLocation,
         profileBio: this.state.bio
-      }
+      };
     }
     // if user changed profile picture, update profile pic and bio
     else if (this.state.url) {
       profile = {
         profileURL: this.state.url,
         profileBio: this.state.bio
-      }
+      };
     }
     // if user didn't change either location or picture, just update bio
     else {
       profile = {profileBio: this.state.bio};
     }
     const updateProfile = Object.assign(copyProfile, profile);
-     const fullName = {firstName: this.state.firstName, lastName: this.state.lastName};
+    const fullName = {firstName: this.state.firstName, lastName: this.state.lastName};
     
     //  initialize data to be sent to database
     const userSetup = {
@@ -70,12 +70,12 @@ class BasicInfo extends Component {
       profile: updateProfile,
       lifts: this.props.ownData.userSetup.lifts,
       goals: this.props.ownData.userSetup.goals
-    }
+    };
     const userProfile = {
       userSetup: userSetup,
       userId: localStorage.getItem('userId'),
       id: userKey
-    }
+    };
     // send data to database to be patched with updated userProfile data
     this.props.onUpdateProfileHandler(userKey, token, userProfile);
    }
@@ -85,16 +85,16 @@ class BasicInfo extends Component {
     this.setState({
       [event.target.name]: event.target.value,
       stateChanged: true
-    })
+    });
   }
   onChooseHandler = (event) => {
     if (event.target.files[0]) {
       const image = event.target.files[0];
-      this.setState({image: image}, this.showImage)
+      this.setState({image: image}, this.showImage);
     }
   }
   showImage = () => {
-    console.log('show image')
+    console.log('show image');
     // object destructuring
     const { image } = this.state;
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
@@ -102,9 +102,9 @@ class BasicInfo extends Component {
       () => {
         storage.ref("images").child(image.name).getDownloadURL()
           .then(url => 
-            this.setState({url: url, stateChanged: true}))
+            this.setState({url: url, stateChanged: true}));
       }
-    )
+    );
   }
   render () {
     let userPicture = null;
@@ -112,11 +112,12 @@ class BasicInfo extends Component {
       userPicture = this.props.ownData.userSetup.profile.profileURL;
       if (userPicture === "") {
         userPicture = `/static/media/social.15eeae14.svg`;
-      }
-    }
+      };
+    };
     if (this.state.url) {
       userPicture = this.state.url;
-    }
+    };
+    
     return (
       <>
         <h1>Edit your info</h1>

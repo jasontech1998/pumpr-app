@@ -10,6 +10,7 @@ class Message extends Component {
     expand: false,
     messageInput: ''
   }
+
   onOfferHandler = (response , data) => {
     console.log(data.key);
     const id = data.key;
@@ -93,8 +94,8 @@ class Message extends Component {
   render () {
     let messageDisabled = false;
     if (this.state.messageInput === '') {
-      messageDisabled = 'true';
-    }
+      messageDisabled = true;
+    };
     let message = null;
     let allMessages = null;
     let workoutResponse = null;
@@ -131,24 +132,24 @@ class Message extends Component {
         name = msgData.receiverName;
       }
       // store the last message sent
-      const lastMsg = this.props.msgData[this.props.msgData.length - 1]
+      const lastMsg = this.props.msgData[this.props.msgData.length - 1];
       // if last message is an offer
       if (lastMsg.data.msgOfferData) {
-        const {msgOfferData} = lastMsg.data
-        date = msgOfferData.date
+        const {msgOfferData} = lastMsg.data;
+        date = msgOfferData.date;
         if (msgOfferData.message) {
-          content = `Lets workout on ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}. Location: ${msgOfferData.selectedLocation} Message: ${msgOfferData.message}`
+          content = `Lets workout on ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}. Location: ${msgOfferData.selectedLocation} Message: ${msgOfferData.message}`;
         }
         else {
-          content = `Lets workout on ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}. Location: ${msgOfferData.selectedLocation}`
+          content = `Lets workout on ${msgOfferData.monthInput} ${msgOfferData.dayInput} at ${msgOfferData.timeInput}. Location: ${msgOfferData.selectedLocation}`;
         }
       }
       // else last message is a normal message
       else if (lastMsg.data.msgData){
         // store last message's content and date
-        const {msgData} = lastMsg.data
-        content = msgData.content
-        date = msgData.date
+        const {msgData} = lastMsg.data;
+        content = msgData.content;
+        date = msgData.date;
       }
       message = (
         <div 
@@ -176,20 +177,20 @@ class Message extends Component {
     }
     // single message
     else {
-      const {msgData} = this.props.msgData[0].data
-      const userId = localStorage.getItem('userId')
-      let picture = msgData.senderPic
-      let name = msgData.senderName
+      const {msgData} = this.props.msgData[0].data;
+      const userId = localStorage.getItem('userId');
+      let picture = msgData.senderPic;
+      let name = msgData.senderName;
       // Change to receiver picture
       if (msgData.senderUserId === userId) {
         // if no picture, use icon
         if (!msgData.receiverPic) {
-          picture = `/static/media/social.15eeae14.svg`
+          picture = `/static/media/social.15eeae14.svg`;
         }
         else {
-          picture = msgData.receiverPic
+          picture = msgData.receiverPic;
         }
-        name = msgData.receiverName
+        name = msgData.receiverName;
       }
       message = (
         <div 
@@ -218,15 +219,15 @@ class Message extends Component {
     // Begin of expanded messages
     if (this.state.expand) {
       // initialize picture and name
-      const {msgData} = this.props.msgData[0].data
-      const lastMsg = this.props.msgData[this.props.msgData.length - 1]
+      const {msgData} = this.props.msgData[0].data;
+      const lastMsg = this.props.msgData[this.props.msgData.length - 1];
       let date = null;
       // initialize date of last message
       if (lastMsg.data.msgData) {
-        date = lastMsg.data.msgData.date
+        date = lastMsg.data.msgData.date;
       }
       else if (lastMsg.data.msgOfferData) {
-        date = lastMsg.data.msgOfferData.date
+        date = lastMsg.data.msgOfferData.date;
       }
       let userId = msgData.senderUserId;
       let picture = msgData.senderPic;
@@ -234,7 +235,7 @@ class Message extends Component {
       if (localStorage.getItem('userId') === userId) {
         // if no picture, use icon
         if (!msgData.receiverPic) {
-          picture = `/static/media/social.15eeae14.svg`
+          picture = `/static/media/social.15eeae14.svg`;
         }
         else {
           picture = msgData.receiverPic;
@@ -246,8 +247,8 @@ class Message extends Component {
       allMessages = (
         <Aux>
           {this.props.msgData.map((msg, index) => {
-            const {msgData} = msg.data
-            const userId = localStorage.getItem('userId')
+            const {msgData} = msg.data;
+            const userId = localStorage.getItem('userId');
             // if normal message
             if (msgData) {
               // if sent from other user
@@ -408,7 +409,7 @@ class Message extends Component {
                 // if workout offer is accepted
                 if (msg.data.offerAccepted) {
                   return (
-                    <div key={msg.data.groupId + index} >
+                    <div key={msg.data.groupId + index}>
                       <div className="d-flex">
                         <div className="col-6"></div>
                         <div className="col-6 mt-3 d-flex justify-content-end">
@@ -501,12 +502,12 @@ class Message extends Component {
         </Aux>
       )
       let msgHeaderButton =  
-        <button className="offerBtn" onClick={(event) => this.sendOfferHandler(event)}>Send Offer</button>
+        <button className="offerBtn" onClick={(event) => this.sendOfferHandler(event)}>Send Offer</button>;
       if (responseStyle === 'confirm') {
         msgHeaderButton = 
           <button 
             onClick={(event) => this.sendFeedbackHandler(event)}
-            className="feedbackBtn">Leave Feedback</button>
+            className="feedbackBtn">Leave Feedback</button>;
       }
       // Expanded Message Component
       message = (

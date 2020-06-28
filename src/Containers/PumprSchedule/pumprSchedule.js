@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actions/actionPumpr';
-import './pumprSchedule.css';
 
 class PumprSchedule extends Component {
   state = {
     profile: null
-  }
+  };
+
   componentDidMount() {
     console.log('schedule mounted')
     if (this.props.data === "" && this.props.ownData) {
@@ -21,12 +21,12 @@ class PumprSchedule extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.data && this.state.profile === null) {
-      console.log('set calendar data for other user')
-      const {profile} = this.props.data.userSetup
+      console.log('set calendar data for other user');
+      const {profile} = this.props.data.userSetup;
       this.setState({profile: profile}, () => this.updateCalender());
     }
     if (this.props.ownData && this.state.profile === null) {
-      console.log('set calendar data for current user')
+      console.log('set calendar data for current user');
       const {profile} = this.props.ownData.userSetup;
       this.setState({profile: profile}, () => this.updateCalender());
     }
@@ -41,7 +41,7 @@ class PumprSchedule extends Component {
       }}, () => {
         this.props.clearTime();
         this.postUpdateCalendar();
-      })
+      });
     }
     // Tuesday
     else if (this.props.day === 'Tuesday' && this.props.freeTime != null && prevProps.freeTime == null) {
@@ -54,7 +54,7 @@ class PumprSchedule extends Component {
       }}, () => {
         this.props.clearTime();
         this.postUpdateCalendar();
-      })
+      });
     }
     // Wednesday
     else if (this.props.day === 'Wednesday' && this.props.freeTime != null && prevProps.freeTime == null) {
@@ -67,7 +67,7 @@ class PumprSchedule extends Component {
       }}, () => {
         this.props.clearTime();
         this.postUpdateCalendar();
-      })
+      });
     }
     // Thursday
     else if (this.props.day === 'Thursday' && this.props.freeTime != null && prevProps.freeTime == null) {
@@ -80,7 +80,7 @@ class PumprSchedule extends Component {
       }}, () => {
         this.props.clearTime();
         this.postUpdateCalendar();
-      })
+      });
     }
     // Friday
     else if (this.props.day === 'Friday' && this.props.freeTime != null && prevProps.freeTime == null) {
@@ -93,7 +93,7 @@ class PumprSchedule extends Component {
       }}, () => {
         this.props.clearTime();
         this.postUpdateCalendar();
-      })
+      });
     }
     // Saturday
     else if (this.props.day === 'Saturday' && this.props.freeTime != null && prevProps.freeTime == null) {
@@ -106,7 +106,7 @@ class PumprSchedule extends Component {
       }}, () => {
         this.props.clearTime();
         this.postUpdateCalendar();
-      })
+      });
     }
     // Sunday
     else if (this.props.day === 'Sunday' && this.props.freeTime != null && prevProps.freeTime == null) {
@@ -119,7 +119,7 @@ class PumprSchedule extends Component {
       }}, () => {
         this.props.clearTime();
         this.postUpdateCalendar();
-      })
+      });
     }
   }
 
@@ -155,13 +155,13 @@ class PumprSchedule extends Component {
         sunFreeTime: this.state.profile.sunday[0],
         sunFreeTime2: this.state.profile.sunday[1],
         sunFreeTime3: this.state.profile.sunday[2]
-      })
-    }
+      });
+    };
   }
 
   // Update Calendar
   postUpdateCalendar = () => {    
-    console.log('update calendar')
+    console.log('update calendar');
     const userKey = this.props.data.id;
     const token = localStorage.getItem('token');
     const gymSchedule = {
@@ -172,7 +172,7 @@ class PumprSchedule extends Component {
       friday: [this.state.friFreeTime, this.state.friFreeTime2, this.state.friFreeTime3, 0],
       saturday: [this.state.satFreeTime, this.state.satFreeTime2, this.state.satFreeTime3, 0],
       sunday: [this.state.sunFreeTime, this.state.sunFreeTime2, this.state.sunFreeTime3, 0],
-    }
+    };
     const copyProfile = Object.assign({}, this.props.data.userSetup.profile);
     const updateProfile = Object.assign(copyProfile, gymSchedule);
     const userSetUp = {
@@ -180,12 +180,12 @@ class PumprSchedule extends Component {
       goals: this.props.data.userSetup.goals,
       profile: updateProfile,
       fullName: this.props.data.userSetup.fullName
-    }
+    };
     const userProfile = {
       userSetup: userSetUp,
       userId: localStorage.getItem('userId'),
       id: this.props.data.id
-    }
+    };
     console.log(userProfile);
     this.props.updateCalendarHandler(userKey, userProfile, token);
   }
@@ -263,7 +263,7 @@ class PumprSchedule extends Component {
           </tbody>
         </table>
       </div>
-      )
+      );
     }
     // else, viewing own timeline, calendarDisplay has update calendar functionality
     else {
@@ -344,8 +344,9 @@ class PumprSchedule extends Component {
           </tbody>
         </table>
       </div>
-      )
+      );
     }
+
     return (
       <>
         {calendarDisplay}
@@ -353,11 +354,7 @@ class PumprSchedule extends Component {
     )
   }
 }
-// const mapStateToProps = state => {
-//   return {
-//     data: state.pumpr.data
-//   }
-// }
+
 
 const mapDispatchToProps = dispatch => {
   return {

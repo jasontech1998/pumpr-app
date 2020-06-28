@@ -6,11 +6,17 @@ const initialState = {
   error: null,
   loading: false,
   doneSignUp: false,
-  fullName: null
+  profileKey: null
 }
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.SET_PROFILE_SUCCESS:
+      return {
+        ...state,
+        profileKey: action.userKey,
+        fullName: action.fullName
+      }
     case actionTypes.AUTH_START:
       return {
         ...state,
@@ -21,7 +27,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
         token: action.idToken,
         userId: action.userId,
-        fullName: action.fullName,
         loading: false,
         doneSignUp: true
       }

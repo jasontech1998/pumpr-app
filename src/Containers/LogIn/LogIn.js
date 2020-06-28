@@ -21,14 +21,13 @@ class LogIn extends Component {
     else if(this.state.password.length < 6) {
       alert('Password must be atleast 6 characters in length')
     }
-    this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp)
-    
+    this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp);
   }
 
   onChangeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    })
+    });
   }
 
   render () {
@@ -40,7 +39,7 @@ class LogIn extends Component {
       rendererSettings: {
         preserveAspectRatio: 'xMidYMid slice'
       }
-    }
+    };
     if (this.props.hasToken) {
       return (<Redirect to='/dashboard' />)
     }

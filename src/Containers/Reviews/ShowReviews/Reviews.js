@@ -44,8 +44,9 @@ class Reviews extends Component {
             )
           })}
         </Aux>
-      )
-    }
+      );
+    };
+    
     return (
       <Aux>
         {showReviews}
