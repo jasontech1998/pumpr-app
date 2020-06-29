@@ -7,14 +7,35 @@ import Aux from '../../hoc/Aux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actions/actionPumpr';
 import * as actionModals from '../../store/actions/actionSetup';
+import {database} from '../../Firebase/index';
 
 class Messages extends Component {
 
   state = {
-    show: false
+    show: false,
+    messagesLoaded: false
   }
-  // Fetch Messages
+  // Checks if new message has been sent
+  componentWillMount(){
+    let messagesRef = database.ref('messages');
+    // Listens for when messages have been updated with a new child
+    messagesRef.on('child_added', snapshot => {
+      if (this.state.messagesLoaded) {
+        // Fetch updated messages if previous messages are loaded
+        let token = localStorage.getItem('token');
+        let userId = localStorage.getItem('userId');
+        this.props.onFetchMessages(token, userId);
+      }
+    })
+    // Fetch messages data and change state to true so new messages can be caught by child_added
+    messagesRef.once('value', snapshot => {
+      this.setState({messagesLoaded: true})
+    })
+
+  }
+  // Fetch Messages Initially
   componentDidMount = () => {
+    console.log('did mount')
     let token = localStorage.getItem('token');
     let userId = localStorage.getItem('userId');
     this.props.onFetchMessages(token, userId);
