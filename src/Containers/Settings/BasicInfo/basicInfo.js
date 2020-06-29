@@ -14,7 +14,8 @@ class BasicInfo extends Component {
     lastName: this.props.userSetup.fullName.lastName,
     bio: this.props.userSetup.profile.profileBio,
     userLocation: this.props.userSetup.profile.location,
-    stateChanged: false
+    stateChanged: false,
+    hasSaved: false
   };
 
   onSelectLocation = (response) => {
@@ -78,6 +79,7 @@ class BasicInfo extends Component {
     };
     // send data to database to be patched with updated userProfile data
     this.props.onUpdateProfileHandler(userKey, token, userProfile);
+    this.setState({hasSaved: true});
    }
   }
 
@@ -108,6 +110,7 @@ class BasicInfo extends Component {
   }
   render () {
     let userPicture = null;
+    let hasSaved = null;
     if (this.props.ownData) {
       userPicture = this.props.ownData.userSetup.profile.profileURL;
       if (userPicture === "") {
@@ -116,6 +119,9 @@ class BasicInfo extends Component {
     };
     if (this.state.url) {
       userPicture = this.state.url;
+    };
+    if (this.state.hasSaved) {
+      hasSaved = <p className="mt-3">Your changes have been saved</p>;
     };
     
     return (
@@ -186,6 +192,7 @@ class BasicInfo extends Component {
             onClick={this.onSaveHandler} 
             className="offerBtn">Save</button>
         </div>
+        {hasSaved}
       </>
     )
   }

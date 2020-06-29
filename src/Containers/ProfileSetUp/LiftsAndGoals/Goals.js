@@ -12,7 +12,8 @@ class Goals extends Component {
   state  = {
     isSubmit: false,
     selectedGoals: [],
-    selectedExp: ''
+    selectedExp: '',
+    hasSaved: false
   };
 
   componentDidMount = () => {
@@ -106,6 +107,7 @@ class Goals extends Component {
     console.log(userProfile);
     // send data to database to be patched with updated userProfile data
     this.props.onUpdateProfileHandler(userKey, token, userProfile);
+    this.setState({hasSaved: true});
   }
 
   render () {
@@ -123,6 +125,10 @@ class Goals extends Component {
       showButton = <button
                       onClick={this.onSaveHandler} 
                       className="offerBtn">Save</button>;
+    };
+    let hasSaved = null;
+    if (this.state.hasSaved) {
+      hasSaved = hasSaved = <p className="mt-3">Your changes have been saved</p>;
     };
     return (
       <div className="col d-flex flex-column justify-content-center">
@@ -146,6 +152,7 @@ class Goals extends Component {
           <div className="mt-3">
             {showButton}
           </div>
+          {hasSaved}
         </div>
       </div>
     )

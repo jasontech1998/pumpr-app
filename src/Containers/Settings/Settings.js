@@ -55,7 +55,7 @@ class Settings extends Component {
                 className={`settingsNav ${this.state.showSettings === 1 ? "activeSet" : ""}`}>Lifts</h3>
               <h3 
                 onClick={() => this.changeInfoDisplay('exp')}
-                className={`settingsNav ${this.state.showSettings === 2 ? "activeSet" : ""}`}>Experience & Goals</h3>
+                className={`settingsNav ${this.state.showSettings === 2 ? "activeSet" : ""}`}>Experience & Interests</h3>
           </div>
           <div className="col-9">
             {basicInfo}

@@ -13,7 +13,8 @@ class GymInfo extends Component {
     squatSets: this.props.lifts[1].squat.sets,
     dlWeight: this.props.lifts[2].deadlift.weight,
     dlReps: this.props.lifts[2].deadlift.reps,
-    dlSets: this.props.lifts[2].deadlift.sets
+    dlSets: this.props.lifts[2].deadlift.sets,
+    hasSaved: false
   };
 
   onChangeHandler = (event) => {
@@ -59,10 +60,15 @@ class GymInfo extends Component {
     };
     // send data to database to be patched with updated userProfile data
     this.props.onUpdateProfileHandler(userKey, token, userProfile);
+    this.setState({hasSaved: true});
   }
 
 
   render () {
+    let hasSaved = null;
+    if (this.state.hasSaved) {
+      hasSaved = hasSaved = <p className="mt-3">Your changes have been saved</p>;
+    };
     return (
       <>
         <h3>Your Lifts</h3>
@@ -181,6 +187,7 @@ class GymInfo extends Component {
               className="offerBtn">Save</button>
           </form>
         </div>
+        {hasSaved}
       </>
     )
   }
