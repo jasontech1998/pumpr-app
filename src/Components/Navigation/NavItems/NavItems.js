@@ -61,7 +61,7 @@ class NavItems extends Component {
                 {/* User Profile Image */}
                 {showProfilePic}
               </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{transform: "translate3d(-17px, 56px, 0px)", minWidth: "50%"}}>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{transform: "translate3d(-15px, 56px, 0px)"}}>
                 <NavLink
                   className="dropdown-item"
                   to={profileTarget}>Profile

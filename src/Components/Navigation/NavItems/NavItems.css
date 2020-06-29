@@ -2,3 +2,12 @@
   background-color: transparent;
   color: #818D92;
 }
+
+.dropdown-menu {
+  white-space: normal;
+  min-width: 0;
+}
+
+.dropdown-item {
+  float: none;
+}
