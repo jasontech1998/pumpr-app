@@ -25,7 +25,7 @@ class Layout extends Component {
           ownData={this.props.ownData}
           clicked={this.onClickHandler}/>
         <main className="Layout">
-          <div className="container">
+          <div className="container" style={{overflow: "hidden"}}>
             <div className="row">
               {this.props.children}
             </div>
