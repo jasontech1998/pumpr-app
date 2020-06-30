@@ -152,7 +152,7 @@ class Dashboard extends Component {
   render () {
     return (
       <Aux>
-        <Modal
+        {/* <Modal
           closeModal={this.hideModalHandler}
           show={this.props.submitting}>
           <ScheduleModal 
@@ -168,15 +168,17 @@ class Dashboard extends Component {
             plusClicked={this.addInputHandler}
             minusClicked={this.removeInputHandler}
             onClick={this.onClickSubmit}/>
-        </Modal>
+        </Modal> */}
         <div className="col-12">
           <h4>Dashboard</h4>
           <PumprSchedule
-            clicked={(day) => this.showModalHandler(day)} 
-            data={this.props.ownData}
-            day={this.state.day}
-            freeTime={this.state.freeTime}
-            clearTime={this.hideModalHandler}/>
+            history={this.props.history}
+            // clicked={(day) => this.showModalHandler(day)} 
+            ownData={this.props.ownData}
+            // day={this.state.day}
+            // freeTime={this.state.freeTime}
+            // clearTime={this.hideModalHandler}
+            />
         </div>
         <CreateAPost history={this.props.history} />
         <div className="col-12 mt-3" style={{padding: '0 90px'}}>

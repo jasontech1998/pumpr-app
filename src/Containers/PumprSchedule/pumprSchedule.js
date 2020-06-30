@@ -1,128 +1,160 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actions/actionPumpr';
+import './pumprSchedule.css';
 
 class PumprSchedule extends Component {
   state = {
-    profile: null
+    profile: null,
+    isOtherUser: false,
+    isCurrentUser: false
   };
 
   componentDidMount() {
     console.log('schedule mounted')
-    if (this.props.data === "" && this.props.ownData) {
-      const {profile} = this.props.ownData.userSetup;
-      this.setState({profile: profile}, () => this.updateCalender());
-    }
-    else if (this.props.data) {
-      const {profile} = this.props.data.userSetup
-      this.setState({profile: profile}, () => this.updateCalender());
-    }
+    this.setState({
+      profile: null,
+      isOtherUser: false,
+      isCurrentUser: false});
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.data && this.state.profile === null) {
-      console.log('set calendar data for other user');
-      const {profile} = this.props.data.userSetup;
-      this.setState({profile: profile}, () => this.updateCalender());
+    console.log(this.props.history);
+    // If viewing schedule on profile-about
+    if (this.props.history.location.pathname === "/profile-about" && this.state.profile === null) {
+      // if there is other user data, display other user schedule
+      if (this.props.data !== "") {
+        console.log('other user schedule on about')
+        const {profile} = this.props.data.userSetup;
+        this.setState({
+          profile: profile}, () => this.updateCalender());
+      }
+      // else, display own user schedule
+      else if (this.props.ownData && this.props.history.location.state === undefined) {
+        console.log('current user schedule on about')
+        const {profile} = this.props.ownData.userSetup;
+        this.setState({
+          profile: profile}, () => this.updateCalender());
+      }
+      // if switching from timeline to about on own user profile
+      else if (this.props.ownData && this.props.history.location.state === null) {
+        console.log('current user schedule on about')
+        const {profile} = this.props.ownData.userSetup;
+        this.setState({
+          profile: profile}, () => this.updateCalender());
+      }
     }
-    if (this.props.ownData && this.state.profile === null) {
-      console.log('set calendar data for current user');
-      const {profile} = this.props.ownData.userSetup;
-      this.setState({profile: profile}, () => this.updateCalender());
+    // if viewing on dashboard, display own user schedule
+    else if (this.props.history.location.pathname === "/dashboard" && !this.state.isCurrentUser) {
+      if (this.props.ownData) {
+        console.log('current user schedule on dashboard')
+        const {profile} = this.props.ownData.userSetup;
+        this.setState({
+          profile: profile,
+          isCurrentUser: true}, () => this.updateCalender());
+      }
+    }
+    else if (this.props.history.location.pathname === "/profile-settings" && this.state.profile === null) {
+      console.log('schedule in settings')
+      if (this.props.profile) {
+        this.setState({
+          profile: this.props.profile,
+          isCurrentUser: true}, () => this.updateCalender());
+      }
     }
     // Monday
-    if (this.props.day === 'Monday' && this.props.freeTime != null && prevProps.freeTime == null) {
-      this.setState(prevState => {
-        return {
-        monFreeTime: this.props.freeTime.freeTime,
-        monFreeTime2: this.props.freeTime.freeTime2,
-        monFreeTime3: this.props.freeTime.freeTime3,
-        dataInputted: true
-      }}, () => {
-        this.props.clearTime();
-        this.postUpdateCalendar();
-      });
-    }
-    // Tuesday
-    else if (this.props.day === 'Tuesday' && this.props.freeTime != null && prevProps.freeTime == null) {
-      this.setState(prevState => {
-        return {
-        tuesFreeTime: this.props.freeTime.freeTime,
-        tuesFreeTime2: this.props.freeTime.freeTime2,
-        tuesFreeTime3: this.props.freeTime.freeTime3,
-        dataInputted: true
-      }}, () => {
-        this.props.clearTime();
-        this.postUpdateCalendar();
-      });
-    }
-    // Wednesday
-    else if (this.props.day === 'Wednesday' && this.props.freeTime != null && prevProps.freeTime == null) {
-      this.setState(prevState => {
-        return {
-        wedFreeTime: this.props.freeTime.freeTime,
-        wedFreeTime2: this.props.freeTime.freeTime2,
-        wedFreeTime3: this.props.freeTime.freeTime3,
-        dataInputted: true
-      }}, () => {
-        this.props.clearTime();
-        this.postUpdateCalendar();
-      });
-    }
-    // Thursday
-    else if (this.props.day === 'Thursday' && this.props.freeTime != null && prevProps.freeTime == null) {
-      this.setState(prevState => {
-        return {
-        thurFreeTime: this.props.freeTime.freeTime,
-        thurFreeTime2: this.props.freeTime.freeTime2,
-        thurFreeTime3: this.props.freeTime.freeTime3,
-        dataInputted: true
-      }}, () => {
-        this.props.clearTime();
-        this.postUpdateCalendar();
-      });
-    }
-    // Friday
-    else if (this.props.day === 'Friday' && this.props.freeTime != null && prevProps.freeTime == null) {
-      this.setState(prevState => {
-        return {
-        friFreeTime: this.props.freeTime.freeTime,
-        friFreeTime2: this.props.freeTime.freeTime2,
-        friFreeTime3: this.props.freeTime.freeTime3,
-        dataInputted: true
-      }}, () => {
-        this.props.clearTime();
-        this.postUpdateCalendar();
-      });
-    }
-    // Saturday
-    else if (this.props.day === 'Saturday' && this.props.freeTime != null && prevProps.freeTime == null) {
-      this.setState(prevState => {
-        return {
-        satFreeTime: this.props.freeTime.freeTime,
-        satFreeTime2: this.props.freeTime.freeTime2,
-        satFreeTime3: this.props.freeTime.freeTime3,
-        dataInputted: true
-      }}, () => {
-        this.props.clearTime();
-        this.postUpdateCalendar();
-      });
-    }
-    // Sunday
-    else if (this.props.day === 'Sunday' && this.props.freeTime != null && prevProps.freeTime == null) {
-      this.setState(prevState => {
-        return {
-        sunFreeTime: this.props.freeTime.freeTime,
-        sunFreeTime2: this.props.freeTime.freeTime2,
-        sunFreeTime3: this.props.freeTime.freeTime3,
-        dataInputted: true
-      }}, () => {
-        this.props.clearTime();
-        this.postUpdateCalendar();
-      });
-    }
+  //   if (this.props.day === 'Monday' && this.props.freeTime != null && prevProps.freeTime == null) {
+  //     this.setState(prevState => {
+  //       return {
+  //       monFreeTime: this.props.freeTime.freeTime,
+  //       monFreeTime2: this.props.freeTime.freeTime2,
+  //       monFreeTime3: this.props.freeTime.freeTime3,
+  //       dataInputted: true
+  //     }}, () => {
+  //       this.props.clearTime();
+  //       this.postUpdateCalendar();
+  //     });
+  //   }
+  //   // Tuesday
+  //   else if (this.props.day === 'Tuesday' && this.props.freeTime != null && prevProps.freeTime == null) {
+  //     this.setState(prevState => {
+  //       return {
+  //       tuesFreeTime: this.props.freeTime.freeTime,
+  //       tuesFreeTime2: this.props.freeTime.freeTime2,
+  //       tuesFreeTime3: this.props.freeTime.freeTime3,
+  //       dataInputted: true
+  //     }}, () => {
+  //       this.props.clearTime();
+  //       this.postUpdateCalendar();
+  //     });
+  //   }
+  //   // Wednesday
+  //   else if (this.props.day === 'Wednesday' && this.props.freeTime != null && prevProps.freeTime == null) {
+  //     this.setState(prevState => {
+  //       return {
+  //       wedFreeTime: this.props.freeTime.freeTime,
+  //       wedFreeTime2: this.props.freeTime.freeTime2,
+  //       wedFreeTime3: this.props.freeTime.freeTime3,
+  //       dataInputted: true
+  //     }}, () => {
+  //       this.props.clearTime();
+  //       this.postUpdateCalendar();
+  //     });
+  //   }
+  //   // Thursday
+  //   else if (this.props.day === 'Thursday' && this.props.freeTime != null && prevProps.freeTime == null) {
+  //     this.setState(prevState => {
+  //       return {
+  //       thurFreeTime: this.props.freeTime.freeTime,
+  //       thurFreeTime2: this.props.freeTime.freeTime2,
+  //       thurFreeTime3: this.props.freeTime.freeTime3,
+  //       dataInputted: true
+  //     }}, () => {
+  //       this.props.clearTime();
+  //       this.postUpdateCalendar();
+  //     });
+  //   }
+  //   // Friday
+  //   else if (this.props.day === 'Friday' && this.props.freeTime != null && prevProps.freeTime == null) {
+  //     this.setState(prevState => {
+  //       return {
+  //       friFreeTime: this.props.freeTime.freeTime,
+  //       friFreeTime2: this.props.freeTime.freeTime2,
+  //       friFreeTime3: this.props.freeTime.freeTime3,
+  //       dataInputted: true
+  //     }}, () => {
+  //       this.props.clearTime();
+  //       this.postUpdateCalendar();
+  //     });
+  //   }
+  //   // Saturday
+  //   else if (this.props.day === 'Saturday' && this.props.freeTime != null && prevProps.freeTime == null) {
+  //     this.setState(prevState => {
+  //       return {
+  //       satFreeTime: this.props.freeTime.freeTime,
+  //       satFreeTime2: this.props.freeTime.freeTime2,
+  //       satFreeTime3: this.props.freeTime.freeTime3,
+  //       dataInputted: true
+  //     }}, () => {
+  //       this.props.clearTime();
+  //       this.postUpdateCalendar();
+  //     });
+  //   }
+  //   // Sunday
+  //   else if (this.props.day === 'Sunday' && this.props.freeTime != null && prevProps.freeTime == null) {
+  //     this.setState(prevState => {
+  //       return {
+  //       sunFreeTime: this.props.freeTime.freeTime,
+  //       sunFreeTime2: this.props.freeTime.freeTime2,
+  //       sunFreeTime3: this.props.freeTime.freeTime3,
+  //       dataInputted: true
+  //     }}, () => {
+  //       this.props.clearTime();
+  //       this.postUpdateCalendar();
+  //     });
+  //   }
+  // }
   }
-
   updateCalender = () => {
     // if true, user has inputted schedule data
     if (this.state.profile.monday) {
@@ -190,11 +222,14 @@ class PumprSchedule extends Component {
     this.props.updateCalendarHandler(userKey, userProfile, token);
   }
   render () {
+    // console.log(this.props.profile);
     let calendarDisplay = null;
     // if viewing other user's timeline page, display calendar without update functionality
-    if (this.props.data.userId !== localStorage.getItem('userId')) {
+    // if (this.props.data.userId !== localStorage.getItem('userId')) {
+    if (!this.props.profile) {
+
       calendarDisplay = (
-        <div className="my-3">
+        <div className="mb-5">
         <table className="table">
           <thead className="thead">
             <tr>
@@ -213,51 +248,51 @@ class PumprSchedule extends Component {
               <th scope="row" 
                 className="table-input"
                 style={{cursor: "default"}}>
-                <p>{this.state.monFreeTime}</p>
-                <p>{this.state.monFreeTime2}</p>
-                <p>{this.state.monFreeTime3}</p>
+                <p id="timeSlot">{this.state.monFreeTime}</p>
+                <p id="timeSlot">{this.state.monFreeTime2}</p>
+                <p id="timeSlot">{this.state.monFreeTime3}</p>
               </th>
               {/* Tuesday */}
               <th className="table-input"
               style={{cursor: "default"}}>
-                <p>{this.state.tuesFreeTime}</p>
-                <p>{this.state.tuesFreeTime2}</p>
-                <p>{this.state.tuesFreeTime3}</p>
+                <p id="timeSlot">{this.state.tuesFreeTime}</p>
+                <p id="timeSlot">{this.state.tuesFreeTime2}</p>
+                <p id="timeSlot">{this.state.tuesFreeTime3}</p>
               </th>
               {/* Wednesday */}
               <th className="table-input"
               style={{cursor: "default"}}>
-                <p>{this.state.wedFreeTime}</p>
-                <p>{this.state.wedFreeTime2}</p>
-                <p>{this.state.wedFreeTime3}</p>
+                <p id="timeSlot">{this.state.wedFreeTime}</p>
+                <p id="timeSlot">{this.state.wedFreeTime2}</p>
+                <p id="timeSlot">{this.state.wedFreeTime3}</p>
               </th>
               {/* Thursday */}
               <th className="table-input"
               style={{cursor: "default"}}>
-                <p>{this.state.thurFreeTime}</p>
-                <p>{this.state.thurFreeTime2}</p>
-                <p>{this.state.thurFreeTime3}</p>
+                <p id="timeSlot">{this.state.thurFreeTime}</p>
+                <p id="timeSlot">{this.state.thurFreeTime2}</p>
+                <p id="timeSlot">{this.state.thurFreeTime3}</p>
               </th>
               {/* Friday */}
               <th className="table-input"
               style={{cursor: "default"}}>
-                <p>{this.state.friFreeTime}</p>
-                <p>{this.state.friFreeTime2}</p>
-                <p>{this.state.friFreeTime3}</p>
+                <p id="timeSlot">{this.state.friFreeTime}</p>
+                <p id="timeSlot">{this.state.friFreeTime2}</p>
+                <p id="timeSlot">{this.state.friFreeTime3}</p>
               </th>
               {/* Saturday */}
               <th className="table-input"
               style={{cursor: "default"}}>
-                <p>{this.state.satFreeTime}</p>
-                <p>{this.state.satFreeTime2}</p>
-                <p>{this.state.satFreeTime3}</p>
+                <p id="timeSlot">{this.state.satFreeTime}</p>
+                <p id="timeSlot">{this.state.satFreeTime2}</p>
+                <p id="timeSlot">{this.state.satFreeTime3}</p>
               </th>
               {/* Sunday */}
               <th className="table-input border-right-0"
                 style={{cursor: "default"}}>
-                <p>{this.state.sunFreeTime}</p>
-                <p>{this.state.sunFreeTime2}</p>
-                <p>{this.state.sunFreeTime3}</p>
+                <p id="timeSlot">{this.state.sunFreeTime}</p>
+                <p id="timeSlot">{this.state.sunFreeTime2}</p>
+                <p id="timeSlot">{this.state.sunFreeTime3}</p>
                 </th>
             </tr>
           </tbody>
@@ -265,6 +300,7 @@ class PumprSchedule extends Component {
       </div>
       );
     }
+    // }
     // else, viewing own timeline, calendarDisplay has update calendar functionality
     else {
       calendarDisplay = (

@@ -46,7 +46,6 @@ class ProfileHeader extends Component {
     }
     else if (this.props.history.location.state) {
       if (this.props.data) {
-        console.log('other user');
         experience = this.props.data.userSetup.goals.experience;
         const userId = localStorage.getItem('userId');
         // if viewing own profile, remove message button

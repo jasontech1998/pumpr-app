@@ -71,8 +71,9 @@ class Lifts extends Component {
     return (
       <div className="col">
         <form onSubmit={(event) => this.onSubmitHandler(event)}>
-          <h2 className="text-center">enter your lifts</h2>
-          <small className="form-text text-muted">this data will be used to match you with the right gym partner</small>
+          <h2 className="text-center">Enter your lifts</h2>
+          <small className="form-text text-muted">This data will be used to match you with the right gym partner</small>
+          <small className="form-text text-muted">Feel free to input your one rep max or your general lifts</small>
           <div className="row mb-3">
             <div className="col-12 col-lg-4 px-4">
               <div className="card my-3 p-2">

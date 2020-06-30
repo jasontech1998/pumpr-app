@@ -17,6 +17,9 @@ class FindAPartner extends Component {
       token: localStorage.getItem('token'),
       userId: localStorage.getItem('userId')},
       () => this.props.onFetchOtherProfile(this.state.token, this.state.userId));
+    if (this.props.data) {
+      this.props.removeDataPropHandler();
+    }
   }
   componentDidUpdate() {
     if (this.props.otherUsers && this.state.displayUsers === null) {
@@ -176,7 +179,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOtherProfile: (token, userId) => dispatch(actionCreators.fetchOtherProfile(token, userId))
+    onFetchOtherProfile: (token, userId) => dispatch(actionCreators.fetchOtherProfile(token, userId)),
+    removeDataPropHandler: () => dispatch(actionCreators.removeData())
   }
 }
 

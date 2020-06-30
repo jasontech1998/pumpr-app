@@ -6,6 +6,9 @@ import Aux from '../../../hoc/Aux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 
+import PumprSchedule from '../../PumprSchedule/pumprSchedule';
+
+
 class About extends Component {
 
   componentDidMount() {
@@ -46,7 +49,12 @@ class About extends Component {
     }
   }  
 
+
   render () {
+    // Initialize First Name of User Profile
+    let firstName = null;
+    // Initialize Edit Settings Button
+    let editSettings = null;
     // Initialize number of reviews
     let reviewLength = 0;
     let numReviews = null;
@@ -76,6 +84,14 @@ class About extends Component {
     // if location.state is undefined, display current user's data 
     if (this.props.history.location.state === undefined) {
       if (this.props.ownData) {
+        firstName = this.props.ownData.userSetup.fullName.firstName;
+        editSettings = (
+          <div className="d-flex justify-content-end" style={{marginBottom: "30px"}}>
+            <button 
+              onClick={() => this.props.history.push('/profile-settings')} 
+              className="offerBtn">Edit Settings</button>
+          </div>
+        );
         // Object destructuring
         const {lifts} = this.props.ownData.userSetup;
         const {goals} = this.props.ownData.userSetup;
@@ -123,6 +139,7 @@ class About extends Component {
       console.log('user clicked on another user profile')
       // Check if data has been fetched from firebase
       if (this.props.data) {
+        firstName = this.props.data.userSetup.fullName.firstName;
         // Object destructuring
         const {lifts} = this.props.data.userSetup;
         const {goals} = this.props.data.userSetup;
@@ -171,6 +188,14 @@ class About extends Component {
       // if no data prop, display current user
       if (this.props.data === '') {
         if (this.props.ownData) {
+          firstName = this.props.ownData.userSetup.fullName.firstName;
+          editSettings = (
+            <div className="d-flex justify-content-end" style={{marginBottom: "30px"}}>
+              <button
+                onClick={() => this.props.history.push('/profile-settings')} 
+                className="offerBtn">Edit Settings</button>
+            </div>
+          );
           // Object destructuring
           const {lifts} = this.props.ownData.userSetup;
           const {goals} = this.props.ownData.userSetup;
@@ -217,6 +242,7 @@ class About extends Component {
       // if data prop, display other user
       else if (this.props.data) {
         if (this.props.data) {
+          firstName = this.props.data.userSetup.fullName.firstName;
           // Object destructuring
           const {lifts} = this.props.data.userSetup;
           const {goals} = this.props.data.userSetup;
@@ -262,9 +288,11 @@ class About extends Component {
       }
     }
     
+    
     return (
       <div className="row about">
         <div className="col">
+          {editSettings}
           {/* User Join Date and Location */}
           <div className={classes.joinLocation}>
             <span className="mr-auto">Joined in 2020</span>
@@ -277,8 +305,14 @@ class About extends Component {
             {showGoals}
           </div>
           {/* End of User Goals */}
+          {/* Schedule */}
+          <h4 className="mb-3" style={{marginTop: "30px"}}>{`${firstName}'s Schedule`}</h4>
+          <PumprSchedule 
+            data={this.props.data}
+            ownData={this.props.ownData}
+            history={this.props.history}/>
           {/* User Lifts */}
-          <h4 className="my-3">Current Lifts</h4>
+          <h4 className="mb-3" style={{marginTop: "30px"}}>Current Lifts</h4>
           <div className="row">
             <div className="col-4 d-flex flex-column align-items-center">
               <img 

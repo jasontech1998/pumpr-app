@@ -3,9 +3,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 import * as actionModals from '../../../store/actions/actionSetup';
-import PumprSchedule from '../../PumprSchedule/pumprSchedule';
-import Modal from '../../../Components/UI/Modal/Modal';
-import ScheduleModal from '../../ProfileSetUp/GymSchedule/ScheduleModal';
+// import PumprSchedule from '../../PumprSchedule/pumprSchedule';
+// import Modal from '../../../Components/UI/Modal/Modal';
+// import ScheduleModal from '../../ProfileSetUp/GymSchedule/ScheduleModal';
 import RecentPosts from '../../Dashboard/RecentPosts/RecentPosts';
 
 class Timeline extends Component {
@@ -149,10 +149,9 @@ class Timeline extends Component {
     }
 
     return (
-      <div className="row">
+      <div className="row" style={{width: "80%", margin: "auto"}}>
         <div className="col-12">
-          <h4>Schedule</h4>
-          <Modal
+          {/* <Modal
           closeModal={this.hideModalHandler} 
           show={this.props.submitting}>
             <ScheduleModal
@@ -174,7 +173,7 @@ class Timeline extends Component {
             data={data}
             day={this.state.day}
             freeTime={this.state.freeTime}
-            clearTime={this.hideModalHandler}/>
+            clearTime={this.hideModalHandler}/> */}
           <RecentPosts history={this.props.history}/>
         </div>
       </div>

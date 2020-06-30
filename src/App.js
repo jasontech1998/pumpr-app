@@ -44,12 +44,6 @@ class App extends Component {
         <Switch>
           <Route path="/" exact component={SignUp}/>
           <Route path="/log-out" exact component={Logout} />
-          {/* Routes for onboarding process */}
-          <Route path="/lifts" exact component={Lifts}/>
-          <Route path="/goals" exact component={Goals} />
-          <Route path="/profile-bio-setup" exact component={PicAndBio} />
-          <Route path="/profile-location" exact component={Location} />
-          <Route path="/gym-schedule" exact component={GymSchedule} />
           
           {/* User Profile*/}
           <Route path="/profile-about" exact component={ProfilePage} />
@@ -59,6 +53,12 @@ class App extends Component {
           <Route path="/find-a-partner" exact component={FindAPartner} />
           <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/messages" exact component={Messages} />
+          {/* Routes for onboarding process */}
+          <Route path="/lifts" exact component={Lifts}/>
+          <Route path="/goals" exact component={Goals} />
+          <Route path="/profile-bio-setup" exact component={PicAndBio} />
+          <Route path="/profile-location" exact component={Location} />
+          <Route path="/gym-schedule" exact component={GymSchedule} />
           <Redirect to="/dashboard" />
         </Switch>  
       )
@@ -78,8 +78,7 @@ class App extends Component {
 }
 const mapStateToProps = state => {
   return {
-    isAuth: state.auth.token !== null,
-    hasUserKey: state.setup.userKey !== null
+    isAuth: state.auth.token !== null
   }
 }
 const mapDispatchToProps = dispatch => {
