@@ -43,7 +43,18 @@ class ScheduleSettings extends Component {
   
 
   showModalHandler = (day) => {
-    this.setState({day: day});
+    if (this.state.day !== "" && this.state.day !== day) {
+      this.setState({
+        day: day,
+        fromInput2: '',
+        toInput2: '',
+        fromInput3: '',
+        toInput3: ''
+      })
+    }
+    else {
+      this.setState({day: day});
+    }
     this.props.openModalHandler();
   }
 
@@ -52,11 +63,76 @@ class ScheduleSettings extends Component {
     this.props.closeModalHandler();
   }
   
-
   onChangeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+  onClickSubmit = () => {
+    switch (this.state.addedInputs) {
+      case 2:
+        console.log('2 inputs added');
+        if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2 && this.state.fromInput3 && this.state.toInput3) === '') {
+          alert('Please fill out all available inputs');
+          break;
+        }
+        else {
+          var freeTime = {
+            freeTime: this.state.fromInput + ' - ' + this.state.toInput,
+            freeTime2: this.state.fromInput2 + ' - ' + this.state.toInput2,
+            freeTime3: this.state.fromInput3 + ' - ' + this.state.toInput3
+          };
+          this.setState({
+            ...this.state,
+            freeTime});
+          this.props.closeModalHandler();
+          break;
+        }
+      case 1:
+        console.log('1 input added')
+        if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2) === '') {
+          alert('Please fill out all available inputs')
+          break;
+        }
+        else {
+          freeTime = {
+            freeTime: this.state.fromInput + ' - ' + this.state.toInput,
+            freeTime2: this.state.fromInput2 + ' - ' + this.state.toInput2
+          };
+          this.setState({
+            ...this.state,
+            freeTime});
+          this.props.closeModalHandler();
+          break;
+        }
+      case 0:
+        console.log('0 inputs added')
+        if ((this.state.fromInput && this.state.toInput) === '') {
+          freeTime = {
+            freeTime: ''
+          };
+          this.setState({
+            ...this.state,
+            freeTime,
+            fromInput: '',
+            toInput: ''});
+          this.props.closeModalHandler();
+          break;
+        }
+        else {
+          freeTime = {
+            freeTime: this.state.fromInput + ' - ' + this.state.toInput
+          };
+          this.setState({
+            ...this.state,
+            freeTime});
+          this.props.closeModalHandler();
+          break;
+        }
+      default:
+        console.log('error');
+    }
   }
   render () {
     return (
@@ -80,13 +156,13 @@ class ScheduleSettings extends Component {
               onClick={this.onClickSubmit}/>
           </Modal>
           <PumprSchedule
+            ownData={this.props.ownData}
             clicked={(day) => this.showModalHandler(day)} 
             profile={this.props.profile}
             history={this.props.history}
             day={this.state.day}
             freeTime={this.state.freeTime}
             clearTime={this.hideModalHandler}/>
-          <button className="offerBtn">Save</button>
       </>
     )
   }

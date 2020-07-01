@@ -19,7 +19,6 @@ class PumprSchedule extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.history);
     // If viewing schedule on profile-about
     if (this.props.history.location.pathname === "/profile-about" && this.state.profile === null) {
       // if there is other user data, display other user schedule
@@ -62,99 +61,100 @@ class PumprSchedule extends Component {
           isCurrentUser: true}, () => this.updateCalender());
       }
     }
+    // If schedule time has been changed, update and send to database
     // Monday
-  //   if (this.props.day === 'Monday' && this.props.freeTime != null && prevProps.freeTime == null) {
-  //     this.setState(prevState => {
-  //       return {
-  //       monFreeTime: this.props.freeTime.freeTime,
-  //       monFreeTime2: this.props.freeTime.freeTime2,
-  //       monFreeTime3: this.props.freeTime.freeTime3,
-  //       dataInputted: true
-  //     }}, () => {
-  //       this.props.clearTime();
-  //       this.postUpdateCalendar();
-  //     });
-  //   }
-  //   // Tuesday
-  //   else if (this.props.day === 'Tuesday' && this.props.freeTime != null && prevProps.freeTime == null) {
-  //     this.setState(prevState => {
-  //       return {
-  //       tuesFreeTime: this.props.freeTime.freeTime,
-  //       tuesFreeTime2: this.props.freeTime.freeTime2,
-  //       tuesFreeTime3: this.props.freeTime.freeTime3,
-  //       dataInputted: true
-  //     }}, () => {
-  //       this.props.clearTime();
-  //       this.postUpdateCalendar();
-  //     });
-  //   }
-  //   // Wednesday
-  //   else if (this.props.day === 'Wednesday' && this.props.freeTime != null && prevProps.freeTime == null) {
-  //     this.setState(prevState => {
-  //       return {
-  //       wedFreeTime: this.props.freeTime.freeTime,
-  //       wedFreeTime2: this.props.freeTime.freeTime2,
-  //       wedFreeTime3: this.props.freeTime.freeTime3,
-  //       dataInputted: true
-  //     }}, () => {
-  //       this.props.clearTime();
-  //       this.postUpdateCalendar();
-  //     });
-  //   }
-  //   // Thursday
-  //   else if (this.props.day === 'Thursday' && this.props.freeTime != null && prevProps.freeTime == null) {
-  //     this.setState(prevState => {
-  //       return {
-  //       thurFreeTime: this.props.freeTime.freeTime,
-  //       thurFreeTime2: this.props.freeTime.freeTime2,
-  //       thurFreeTime3: this.props.freeTime.freeTime3,
-  //       dataInputted: true
-  //     }}, () => {
-  //       this.props.clearTime();
-  //       this.postUpdateCalendar();
-  //     });
-  //   }
-  //   // Friday
-  //   else if (this.props.day === 'Friday' && this.props.freeTime != null && prevProps.freeTime == null) {
-  //     this.setState(prevState => {
-  //       return {
-  //       friFreeTime: this.props.freeTime.freeTime,
-  //       friFreeTime2: this.props.freeTime.freeTime2,
-  //       friFreeTime3: this.props.freeTime.freeTime3,
-  //       dataInputted: true
-  //     }}, () => {
-  //       this.props.clearTime();
-  //       this.postUpdateCalendar();
-  //     });
-  //   }
-  //   // Saturday
-  //   else if (this.props.day === 'Saturday' && this.props.freeTime != null && prevProps.freeTime == null) {
-  //     this.setState(prevState => {
-  //       return {
-  //       satFreeTime: this.props.freeTime.freeTime,
-  //       satFreeTime2: this.props.freeTime.freeTime2,
-  //       satFreeTime3: this.props.freeTime.freeTime3,
-  //       dataInputted: true
-  //     }}, () => {
-  //       this.props.clearTime();
-  //       this.postUpdateCalendar();
-  //     });
-  //   }
-  //   // Sunday
-  //   else if (this.props.day === 'Sunday' && this.props.freeTime != null && prevProps.freeTime == null) {
-  //     this.setState(prevState => {
-  //       return {
-  //       sunFreeTime: this.props.freeTime.freeTime,
-  //       sunFreeTime2: this.props.freeTime.freeTime2,
-  //       sunFreeTime3: this.props.freeTime.freeTime3,
-  //       dataInputted: true
-  //     }}, () => {
-  //       this.props.clearTime();
-  //       this.postUpdateCalendar();
-  //     });
-  //   }
-  // }
+    if (this.props.day === 'Monday' && this.props.freeTime != null && prevProps.freeTime == null) {
+      this.setState(prevState => {
+        return {
+        monFreeTime: this.props.freeTime.freeTime,
+        monFreeTime2: this.props.freeTime.freeTime2,
+        monFreeTime3: this.props.freeTime.freeTime3,
+        dataInputted: true
+      }}, () => {
+        this.props.clearTime();
+        this.postUpdateCalendar();
+      });
+    }
+    // Tuesday
+    else if (this.props.day === 'Tuesday' && this.props.freeTime != null && prevProps.freeTime == null) {
+      this.setState(prevState => {
+        return {
+        tuesFreeTime: this.props.freeTime.freeTime,
+        tuesFreeTime2: this.props.freeTime.freeTime2,
+        tuesFreeTime3: this.props.freeTime.freeTime3,
+        dataInputted: true
+      }}, () => {
+        this.props.clearTime();
+        this.postUpdateCalendar();
+      });
+    }
+    // Wednesday
+    else if (this.props.day === 'Wednesday' && this.props.freeTime != null && prevProps.freeTime == null) {
+      this.setState(prevState => {
+        return {
+        wedFreeTime: this.props.freeTime.freeTime,
+        wedFreeTime2: this.props.freeTime.freeTime2,
+        wedFreeTime3: this.props.freeTime.freeTime3,
+        dataInputted: true
+      }}, () => {
+        this.props.clearTime();
+        this.postUpdateCalendar();
+      });
+    }
+    // Thursday
+    else if (this.props.day === 'Thursday' && this.props.freeTime != null && prevProps.freeTime == null) {
+      this.setState(prevState => {
+        return {
+        thurFreeTime: this.props.freeTime.freeTime,
+        thurFreeTime2: this.props.freeTime.freeTime2,
+        thurFreeTime3: this.props.freeTime.freeTime3,
+        dataInputted: true
+      }}, () => {
+        this.props.clearTime();
+        this.postUpdateCalendar();
+      });
+    }
+    // Friday
+    else if (this.props.day === 'Friday' && this.props.freeTime != null && prevProps.freeTime == null) {
+      this.setState(prevState => {
+        return {
+        friFreeTime: this.props.freeTime.freeTime,
+        friFreeTime2: this.props.freeTime.freeTime2,
+        friFreeTime3: this.props.freeTime.freeTime3,
+        dataInputted: true
+      }}, () => {
+        this.props.clearTime();
+        this.postUpdateCalendar();
+      });
+    }
+    // Saturday
+    else if (this.props.day === 'Saturday' && this.props.freeTime != null && prevProps.freeTime == null) {
+      this.setState(prevState => {
+        return {
+        satFreeTime: this.props.freeTime.freeTime,
+        satFreeTime2: this.props.freeTime.freeTime2,
+        satFreeTime3: this.props.freeTime.freeTime3,
+        dataInputted: true
+      }}, () => {
+        this.props.clearTime();
+        this.postUpdateCalendar();
+      });
+    }
+    // Sunday
+    else if (this.props.day === 'Sunday' && this.props.freeTime != null && prevProps.freeTime == null) {
+      this.setState(prevState => {
+        return {
+        sunFreeTime: this.props.freeTime.freeTime,
+        sunFreeTime2: this.props.freeTime.freeTime2,
+        sunFreeTime3: this.props.freeTime.freeTime3,
+        dataInputted: true
+      }}, () => {
+        this.props.clearTime();
+        this.postUpdateCalendar();
+      });
+    }
   }
+  // intitialize data into schedule for display
   updateCalender = () => {
     // if true, user has inputted schedule data
     if (this.state.profile.monday) {
@@ -191,10 +191,10 @@ class PumprSchedule extends Component {
     };
   }
 
-  // Update Calendar
+  // Update Calendar in Settings
   postUpdateCalendar = () => {    
     console.log('update calendar');
-    const userKey = this.props.data.id;
+    const userKey = this.props.ownData.id;
     const token = localStorage.getItem('token');
     const gymSchedule = {
       monday: [this.state.monFreeTime, this.state.monFreeTime2, this.state.monFreeTime3, 0],
@@ -205,29 +205,26 @@ class PumprSchedule extends Component {
       saturday: [this.state.satFreeTime, this.state.satFreeTime2, this.state.satFreeTime3, 0],
       sunday: [this.state.sunFreeTime, this.state.sunFreeTime2, this.state.sunFreeTime3, 0],
     };
-    const copyProfile = Object.assign({}, this.props.data.userSetup.profile);
+    const copyProfile = Object.assign({}, this.props.ownData.userSetup.profile);
     const updateProfile = Object.assign(copyProfile, gymSchedule);
     const userSetUp = {
-      lifts: this.props.data.userSetup.lifts,
-      goals: this.props.data.userSetup.goals,
+      lifts: this.props.ownData.userSetup.lifts,
+      goals: this.props.ownData.userSetup.goals,
       profile: updateProfile,
-      fullName: this.props.data.userSetup.fullName
+      fullName: this.props.ownData.userSetup.fullName
     };
     const userProfile = {
       userSetup: userSetUp,
       userId: localStorage.getItem('userId'),
-      id: this.props.data.id
+      id: this.props.ownData.id
     };
     console.log(userProfile);
     this.props.updateCalendarHandler(userKey, userProfile, token);
   }
   render () {
-    // console.log(this.props.profile);
     let calendarDisplay = null;
     // if viewing other user's timeline page, display calendar without update functionality
-    // if (this.props.data.userId !== localStorage.getItem('userId')) {
     if (!this.props.profile) {
-
       calendarDisplay = (
         <div className="mb-5">
         <table className="table">
@@ -308,13 +305,27 @@ class PumprSchedule extends Component {
         <table className="table">
           <thead className="thead">
             <tr>
-              <th scope="col">Monday</th>
-              <th scope="col">Tuesday</th>
-              <th scope="col">Wednesday</th>
-              <th scope="col">Thursday</th>
-              <th scope="col">Friday</th>
-              <th scope="col">Saturday</th>
-              <th scope="col">Sunday</th>
+              <th
+                className="tableHeader" 
+                scope="col">Monday</th>
+              <th
+                className="tableHeader" 
+                scope="col">Tuesday</th>
+              <th
+                className="tableHeader" 
+                scope="col">Wednesday</th>
+              <th
+                className="tableHeader" 
+                scope="col">Thursday</th>
+              <th
+                className="tableHeader" 
+                scope="col">Friday</th>
+              <th
+                className="tableHeader" 
+                scope="col">Saturday</th>
+              <th
+                className="tableHeader" 
+                scope="col">Sunday</th>
             </tr>
           </thead>
           <tbody>
@@ -324,57 +335,57 @@ class PumprSchedule extends Component {
                 scope="row" 
                 className="table-input"
                 onClick={() => this.props.clicked('Monday')}>
-                <p>{this.state.monFreeTime}</p>
-                <p>{this.state.monFreeTime2}</p>
-                <p>{this.state.monFreeTime3}</p>
+                <p className="settingsTime">{this.state.monFreeTime}</p>
+                <p className="settingsTime">{this.state.monFreeTime2}</p>
+                <p className="settingsTime">{this.state.monFreeTime3}</p>
               </th>
               {/* Tuesday */}
               <th 
                 onClick={() => this.props.clicked('Tuesday')}
                 className="table-input">
-                <p>{this.state.tuesFreeTime}</p>
-                <p>{this.state.tuesFreeTime2}</p>
-                <p>{this.state.tuesFreeTime3}</p>
+                <p className="settingsTime">{this.state.tuesFreeTime}</p>
+                <p className="settingsTime">{this.state.tuesFreeTime2}</p>
+                <p className="settingsTime">{this.state.tuesFreeTime3}</p>
               </th>
               {/* Wednesday */}
               <th
                 onClick={() => this.props.clicked('Wednesday')} 
                 className="table-input">
-                <p>{this.state.wedFreeTime}</p>
-                <p>{this.state.wedFreeTime2}</p>
-                <p>{this.state.wedFreeTime3}</p>
+                <p className="settingsTime">{this.state.wedFreeTime}</p>
+                <p className="settingsTime">{this.state.wedFreeTime2}</p>
+                <p className="settingsTime">{this.state.wedFreeTime3}</p>
               </th>
               {/* Thursday */}
               <th
                 onClick={() => this.props.clicked('Thursday')} 
                 className="table-input">
-                <p>{this.state.thurFreeTime}</p>
-                <p>{this.state.thurFreeTime2}</p>
-                <p>{this.state.thurFreeTime3}</p>
+                <p className="settingsTime">{this.state.thurFreeTime}</p>
+                <p className="settingsTime">{this.state.thurFreeTime2}</p>
+                <p className="settingsTime">{this.state.thurFreeTime3}</p>
               </th>
               {/* Friday */}
               <th
                 onClick={() => this.props.clicked('Friday')} 
                 className="table-input">
-                <p>{this.state.friFreeTime}</p>
-                <p>{this.state.friFreeTime2}</p>
-                <p>{this.state.friFreeTime3}</p>
+                <p className="settingsTime">{this.state.friFreeTime}</p>
+                <p className="settingsTime">{this.state.friFreeTime2}</p>
+                <p className="settingsTime">{this.state.friFreeTime3}</p>
               </th>
               {/* Saturday */}
               <th
                 onClick={() => this.props.clicked('Saturday')} 
                 className="table-input">
-                <p>{this.state.satFreeTime}</p>
-                <p>{this.state.satFreeTime2}</p>
-                <p>{this.state.satFreeTime3}</p>
+                <p className="settingsTime">{this.state.satFreeTime}</p>
+                <p className="settingsTime">{this.state.satFreeTime2}</p>
+                <p className="settingsTime">{this.state.satFreeTime3}</p>
               </th>
               {/* Sunday */}
               <th
                 onClick={() => this.props.clicked('Sunday')} 
                 className="table-input border-right-0">
-                <p>{this.state.sunFreeTime}</p>
-                <p>{this.state.sunFreeTime2}</p>
-                <p>{this.state.sunFreeTime3}</p>
+                <p className="settingsTime">{this.state.sunFreeTime}</p>
+                <p className="settingsTime">{this.state.sunFreeTime2}</p>
+                <p className="settingsTime">{this.state.sunFreeTime3}</p>
                 </th>
             </tr>
           </tbody>

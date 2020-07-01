@@ -2,3 +2,11 @@
   text-align: center !important;
   display: block;
 }
+
+.tableHeader {
+  min-width: 125px;
+}
+
+.settingsTime {
+  font-size: 14px;;
+}
