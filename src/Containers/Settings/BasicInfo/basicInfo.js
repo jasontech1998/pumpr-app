@@ -121,7 +121,7 @@ class BasicInfo extends Component {
       userPicture = this.state.url;
     };
     if (this.state.hasSaved) {
-      hasSaved = <p className="mt-3">Your changes have been saved</p>;
+      hasSaved = <p className="mt-3" style={{color: "#45A1FF"}}>Your info has been updated.</p>;
     };
     
     return (

@@ -183,9 +183,15 @@ class ScheduleModal extends Component {
       showPlusIcon = null;
     };
 
+    // Error Handling
+    let errorMsg = null;
+    if (this.props.error) {
+      errorMsg = <p className="errorMsg">Please fill out the entire form.</p>;
+    }
     return (
       <div>
         <h3 className="mt-2">{this.props.day}</h3>
+        {errorMsg}
         <small className="text-muted">Input your availability for this day</small>
         <div className="topInput d-flex align-items-center justify-content-center">
             <span className="mr-3">from</span>

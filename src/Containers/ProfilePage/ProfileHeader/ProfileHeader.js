@@ -28,7 +28,9 @@ class ProfileHeader extends Component {
       if (this.props.ownData) {
         experience = this.props.ownData.userSetup.goals.experience;
         // if viewing own profile, remove message button
-        showButton = null;
+        showButton = <button 
+                      onClick={() => this.props.history.push('/profile-settings')}
+                      className="editProfile">Edit profile</button>;
         let tempName = this.props.ownData.userSetup.fullName;
         fullName = `${tempName.firstName} ${tempName.lastName}`;
         const {profile} = this.props.ownData.userSetup;
@@ -44,6 +46,7 @@ class ProfileHeader extends Component {
         };
       }
     }
+    // display other user data
     else if (this.props.history.location.state) {
       if (this.props.data) {
         experience = this.props.data.userSetup.goals.experience;

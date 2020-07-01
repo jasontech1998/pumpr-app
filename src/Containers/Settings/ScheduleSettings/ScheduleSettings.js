@@ -49,17 +49,18 @@ class ScheduleSettings extends Component {
         fromInput2: '',
         toInput2: '',
         fromInput3: '',
-        toInput3: ''
-      })
+        toInput3: '',
+        hasSaved: false
+      });
     }
     else {
-      this.setState({day: day});
+      this.setState({day: day, hasSaved: false});
     }
     this.props.openModalHandler();
   }
 
   hideModalHandler = () => {
-    this.setState({freeTime: null, addedInputs: 0});
+    this.setState({freeTime: null, addedInputs: 0, missingInputs: false});
     this.props.closeModalHandler();
   }
   
@@ -73,8 +74,9 @@ class ScheduleSettings extends Component {
     switch (this.state.addedInputs) {
       case 2:
         console.log('2 inputs added');
+        // Display Error
         if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2 && this.state.fromInput3 && this.state.toInput3) === '') {
-          alert('Please fill out all available inputs');
+          this.setState({missingInputs: true});
           break;
         }
         else {
@@ -85,14 +87,16 @@ class ScheduleSettings extends Component {
           };
           this.setState({
             ...this.state,
-            freeTime});
+            freeTime,
+            hasSaved: true});
           this.props.closeModalHandler();
           break;
-        }
+        };
       case 1:
-        console.log('1 input added')
+        console.log('1 input added');
+        // Display Error
         if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2) === '') {
-          alert('Please fill out all available inputs')
+          this.setState({missingInputs: true});
           break;
         }
         else {
@@ -102,12 +106,14 @@ class ScheduleSettings extends Component {
           };
           this.setState({
             ...this.state,
-            freeTime});
+            freeTime,
+            hasSaved: true});
           this.props.closeModalHandler();
           break;
         }
       case 0:
-        console.log('0 inputs added')
+        console.log('0 inputs added');
+        // Remove times
         if ((this.state.fromInput && this.state.toInput) === '') {
           freeTime = {
             freeTime: ''
@@ -116,7 +122,8 @@ class ScheduleSettings extends Component {
             ...this.state,
             freeTime,
             fromInput: '',
-            toInput: ''});
+            toInput: '',
+            hasSaved: true});
           this.props.closeModalHandler();
           break;
         }
@@ -126,7 +133,8 @@ class ScheduleSettings extends Component {
           };
           this.setState({
             ...this.state,
-            freeTime});
+            freeTime,
+            hasSaved: true});
           this.props.closeModalHandler();
           break;
         }
@@ -135,6 +143,16 @@ class ScheduleSettings extends Component {
     }
   }
   render () {
+    // Error Handling
+    let errorMsg = null;
+    if (this.state.missingInputs) {
+      errorMsg = true;
+    }
+    // Save Handler
+    let hasSaved = null;
+    if (this.state.hasSaved) {
+      hasSaved = <p className="mt-3" style={{color: "#45A1FF"}}>Your info has been updated.</p>;
+    };
     return (
       <>
         <h3>Your Schedule</h3>
@@ -142,6 +160,7 @@ class ScheduleSettings extends Component {
           closeModal={this.hideModalHandler} 
           show={this.props.submitting}>
             <ScheduleModal
+              error={errorMsg}
               changed={(event) => this.onChangeHandler(event)}
               fromInput={this.state.fromInput}
               toInput={this.state.toInput}
@@ -163,6 +182,7 @@ class ScheduleSettings extends Component {
             day={this.state.day}
             freeTime={this.state.freeTime}
             clearTime={this.hideModalHandler}/>
+          {hasSaved}
       </>
     )
   }

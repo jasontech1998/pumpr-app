@@ -38,10 +38,11 @@ class Goals extends Component {
         experience: this.state.selectedExp,
         goals:this.state.selectedGoals
       };
+      this.setState({missingInputs: false});
       this.props.submitGoalsHandler(expGoals);
     }
     else {
-      alert('Please fill out the form');
+      this.setState({missingInputs: true});
     }
   }
 
@@ -110,11 +111,19 @@ class Goals extends Component {
     this.setState({hasSaved: true});
   }
 
+  
   render () {
+    // Error Handling
+    let errorMsg = null;
+    if (this.state.missingInputs) {
+      errorMsg = <p className="errorMsg">Please select your experience level.</p>;
+    }
+
     if (this.state.isSubmit) {
       console.log('is submit');
       return (<Redirect to="/profile-bio-setup"/>)
     };
+
     let showButton = null;
     // if rendered on /goals
     if (this.props.history.location.pathname === '/goals') {
@@ -126,14 +135,16 @@ class Goals extends Component {
                       onClick={this.onSaveHandler} 
                       className="offerBtn">Save</button>;
     };
+    // Show if user saved updated info
     let hasSaved = null;
     if (this.state.hasSaved) {
-      hasSaved = hasSaved = <p className="mt-3">Your changes have been saved</p>;
+      hasSaved = hasSaved = <p className="mt-3" style={{color: "#45A1FF"}}>Your info has been updated.</p>;
     };
     return (
       <div className="col d-flex flex-column justify-content-center">
         <div className="experience mb-3">
           <div className="mb-3">
+            {errorMsg}
             <h2 className="text-center">What's your experience level?</h2>
             <small className="text-muted">this data will be used to match you with a partner of a similar experience level</small>
           </div>
@@ -144,7 +155,7 @@ class Goals extends Component {
         <div className="Goals">
           <div className="mb-3">
             <h2 className="text-center">What are your interests?</h2>
-            <small className="text-muted">this data will be used to match you with a partner of common interest</small>
+            <small className="text-muted">select any that apply to you</small>
           </div>
           <GoalsList
               selectedGoals={this.state.selectedGoals} 

@@ -3,9 +3,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 import * as actionModals from '../../../store/actions/actionSetup';
-// import PumprSchedule from '../../PumprSchedule/pumprSchedule';
-// import Modal from '../../../Components/UI/Modal/Modal';
-// import ScheduleModal from '../../ProfileSetUp/GymSchedule/ScheduleModal';
+
 import RecentPosts from '../../Dashboard/RecentPosts/RecentPosts';
 
 class Timeline extends Component {
@@ -151,29 +149,6 @@ class Timeline extends Component {
     return (
       <div className="row" style={{width: "80%", margin: "auto"}}>
         <div className="col-12">
-          {/* <Modal
-          closeModal={this.hideModalHandler} 
-          show={this.props.submitting}>
-            <ScheduleModal
-              changed={(event) => this.onChangeHandler(event)}
-              fromInput={this.state.fromInput}
-              toInput={this.state.toInput}
-              fromInput2={this.state.fromInput2}
-              toInput2={this.state.toInput2}
-              fromInput3={this.state.fromInput3}
-              toInput3={this.state.toInput3}
-              addedInputs={this.state.addedInputs}
-              day={this.state.day}
-              plusClicked={this.addInputHandler}
-              minusClicked={this.removeInputHandler}
-              onClick={this.onClickSubmit}/>
-          </Modal>
-          <PumprSchedule
-            clicked={(day) => this.showModalHandler(day)} 
-            data={data}
-            day={this.state.day}
-            freeTime={this.state.freeTime}
-            clearTime={this.hideModalHandler}/> */}
           <RecentPosts history={this.props.history}/>
         </div>
       </div>

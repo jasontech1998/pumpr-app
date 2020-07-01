@@ -31,7 +31,7 @@ class Lifts extends Component {
         (this.state.dlWeight === '') ||
         (this.state.dlReps === '') ||
         (this.state.dlSets === '') ) {
-          alert('Please fill out the whole form');
+          this.setState({missingInputs: true})
     }
     else {
       const lifts = [
@@ -51,7 +51,7 @@ class Lifts extends Component {
           sets: this.state.dlSets}
         }
       ];
-      this.setState({isSubmit: true});
+      this.setState({isSubmit: true, missingInputs: false});
       this.props.submitLiftsHandler(lifts);
     }
   }
@@ -67,6 +67,12 @@ class Lifts extends Component {
       console.log('is submit');
       return (<Redirect to="/goals"/>);
     };
+
+    // Error handling
+    let errorMsg = null;
+    if (this.state.missingInputs) {
+      errorMsg = <p className="errorMsg">Please fill out the entire form.</p>;
+    }
     
     return (
       <div className="col">
@@ -183,6 +189,7 @@ class Lifts extends Component {
               </div>
             </div>
           </div>
+          {errorMsg}
           <Button>Continue</Button>
         </form>
       </div>

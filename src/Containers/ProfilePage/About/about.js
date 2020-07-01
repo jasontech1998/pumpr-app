@@ -53,8 +53,6 @@ class About extends Component {
   render () {
     // Initialize First Name of User Profile
     let firstName = null;
-    // Initialize Edit Settings Button
-    let editSettings = null;
     // Initialize number of reviews
     let reviewLength = 0;
     let numReviews = null;
@@ -85,13 +83,6 @@ class About extends Component {
     if (this.props.history.location.state === undefined) {
       if (this.props.ownData) {
         firstName = this.props.ownData.userSetup.fullName.firstName;
-        editSettings = (
-          <div className="d-flex justify-content-end" style={{marginBottom: "30px"}}>
-            <button 
-              onClick={() => this.props.history.push('/profile-settings')} 
-              className="offerBtn">Edit Settings</button>
-          </div>
-        );
         // Object destructuring
         const {lifts} = this.props.ownData.userSetup;
         const {goals} = this.props.ownData.userSetup;
@@ -189,13 +180,6 @@ class About extends Component {
       if (this.props.data === '') {
         if (this.props.ownData) {
           firstName = this.props.ownData.userSetup.fullName.firstName;
-          editSettings = (
-            <div className="d-flex justify-content-end" style={{marginBottom: "30px"}}>
-              <button
-                onClick={() => this.props.history.push('/profile-settings')} 
-                className="offerBtn">Edit Settings</button>
-            </div>
-          );
           // Object destructuring
           const {lifts} = this.props.ownData.userSetup;
           const {goals} = this.props.ownData.userSetup;
@@ -292,7 +276,6 @@ class About extends Component {
     return (
       <div className="row about">
         <div className="col">
-          {editSettings}
           {/* User Join Date and Location */}
           <div className={classes.joinLocation}>
             <span className="mr-auto">Joined in 2020</span>

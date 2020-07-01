@@ -67,7 +67,7 @@ class GymInfo extends Component {
   render () {
     let hasSaved = null;
     if (this.state.hasSaved) {
-      hasSaved = hasSaved = <p className="mt-3">Your changes have been saved</p>;
+      hasSaved = hasSaved = <p className="mt-3" style={{color: "#45A1FF"}}>Your info has been updated.</p>;
     };
     return (
       <>

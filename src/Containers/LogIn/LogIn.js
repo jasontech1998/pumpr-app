@@ -16,12 +16,16 @@ class LogIn extends Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.state.email.length === 0 || this.state.password === 0) {
-      alert('Please fill out the entire form!')
+      this.setState({
+        missingInputs: true
+      });
     }
-    else if(this.state.password.length < 6) {
-      alert('Password must be atleast 6 characters in length')
+    else {
+      this.setState({
+        missingInputs: false
+      });
+      this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp);
     }
-    this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp);
   }
 
   onChangeHandler = (event) => {
@@ -31,6 +35,21 @@ class LogIn extends Component {
   }
 
   render () {
+    // initialize error message variable
+    let errorMsg = null;
+    // Log In error Handling
+    if (this.props.error) {
+      if (this.props.error.message === "EMAIL_NOT_FOUND") {
+        errorMsg = <p className="errorMsg">We don't recognize this email address.</p>;
+      }
+      else if (this.props.error.message === "INVALID_PASSWORD") {
+        errorMsg = <p className="errorMsg">Incorrect password.</p>;
+      }
+    };
+    if (this.state.missingInputs) {
+      errorMsg = <p className="errorMsg">Please fill out the entire form.</p>;
+    };
+
     // Lottie Animation 
     const defaultOptions = {
       loop: true,
@@ -58,6 +77,7 @@ class LogIn extends Component {
                 onSubmit={(event) => this.onSubmitHandler(event)}
                 className="form-inline flex-column justify-content-center">
                 <p style={{fontWeight: '600'}}>Log In</p>
+                {errorMsg}
                 <div className="form-group">
                   <input 
                     onChange={(event) => this.onChangeHandler(event)}
@@ -86,7 +106,8 @@ class LogIn extends Component {
 }
 const mapStateToProps = state => {
   return {
-    hasToken: state.auth.doneSignUp
+    hasToken: state.auth.doneSignUp,
+    error: state.auth.error
   }
 }
 const mapDispatchToProps = dispatch => {

@@ -3,9 +3,10 @@
   width: 90%;
 }
 
-/* #signUpInput {
-  width: 90%;
-} */
+.errorMsg {
+  font-size: 14px;
+  color: #E1467C;
+}
 
 
 .form-control::placeholder {

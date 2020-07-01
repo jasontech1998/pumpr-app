@@ -19,15 +19,19 @@ class SignIn extends Component {
   
   onSubmitHandler = (event) => {
     event.preventDefault();
-    if (this.state.email.length === 0 || this.state.password === 0) {
-      alert('Please fill out the entire form!');
+    if (this.state.firstName.length === 0 || this.state.lastName.length === 0) {
+      this.setState({
+        missingName: true
+      });
     }
-    else if(this.state.password.length < 6) {
-      alert('Password must be atleast 6 characters in length');
+    else {
+      this.setState({
+        missingName: false
+      });
+      const fullName = {firstName: this.state.firstName, lastName: this.state.lastName};
+      // Create account and submit skeleton userProfile to database
+      this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp, fullName);
     }
-    const fullName = {firstName: this.state.firstName, lastName: this.state.lastName};
-    // Create account and submit skeleton userProfile to database
-    this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp, fullName);
   }
 
   onChangeHandler = (event) => {
@@ -37,6 +41,8 @@ class SignIn extends Component {
   }
 
   render () {
+    // initialize error message variable
+    let errorMsg = null;
     // Lottie Animation 
     const defaultOptions = {
       loop: true,
@@ -46,11 +52,22 @@ class SignIn extends Component {
         preserveAspectRatio: 'xMidYMid slice'
       }
     };
-
+    // Redirect to lifts if signUp is successful
     if (this.props.doneSignUp) {
       return <Redirect to="/lifts"/>;
     };
-    
+    // Sign Up Error Handling
+    if (this.props.error) {
+      if (this.props.error.message === "EMAIL_EXISTS") {
+        errorMsg = <p className="errorMsg">An account with this e-mail already exists.</p>;
+      }
+      else if (this.props.error.message === "WEAK_PASSWORD : Password should be at least 6 characters") {
+        errorMsg = <p className="errorMsg">Your password must be at least 6 characters.</p>;
+      }
+    }
+    if (this.state.missingName) {
+      errorMsg = <p className="errorMsg">Please enter your full name</p>;
+    }
     return (
       <>
         {/* Left Side */}
@@ -73,6 +90,7 @@ class SignIn extends Component {
                 className="form-inline flex-column justify-content-center"
                 onSubmit={(event) => this.onSubmitHandler(event)}>
                 <p className="signUpText">Sign Up</p>
+                {errorMsg}
                 <div className="form-group justify-content-center">
                   <input 
                     onChange={(event) => this.onChangeHandler(event)}
@@ -122,7 +140,8 @@ class SignIn extends Component {
 
 const mapStateToProps = state => {
   return {
-    doneSignUp: state.auth.doneSignUp
+    doneSignUp: state.auth.doneSignUp,
+    error: state.auth.error
   }
 }
 
