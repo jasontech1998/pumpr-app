@@ -78,18 +78,20 @@ class OfferModal extends Component {
         review: review
       };
       console.log(feedbackObj)
+      this.setState({submitFeedbackError: false});
       const token = localStorage.getItem('token');
       this.props.onPostFeedback(token, feedbackObj);
+      this.hideModalHandler();
     }
     else {
-      alert('Please fill out the whole form')
+      this.setState({submitFeedbackError: true});
     }
   }
 
   // User is sending work out offer
   submitOfferHandler = () => {
     if (this.state.selectedLocation === null || this.state.monthInput === '' || this.state.dayInput === '' || this.state.timeInput === '') {
-      alert('Please fill out the whole form')
+      this.setState({submitOfferError: true});
     }
     else {
       // store sender name
@@ -148,12 +150,82 @@ class OfferModal extends Component {
         monthInput: '',
         dayInput: '',
         timeInput: '',
-        message: ''
+        message: '',
+        submitOfferError: false
       });
       this.props.onPostOfferMsg(token, groupMessage);
+      this.hideModalHandler();
     }
   }
   render () {
+    // Error Handling
+    let errorMsg = null;
+    if (this.state.submitOfferError) {
+      errorMsg =  <p className="errorMsg">Please select the Month, Day, Time and Location for your work out offer.</p>;
+    }
+    else if (this.state.submitFeedbackError) {
+      errorMsg =  <p className="errorMsg">Please fill out the entire form.</p>;
+    }
+    const options = [
+      {value: "6 AM", text: "6 AM"},
+      {value: "7 AM", text: "7 AM"},
+      {value: "8 AM", text: "8 AM"},
+      {value: "9 AM", text: "9 AM"},
+      {value: "10 AM", text: "10 AM"},
+      {value: "11 AM", text: "11 AM"},
+      {value: "12 PM", text: "12 PM"},
+      {value: "1 PM", text: "1 PM"},
+      {value: "2 PM", text: "2 PM"},
+      {value: "3 PM", text: "3 PM"},
+      {value: "4 PM", text: "4 PM"},
+      {value: "5 PM", text: "5 PM"},
+      {value: "6 PM", text: "6 PM"},
+      {value: "7 PM", text: "7 PM"},
+      {value: "8 PM", text: "8 PM"},
+      {value: "9 PM", text: "9 PM"},
+      {value: "10 PM", text: "10 PM"},
+      {value: "11 PM", text: "11 PM"},
+      {value: "12 AM", text: "12 AM"},
+      {value: "1 AM", text: "1 AM"},
+      {value: "2 AM", text: "2 AM"},
+      {value: "3 AM", text: "3 AM"},
+      {value: "4 AM", text: "4 AM"},
+      {value: "5 AM", text: "5 AM"}
+    ];
+    let timeInput = (
+      options.map( o => {
+        return (
+          <option key={o.value} value={o.value}>{o.text}</option>
+        )
+      })
+    );
+    let days = 31;
+    if (this.state.monthInput) {
+      switch (this.state.monthInput) {
+        case "February":
+          days = 28;
+          break;
+        case "April":
+          days = 30;
+          break;
+        case "June":
+          days = 30;
+          break;
+        case "September":
+          days = "30";
+          break;
+        case "November":
+          days = "30";
+          break;
+        default:
+          days = 31;
+      }
+    }
+    let dayInput = [];
+    for (let i = 1; i <= days; i++) {
+      dayInput.push( <option key={i} value={i}>{i}</option>)
+    }
+
     let modalDisplay = null;
     let name = null;
     let receiverGym = null;
@@ -212,29 +284,49 @@ class OfferModal extends Component {
         modalDisplay = (
             <div>
               <h3 className="sendTitle my-3 ml-3">Send an offer to work out with {name}</h3>
+              {errorMsg}
               <div className="d-flex mt-3 ml-3">
                 <span>Input the date and time</span>
               </div>
               <div className="d-flex justify-content-center">
                 <div className="d-flex" style={{maxWidth: '350px', minHeight: '50px'}}>
-                  <input
-                    onChange={(event) => this.onChangeHandler(event)} 
-                    className="sendWhen month" 
+                  <select
+                    onChange={(event) => this.onChangeHandler(event)}
+                    className="form-control mr-3"
                     name="monthInput"
-                    type="text" 
-                    placeholder="Month"/>
-                  <input
-                    onChange={(event) => this.onChangeHandler(event)} 
-                    className="sendWhen day" 
+                    style={{minWidth: "130px"}}
+                    defaultValue={"Default"}>
+                    <option value="Default" disabled>Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </select> 
+                  <select
+                    onChange={(event) => this.onChangeHandler(event)}
+                    className="form-control timeOption mr-3"
                     name="dayInput"
-                    type="number" 
-                    placeholder="Day"/>
-                  <input
-                    onChange={(event) => this.onChangeHandler(event)} 
-                    className="sendWhen time" 
+                    defaultValue={"Default"}>
+                    <option value="Default" disabled>Day</option>
+                    {dayInput}
+                  </select> 
+                  <select
+                    onChange={(event) => this.onChangeHandler(event)}
+                    className="form-control mr-3"
                     name="timeInput"
-                    type="text" 
-                    placeholder="Time"/>
+                    style={{minWidth: "100px"}}
+                    defaultValue={"Default"}>
+                    <option value="Default" disabled>Time</option>
+                    {timeInput}
+                  </select> 
                 </div>
               </div>
               <div className="d-flex my-3 ml-3">
@@ -252,7 +344,7 @@ class OfferModal extends Component {
                   placeholder="Send a message with your offer"/>
               </div>
               <button
-                onClick={() => {this.submitOfferHandler(); this.hideModalHandler()} } 
+                onClick={() => this.submitOfferHandler()} 
                 className="offerBtn">Send Offer</button>
             </div>
           )
@@ -269,6 +361,7 @@ class OfferModal extends Component {
         modalDisplay = (
           <div style={{padding: '10px 10px'}}>
             <h3 className="sendTitle my-3 ml-3">Leave feedback for {name}</h3>
+            {errorMsg}
             <div className="d-flex mt-5">
               <span>What did {name} do well?</span>
             </div>
@@ -282,7 +375,7 @@ class OfferModal extends Component {
                   placeholder="Leave a comment"/>
               </div>
               <button
-                onClick={() => {this.submitFeedbackHandler(); this.hideModalHandler()} } 
+                onClick={() => this.submitFeedbackHandler()} 
                 className="offerBtn">Submit Feedback</button>
           </div>
         )

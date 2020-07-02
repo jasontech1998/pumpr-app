@@ -5,6 +5,7 @@ import Reviews from '../../Reviews/ShowReviews/Reviews';
 import Aux from '../../../hoc/Aux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
+import * as actionModals from '../../../store/actions/actionSetup';
 
 import PumprSchedule from '../../PumprSchedule/pumprSchedule';
 
@@ -14,6 +15,7 @@ class About extends Component {
   componentDidMount() {
     // Remove posts if in state
     if (this.props.posts) {
+      console.log('remove posts')
       this.props.removePostsHandler();
     };
     // if user just created account, fetch own profile data
@@ -23,9 +25,8 @@ class About extends Component {
       let token = localStorage.getItem('token');
       this.props.onFetchOwnProfile(token, userId);
     };
-    // if location.state, clicked from find a partner to display other user's profile
+    // if location.state, display other user's profile
     if (this.props.history.location.state) {
-      console.log('View other user profile and update data prop');
       let userId = this.props.history.location.state;
       let token = localStorage.getItem('token');
       this.props.onFetchProfile(token, userId);
@@ -49,8 +50,50 @@ class About extends Component {
     }
   }  
 
+  componentDidUpdate = (prevProps) => {
+    // if clickNav, user navigated to own profile from navbar
+    if (this.props.clickNav) {
+      // if data prop, remove it and fetch own user's data
+      if (this.props.data) {
+        this.props.removeDataPropHandler();
+        // after data prop and reviews array removed, fetch own user reviews
+        let userId = localStorage.getItem('userId');
+        let token = localStorage.getItem('token');
+        this.props.onFetchReviews(token, userId);
+      };
+    }
+    // if user wrote a review, update DOM
+    if (this.props.reviewSuccess !== prevProps.reviewSuccess) {
+      if (this.props.data) {
+        const userId = this.props.data.userId;
+        const token = localStorage.getItem('token');
+        this.props.onFetchReviews(token, userId);
+      }
+    }
+  }
+
+  sendFeedbackHandler = (e) => {
+    e.stopPropagation();
+    const {msgData} = this.props.reviewMsg.data;
+    const feedbackData = {
+      receiverName: msgData.receiverName,
+      receiverUserId: msgData.receiverUserId,
+      senderName: msgData.senderName,
+      senderPic: msgData.senderPic,
+      senderUserId: msgData.senderUserId,
+      reviewKey: this.props.leaveReview
+    }
+    this.props.openModalHandler(feedbackData);
+  }
 
   render () {
+    let writeReviewBtn = null;
+    if (this.props.leaveReview && this.props.reviewMsg) {
+      console.log('you can leave a review for this user');
+      writeReviewBtn = <button 
+                          onClick={(e) => this.sendFeedbackHandler(e)}
+                          className="feedbackBtn">Write a Review</button>
+    }
     // Initialize First Name of User Profile
     let firstName = null;
     // Initialize number of reviews
@@ -127,7 +170,6 @@ class About extends Component {
     }
     // If there is location.state, the user is viewing other user's profile
     else if (this.props.history.location.state) {
-      console.log('user clicked on another user profile')
       // Check if data has been fetched from firebase
       if (this.props.data) {
         firstName = this.props.data.userSetup.fullName.firstName;
@@ -270,9 +312,7 @@ class About extends Component {
           };
         }
       }
-    }
-    
-    
+    }    
     return (
       <div className="row about">
         <div className="col">
@@ -290,7 +330,8 @@ class About extends Component {
           {/* End of User Goals */}
           {/* Schedule */}
           <h4 className="mb-3" style={{marginTop: "30px"}}>{`${firstName}'s Schedule`}</h4>
-          <PumprSchedule 
+          <PumprSchedule
+            clickNav={this.props.clickNav} 
             data={this.props.data}
             ownData={this.props.ownData}
             history={this.props.history}/>
@@ -338,8 +379,13 @@ class About extends Component {
               <h4 className="my-3">Reviews</h4>
               <span className="my-3">{numReviews}</span>
             </div>
+            <div className="d-flex reviewBtnWrapper justify-content-end mb-3">
+              {writeReviewBtn}
+            </div>
             <div className="row">
-              <Reviews reviews={this.props.reviews} history={this.props.history}/>
+              <Reviews 
+                clickNav={this.props.clickNav}
+                reviews={this.props.reviews} history={this.props.history}/>
             </div>
           </div>
           {/* User Reviews End */}
@@ -354,7 +400,8 @@ const mapStateToProps = state => {
     token: state.auth.token,
     userId: state.auth.userId,
     reviews: state.pumpr.reviewsArray,
-    posts: state.pumpr.posts
+    posts: state.pumpr.posts,
+    reviewSuccess: state.pumpr.loading
   }
 }
 
@@ -364,7 +411,8 @@ const mapDispatchToProps = dispatch => {
     onFetchOwnProfile: (token, userId) => dispatch(actionCreators.fetchNavProfile(token, userId)),
     onFetchReviews: (token, userId) => dispatch(actionCreators.fetchReviews(token, userId)),
     removeDataPropHandler: () => dispatch(actionCreators.removeData()),
-    removePostsHandler: () => dispatch(actionCreators.removePosts())
+    removePostsHandler: () => dispatch(actionCreators.removePosts()),
+    openModalHandler: (modalData) => dispatch(actionModals.openModal(modalData))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(About);

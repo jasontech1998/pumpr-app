@@ -35,7 +35,6 @@ class Messages extends Component {
   }
   // Fetch Messages Initially
   componentDidMount = () => {
-    console.log('did mount')
     let token = localStorage.getItem('token');
     let userId = localStorage.getItem('userId');
     this.props.onFetchMessages(token, userId);

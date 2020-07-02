@@ -180,6 +180,11 @@ const pumprReducer = (state = initialState, action) => {
         ...state,
         loading: true
       }
+    case actionTypes.POST_FB_SUCCESS:
+      return {
+        ...state,
+        loading: true
+      }
     case actionTypes.UPDATE_MSG_SUCCESS:
       return {
         ...state,

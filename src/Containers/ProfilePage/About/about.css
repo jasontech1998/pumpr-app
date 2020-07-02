@@ -13,10 +13,18 @@
 }
 
 .about .reviewBlock {
-  border: 1px solid #818D92;
-  color: #818D92;
+  border: 1px solid #212520;
+  color: #212529;
   display: block;
   text-align: center !important;
+  border-radius: 0.5rem;
+  padding: 10px 5px;
+  font-weight: 500;
+}
+
+.about .optionsWrapper {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .profileLifts {

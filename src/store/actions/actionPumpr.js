@@ -415,7 +415,6 @@ export const submitFeedback = (token, feedback) => {
     dispatch(feedbackStart());
     axios.post('/reviews.json?auth=' + token, feedback)
       .then(response => {
-        console.log(response);
         dispatch(feedbackSuccess());
       })
       .catch(error => {
@@ -584,7 +583,11 @@ export const fetchMessages = (token, userId) => {
     axios.get('/groupMsgs.json' + queryParams)
       .then(response => {
         // save groupMsg data in state
-        const groupMsgArray = Object.values(response.data);
+        let groupMsgArray = [];
+        for (const [key, value] of Object.entries(response.data)) {
+          groupMsgArray.push({key: key, value: value});
+        }
+        // const groupMsgArray = Object.values(response.data);
         dispatch(fetchGroupMsgSuccess(groupMsgArray));
         // Loop through response and find all groupMsgs the user is in
         // initialize empty array to store promises in

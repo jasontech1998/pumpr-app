@@ -12,7 +12,6 @@ class Message extends Component {
   }
 
   onOfferHandler = (response , data) => {
-    console.log(data.key);
     const id = data.key;
     const token = localStorage.getItem('token');
     let offerResponse = null;
@@ -87,7 +86,6 @@ class Message extends Component {
 
   showProfileHandler = (e, userId) => {
     e.stopPropagation();
-    console.log(userId)
     this.props.history.push('/profile-about', userId);
   }
 
@@ -123,7 +121,10 @@ class Message extends Component {
       let userId = msgData.senderUserId;
       let date = null;
       let content = '';
-      let picture = msgData.senderPic;
+      let picture = `/static/media/social.15eeae14.svg`;
+      if (msgData.senderPic) {
+        picture = msgData.senderPic;
+      }
       let name = msgData.senderName;
       if (localStorage.getItem('userId') === userId) {
         if (!msgData.receiverPic) {
@@ -234,7 +235,10 @@ class Message extends Component {
         date = lastMsg.data.msgOfferData.date;
       }
       let userId = msgData.senderUserId;
-      let picture = msgData.senderPic;
+      let picture = `/static/media/social.15eeae14.svg`;
+      if (msgData.senderPic) {
+        picture = msgData.senderPic;
+      }
       let name = msgData.senderName;
       if (localStorage.getItem('userId') === userId) {
         // if no picture, use icon

@@ -4,8 +4,6 @@ import RecentPosts from './RecentPosts/RecentPosts';
 import PumprSchedule from '../PumprSchedule/pumprSchedule';
 import Aux from '../../hoc/Aux';
 import {connect} from 'react-redux';
-import Modal from '../../Components/UI/Modal/Modal';
-import ScheduleModal from '../ProfileSetUp/GymSchedule/ScheduleModal';
 
 import * as actionCreators from '../../store/actions/actionPumpr';
 import * as actionModals from '../../store/actions/actionSetup';
@@ -152,32 +150,11 @@ class Dashboard extends Component {
   render () {
     return (
       <Aux>
-        {/* <Modal
-          closeModal={this.hideModalHandler}
-          show={this.props.submitting}>
-          <ScheduleModal 
-            changed={(event) => this.onChangeHandler(event)}
-            fromInput={this.state.fromInput}
-            toInput={this.state.toInput}
-            fromInput2={this.state.fromInput2}
-            toInput2={this.state.toInput2}
-            fromInput3={this.state.fromInput3}
-            toInput3={this.state.toInput3}
-            addedInputs={this.state.addedInputs}
-            day={this.state.day}
-            plusClicked={this.addInputHandler}
-            minusClicked={this.removeInputHandler}
-            onClick={this.onClickSubmit}/>
-        </Modal> */}
         <div className="col-12">
           <h4>Dashboard</h4>
           <PumprSchedule
             history={this.props.history}
-            // clicked={(day) => this.showModalHandler(day)} 
             ownData={this.props.ownData}
-            // day={this.state.day}
-            // freeTime={this.state.freeTime}
-            // clearTime={this.hideModalHandler}
             />
         </div>
         <CreateAPost history={this.props.history} />

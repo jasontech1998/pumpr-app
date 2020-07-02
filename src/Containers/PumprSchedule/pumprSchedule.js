@@ -61,6 +61,27 @@ class PumprSchedule extends Component {
           isCurrentUser: true}, () => this.updateCalender());
       }
     }
+    // if clicked on user profile from navbar
+    else if (this.props.clickNav && !this.state.isCurrentUser) {
+      if (this.props.ownData) {
+        // show current user's data
+        console.log('current user schedule on dashboard')
+        const {profile} = this.props.ownData.userSetup;
+        this.setState({
+          profile: profile,
+          isCurrentUser: true}, () => this.updateCalender());
+      }
+    }
+    else if (this.props.data) {
+      // if viewing another user's profile to another user's profile, update the calendar so the previous user's schedule is updated correctly
+      if (this.props.data.userId !== prevProps.data.userId && !this.state.isOtherUser && !this.state.isCurrentUser) {
+        const {profile} = this.props.data.userSetup;
+        this.setState({
+          profile: profile,
+          isOtherUser: true}, () => this.updateCalender());
+      }
+    }
+
     // If schedule time has been changed, update and send to database
     // Monday
     if (this.props.day === 'Monday' && this.props.freeTime != null && prevProps.freeTime == null) {
@@ -218,10 +239,10 @@ class PumprSchedule extends Component {
       userId: localStorage.getItem('userId'),
       id: this.props.ownData.id
     };
-    console.log(userProfile);
     this.props.updateCalendarHandler(userKey, userProfile, token);
   }
   render () {
+
     let calendarDisplay = null;
     // if viewing other user's timeline page, display calendar without update functionality
     if (!this.props.profile) {
@@ -297,7 +318,6 @@ class PumprSchedule extends Component {
       </div>
       );
     }
-    // }
     // else, viewing own timeline, calendarDisplay has update calendar functionality
     else {
       calendarDisplay = (

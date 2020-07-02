@@ -3,6 +3,7 @@ import Aux from '../../../hoc/Aux';
 import Options from './Options';
 
 class Reviews extends Component {
+
   render () {
     let showReviews = null;
     if (this.props.reviews) {
@@ -16,7 +17,10 @@ class Reviews extends Component {
             if (review.options) {
               options =  <Options options={review.options}/>
             }
-            const picture = review.senderPic;
+            let picture = `/static/media/social.15eeae14.svg`;
+            if (review.senderPic) {
+              picture = review.senderPic;
+            };
             return (
               <Aux key={index}>
                 <div className="col-2 d-flex justify-content-center">
@@ -28,9 +32,8 @@ class Reviews extends Component {
                 </div>
                 <div className="col-8 d-flex align-items-end">
                   <div>
-                    <p
-                      style={{fontWeight: '500'}}>{review.senderName}</p>
-                    <p>{review.msg}</p>
+                    <p style={{fontWeight: '500'}}>{review.senderName}</p>
+                    <p style={{minWidth: "800px"}}>{review.msg}</p>
                     <div className="row mt-3">
                       {/* Feedback Options */}
                       {options}
