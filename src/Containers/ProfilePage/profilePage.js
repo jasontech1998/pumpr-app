@@ -26,36 +26,37 @@ class ProfilePage extends Component {
 
   componentDidUpdate = (prevProps, nextProps) => {
     if (prevProps.data.userId !== undefined || this.props.data.userId !== undefined && this.props.messages.length !== 0) {
-      // check if user has already started a message with other user
       if (this.props.groupMsgs !== undefined && this.props.data !== null && !this.state.hasMessaged && this.props.messages.length !== 0) {
+        // check if user has already started a message with other user
         const groupArray = [this.props.data.userId, localStorage.getItem('userId')];
         this.props.groupMsgs.map(group => {
           if (
-            // check if array is equal even if they are out of order
+            // check if array of userIds is equal even if they are out of order
             (group.value.userIds[0] === groupArray[0] && group.value.userIds[1] === groupArray[1]) ||
             (group.value.userIds[1] === groupArray[0] && group.value.userIds[0] === groupArray[1])) {
-            // save the groupMsg ID
+            // if found, update state to show that they have messaged each other already
             this.setState({hasMessaged: true});
-            // Loop through messages and find the array of messages from both user's groupMsg
-            this.props.messages.map(msgArray => {
-              // Can just look at the first element and check to see if the groupId key matches
-              if (msgArray[0].data.groupId === group.key) {
-                // if so, this array of messages is corresponding to both user's groupMsg
-                msgArray.map(msg => {
-                  // Loop through array of messages and check if a message has an accepted offer
-                  if (msg.data.offerAccepted) {
-                    // if so, save the key of that message in state
-                    this.setState({leaveReview: msg.key, reviewMsg: msgArray[0]});
-                  }
-                });
-              };
-            });
+            // check if they can review each other
+            if (group.value.hasReviewed) {
+              // if userId not included in hasReviewed, then the user can leave a review
+              if (group.value.hasReviewed.includes(localStorage.getItem('userId'))) {
+                console.log('has reviewed already')
+              }
+              // save review data in state to be passed down to about component
+              else {
+                this.setState({
+                  hasReviewed: group.value.hasReviewed,
+                  groupIdKey: group.key, 
+                  groupUserIds: group.value.userIds
+                })
+              }
+            }
           }
         })
       }
       // reset state to false when viewing differnt user's profile
       else if (this.props.data.userId !== prevProps.data.userId) {
-        this.setState({hasMessaged: false, leaveReview: false})
+        this.setState({hasMessaged: false, groupIdKey: false})
       }
       // these conditions work only when user clicks on the navbar to view their own profile while on another user's profile page
       else if (this.props.data.userId === prevProps.data.userId) {
@@ -78,18 +79,21 @@ class ProfilePage extends Component {
     const userId = localStorage.getItem('userId');
     let profileRender = null;
     let headerRender = null;
+    // When user navigates to about
     if (this.props.history.location.pathname === '/profile-about') {
       profileRender = <About 
                         history={this.props.history} 
                         ownData={this.props.ownData} 
-                        leaveReview={this.state.leaveReview}
-                        reviewMsg={this.state.reviewMsg}/>;
+                        hasReviewed={this.state.hasReviewed}
+                        groupIdKey={this.state.groupIdKey}
+                        groupUserIds={this.state.groupUserIds}/>;
       headerRender = <ProfileHeader
                         hasMessaged={this.state.hasMessaged}
                         history={this.props.history} 
                         click={this.showModalHandler} 
                         ownData={this.props.ownData}/>
     }
+    // When user navigates to timeline
     else if (this.props.history.location.pathname ==='/profile-timeline') {
       profileRender = <Timeline history={this.props.history} ownData={this.props.ownData}/>;
       headerRender = <ProfileHeader

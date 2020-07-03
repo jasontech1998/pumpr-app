@@ -90,15 +90,23 @@ class MessagesModal extends Component {
         userId: userId,
         review: review
       };
-      console.log(feedbackObj)
       const token = localStorage.getItem('token');
       this.setState({sendFeedbackError: false});
+      // send review to database
       this.props.onPostFeedback(token, feedbackObj);
       this.props.closeModalHandler();
-      // Remove offer accepted
-      // const id = this.props.modalData.reviewKey;
-      // const offerResponse = {offerAccepted: null}
-      // this.props.onOfferMsgHandler(id, token, offerResponse)
+      // update groupMsg hasReviewed with userId
+      // push userId into hasReviewed and remove first element if the placeholder is still there
+      this.props.modalData.hasReviewed.push(localStorage.getItem('userId'));
+      if (this.props.modalData.hasReviewed[0] === 0) {
+        this.props.modalData.hasReviewed.shift();
+      }
+      const groupData = {
+        userIds: this.props.modalData.groupUserIds,
+        hasReviewed: this.props.modalData.hasReviewed
+      }
+      // send to firebase to update
+      this.props.onUpdateHasReviewHandler(this.props.modalData.groupIdKey, token, groupData);
     }
     else {
       this.setState({sendFeedbackError: true});
@@ -170,8 +178,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onPostGroupMsg: (token, groupMsgUsers, content, date, receiverName, senderName, receiverPic, senderPic, receiverGym, senderGym) => dispatch(actionCreators.postGroupMsg(token, groupMsgUsers, content, date, receiverName, senderName, receiverPic, senderPic, receiverGym, senderGym)),
     closeModalHandler: () => dispatch(actionModals.closeModal()),
-    onPostFeedback: (token, feedback) => dispatch(actionCreators.submitFeedback(token, feedback))
-    // onOfferMsgHandler: (id, token, offerResponse) => dispatch(actionCreators.updateOfferMsg(id, token, offerResponse))
+    onPostFeedback: (token, feedback) => dispatch(actionCreators.submitFeedback(token, feedback)),
+    onUpdateHasReviewHandler:(key, token, groupData) => dispatch(actionCreators.updateHasReviewed(key, token, groupData))
   }
 }
 

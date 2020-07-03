@@ -80,8 +80,24 @@ class OfferModal extends Component {
       console.log(feedbackObj)
       this.setState({submitFeedbackError: false});
       const token = localStorage.getItem('token');
+      // send review to database
       this.props.onPostFeedback(token, feedbackObj);
       this.hideModalHandler();
+      console.log(this.props.modalData.groupIdKey);
+      console.log(this.props.modalData.groupUserIds);
+      // update groupMsg hasReviewed with userId
+      // push userId into hasReviewed and remove first element if the placeholder is still there
+      this.props.modalData.groupHasReviewed.push(localStorage.getItem('userId'));
+      if (this.props.modalData.groupHasReviewed[0] === 0) {
+        this.props.modalData.groupHasReviewed.shift();
+      }
+      const groupData = {
+        userIds: this.props.modalData.groupUserIds,
+        hasReviewed: this.props.modalData.groupHasReviewed
+      }
+      // send to firebase to update
+      this.props.onUpdateHasReviewHandler(this.props.modalData.groupIdKey, token, groupData);
+      console.log(groupData);
     }
     else {
       this.setState({submitFeedbackError: true});
@@ -388,7 +404,8 @@ class OfferModal extends Component {
 const mapStateToProps = state => {
   return {
     modalData: state.setup.modalData,
-    ownData: state.pumpr.ownData
+    ownData: state.pumpr.ownData,
+    groupMsgs: state.pumpr.groupMsgs
   }
 }
 
@@ -396,7 +413,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onPostOfferMsg: (token, message) => dispatch(actionCreators.postOfferMsg(token, message)),
     closeModalHandler: () => dispatch(actionModals.closeModal()),
-    onPostFeedback: (token, feedback) => dispatch(actionCreators.submitFeedback(token, feedback))
+    onPostFeedback: (token, feedback) => dispatch(actionCreators.submitFeedback(token, feedback)),
+    onUpdateHasReviewHandler:(key, token, groupData) => dispatch(actionCreators.updateHasReviewed(key, token, groupData))
   }
 }
 

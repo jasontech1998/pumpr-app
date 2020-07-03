@@ -11,14 +11,21 @@ class Message extends Component {
     messageInput: ''
   }
 
+  // responding to offer message
   onOfferHandler = (response , data) => {
     const id = data.key;
     const token = localStorage.getItem('token');
     let offerResponse = null;
-    // if accept offer
+    // if accept offer, update message with offer accepted
+    // also update groupMsgs to keep track of reviews
     if (response === 'accept') {
       offerResponse = {offerAccepted: true};
       this.props.onOfferMsgHandler(id, token, offerResponse);
+      // update groupMsgs with hasReviewed array and update redux state with new groupMsgs
+      const groupIdKey = data.data.groupId;
+      const hasReviewed = {hasReviewed: [0]};
+      this.props.onUpdateGroupMsgHandler(groupIdKey, token, hasReviewed);
+
     }
     // else declined offer
     else {
@@ -73,13 +80,25 @@ class Message extends Component {
 
   sendFeedbackHandler = (e) => {
     e.stopPropagation();
+    let groupUserIds = null;
+    let hasReviewed = null;
+    this.props.groupMsgs.map(groups => {
+      if (groups.key === this.props.msgData[0].data.groupId) {
+        groupUserIds = groups.value.userIds;
+        hasReviewed = groups.value.hasReviewed
+      }
+    })
+    const groupIdKey = this.props.msgData[0].data.groupId;
     const {msgData} = this.props.msgData[0].data;
     const feedbackData = {
       receiverName: msgData.receiverName,
       receiverUserId: msgData.receiverUserId,
       senderName: msgData.senderName,
       senderPic: msgData.senderPic,
-      senderUserId: msgData.senderUserId
+      senderUserId: msgData.senderUserId,
+      groupIdKey: groupIdKey,
+      groupUserIds: groupUserIds,
+      groupHasReviewed: hasReviewed
     }
     this.props.openModalHandler(feedbackData);
   }
@@ -108,6 +127,7 @@ class Message extends Component {
       // The first message should be a normal message if fetched in order
       // Look at first message sent and store picture, name, date
       this.props.msgData.map(msg => {
+        
         if (msg.data.offerAccepted) {
           workoutResponse = 'Confirmed';
           responseStyle = 'confirm';
@@ -509,14 +529,29 @@ class Message extends Component {
           })}
         </Aux>
       )
-      let msgHeaderButton =  
-        <button className="offerBtn" onClick={(event) => this.sendOfferHandler(event)}>Send Offer</button>;
-      if (responseStyle === 'confirm') {
-        msgHeaderButton = 
-          <button 
-            onClick={(event) => this.sendFeedbackHandler(event)}
-            className="feedbackBtn">Leave Feedback</button>;
-      }
+      let sendAndReviewBtn =  
+        <button className="sendOfferBtn" onClick={(event) => this.sendOfferHandler(event)}>Send Offer</button>;
+      this.props.groupMsgs.map(groups => {
+        if (groups.key === this.props.msgData[0].data.groupId) {
+          if (groups.value.hasReviewed) {
+            if (groups.value.hasReviewed.includes(localStorage.getItem('userId'))) {
+              console.log('you already reviewed');
+            }
+            else {
+              console.log('user can leave a review')
+              sendAndReviewBtn = (
+                <>
+                  <button className="sendOfferBtn" onClick={(event) => this.sendOfferHandler(event)}>Send Offer</button>
+                  <button 
+                    onClick={(event) => this.sendFeedbackHandler(event)}
+                    className="sendFeedbackBtn">Write a Review</button>
+                </>
+              )
+                          
+            }
+          }
+        }
+      })
       // Expanded Message Component
       message = (
         <div className="expandMsg">
@@ -538,9 +573,9 @@ class Message extends Component {
                   style={{cursor: "pointer"}}>{name}</span>
                 <span>{date}</span>
               </div>
-              <div className="col-5"></div>
-              <div className="col-3">
-                {msgHeaderButton}
+              <div className="col-4"></div>
+              <div className="col-4 d-flex justify-content-end">
+                {sendAndReviewBtn}
               </div>
             </div>
             {/* Start displaying Messages */}
@@ -580,7 +615,8 @@ class Message extends Component {
 
 const mapStateToProps = state => {
   return {
-    submitting: state.setup.submitting
+    submitting: state.setup.submitting,
+    groupMsgs: state.pumpr.groupMsgs
   }
 }
 
@@ -588,7 +624,8 @@ const mapDispatchToProps = dispatch => {
   return {
     openModalHandler: (modalData) => dispatch(actionModals.openModal(modalData)),
     sendReplyHandler: (token, reply) => dispatch(actionCreators.sendReply(token, reply)),
-    onOfferMsgHandler: (id, token, offerResponse) => dispatch(actionCreators.updateOfferMsg(id, token, offerResponse))
+    onOfferMsgHandler: (id, token, offerResponse) => dispatch(actionCreators.updateOfferMsg(id, token, offerResponse)),
+    onUpdateGroupMsgHandler: (key, token, hasReviewed) => dispatch(actionCreators.updateGroupReviews(key, token, hasReviewed))
   }
 }
 

@@ -72,27 +72,35 @@ class About extends Component {
     }
   }
 
-  sendFeedbackHandler = (e) => {
-    e.stopPropagation();
-    const {msgData} = this.props.reviewMsg.data;
-    const feedbackData = {
-      receiverName: msgData.receiverName,
-      receiverUserId: msgData.receiverUserId,
-      senderName: msgData.senderName,
-      senderPic: msgData.senderPic,
-      senderUserId: msgData.senderUserId,
-      reviewKey: this.props.leaveReview
-    }
+  sendFeedbackHandler = () => {
+    let feedbackData = null;
+    this.props.messages.map(msg => {
+      if (msg[0].data.groupId === this.props.groupIdKey) {
+        const {msgData} = msg[0].data;
+        feedbackData = {
+          receiverName: msgData.receiverName,
+          receiverUserId: msgData.receiverUserId,
+          senderName: msgData.senderName,
+          senderPic: msgData.senderPic,
+          senderUserId: msgData.senderUserId,
+          hasReviewed: this.props.hasReviewed,
+          groupIdKey: this.props.groupIdKey,
+          groupUserIds: this.props.groupUserIds
+        }
+      }
+    })
     this.props.openModalHandler(feedbackData);
   }
 
   render () {
     let writeReviewBtn = null;
-    if (this.props.leaveReview && this.props.reviewMsg) {
-      console.log('you can leave a review for this user');
-      writeReviewBtn = <button 
-                          onClick={(e) => this.sendFeedbackHandler(e)}
-                          className="feedbackBtn">Write a Review</button>
+    if (this.props.hasReviewed) {
+      if (!this.props.hasReviewed.includes(localStorage.getItem('userId'))) {
+        console.log('you can leave a review for this user');
+        writeReviewBtn = <button 
+                            onClick={this.sendFeedbackHandler}
+                            className="feedbackBtn">Write a Review</button>
+      }
     }
     // Initialize First Name of User Profile
     let firstName = null;
@@ -104,6 +112,9 @@ class About extends Component {
     }
     if (reviewLength > 1) {
       numReviews = `${reviewLength} Reviews`;
+    }
+    else if (reviewLength === 0) {
+      numReviews = `Reviews`;
     }
     else {
       numReviews = `${reviewLength} Review`;
@@ -376,10 +387,8 @@ class About extends Component {
           {/* User Reviews */}
           <div className={classes.reviews}>
             <div className="review_Wrapper d-flex align-items-baseline justify-content-between">
-              <h4 className="my-3">Reviews</h4>
-              <span className="my-3">{numReviews}</span>
-            </div>
-            <div className="d-flex reviewBtnWrapper justify-content-end mb-3">
+              <h4 className="my-3">{numReviews}</h4>
+              {/* <span className="my-3">{numReviews}</span> */}
               {writeReviewBtn}
             </div>
             <div className="row">
@@ -401,7 +410,8 @@ const mapStateToProps = state => {
     userId: state.auth.userId,
     reviews: state.pumpr.reviewsArray,
     posts: state.pumpr.posts,
-    reviewSuccess: state.pumpr.loading
+    reviewSuccess: state.pumpr.loading,
+    messages: state.pumpr.messages
   }
 }
 

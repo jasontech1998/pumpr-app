@@ -80,6 +80,70 @@ export const UPDATE_PROFILE_START = 'UPDATE_PROFILE_START';
 export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
 export const UPDATE_PROFILE_FAIL = 'UPDATE_PROFILE_FAIL';
 
+// Update GroupMsgs for hasReviews
+export const UPDATE_GROUP_START = 'UPDATE_GROUP_START';
+export const UPDATE_GROUP_SUCCESS = 'UPDATE_GROUP_SUCCESS';
+export const UPDATE_GROUP_FAIL = 'UPDATE_GROUP_FAIL';
+
+
+export const updateGroupStart = () => {
+  return {
+    type: UPDATE_GROUP_START
+  }
+}
+
+export const updateGroupSuccess = () => {
+  return {
+    type: UPDATE_GROUP_SUCCESS
+  }
+}
+
+export const updateGroupFail = (error) => {
+  return {
+    type: UPDATE_GROUP_FAIL,
+    error: error
+  }
+}
+
+export const updateGroupReviews = (key, token, hasReviewed) => {
+  return dispatch => {
+    dispatch(updateGroupStart());
+    axios.patch(`https://pumpr-182dc.firebaseio.com/groupMsgs/${key}.json?auth=${token}`, hasReviewed)
+      .then(response => {
+        const queryParams = '?auth=' + token + '"';
+        // get all groupMsgs
+        axios.get('/groupMsgs.json' + queryParams)
+          .then(groups => {
+            //  save groupMsg data in state
+            let groupMsgArray = [];
+            for (const [key, value] of Object.entries(groups.data)) {
+              groupMsgArray.push({key: key, value: value});
+            }
+            dispatch(fetchGroupMsgSuccess(groupMsgArray));
+          })
+          .catch(error => {
+            dispatch(updateGroupFail(error));
+          });
+      })
+      .catch(error => {
+        dispatch(updateGroupFail(error));
+      })
+  }
+}
+
+export const updateHasReviewed = (key, token, groupData) => {
+  return dispatch => {
+    dispatch(updateGroupStart());
+    axios.put(`https://pumpr-182dc.firebaseio.com/groupMsgs/${key}.json?auth=${token}`, groupData)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        dispatch(updateGroupFail(error))
+      })
+  }
+}
+
 export const updateProfileStart = () => {
   return {
     type: UPDATE_PROFILE_START
@@ -587,7 +651,6 @@ export const fetchMessages = (token, userId) => {
         for (const [key, value] of Object.entries(response.data)) {
           groupMsgArray.push({key: key, value: value});
         }
-        // const groupMsgArray = Object.values(response.data);
         dispatch(fetchGroupMsgSuccess(groupMsgArray));
         // Loop through response and find all groupMsgs the user is in
         // initialize empty array to store promises in

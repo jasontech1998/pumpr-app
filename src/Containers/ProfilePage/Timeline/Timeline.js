@@ -139,13 +139,6 @@ class Timeline extends Component {
   }
 
   render () {
-    let data = this.props.ownData;
-    // if viewing other user's profile
-    if (this.props.data) {
-      // save data and send as props to pumpr schedule and recent posts
-      data = this.props.data;
-    }
-
     return (
       <div className="row" style={{width: "80%", margin: "auto"}}>
         <div className="col-12">
