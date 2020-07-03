@@ -66,7 +66,7 @@ class PicAndBio extends Component {
     return (
       <div className="col d-flex justify-content-center">
         <div className={classes.PicAndBio}>
-          <h2 className="text-center mb-4">add a profile pic</h2>
+          <h2 className="text-center mb-4">add a profile picture</h2>
           {profilePic}
           <div className="mt-4">
             <input 

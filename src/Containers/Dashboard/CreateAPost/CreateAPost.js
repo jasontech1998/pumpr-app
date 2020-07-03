@@ -85,7 +85,7 @@ class CreateAPost extends Component {
     };
     
     return (
-      <div className="col-12" style={{padding: '0 90px'}}>
+      <div className="col-12" style={{padding: '0 90px', marginTop: "-20px", marginBottom: "35px"}}>
           <div className={classes.PostInputBox} style={{height: '250px'}}>
             <div className={classes.Header}>
               <span className="ml-3" style={{fontWeight: '500'}}>create a post</span>

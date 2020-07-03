@@ -142,7 +142,7 @@ class RecentPosts extends Component {
               redHeart = 'liked';
             };
             return (
-              <div key={post.key} style={{borderBottom: "1px solid #EBE8EE"}}>
+              <div key={post.key} style={{borderBottom: "2px solid #EBE8EE"}}>
                 <div className="row">
                   <div className="col-2 d-flex mt-3 justify-content-center">
                     {profilePicture}

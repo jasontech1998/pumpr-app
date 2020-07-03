@@ -99,7 +99,8 @@ class About extends Component {
         console.log('you can leave a review for this user');
         writeReviewBtn = <button 
                             onClick={this.sendFeedbackHandler}
-                            className="feedbackBtn">Write a Review</button>
+                            className="feedbackBtn"
+                            style={{boxShadow: "none"}}>Write a Review</button>
       }
     }
     // Initialize First Name of User Profile
@@ -335,7 +336,7 @@ class About extends Component {
           {/* User Bio */}
           <p className="my-3">{bio}</p>
           {/* User Goals */}
-          <div className="row">
+          <div className="row" style={{maxWidth: "700px"}}>
             {showGoals}
           </div>
           {/* End of User Goals */}
@@ -386,9 +387,8 @@ class About extends Component {
           {/* End of User Lifts */}
           {/* User Reviews */}
           <div className={classes.reviews}>
-            <div className="review_Wrapper d-flex align-items-baseline justify-content-between">
+            <div className="review_Wrapper d-flex align-items-baseline justify-content-between" style={{marginBottom: "10px"}}>
               <h4 className="my-3">{numReviews}</h4>
-              {/* <span className="my-3">{numReviews}</span> */}
               {writeReviewBtn}
             </div>
             <div className="row">

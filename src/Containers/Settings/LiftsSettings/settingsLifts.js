@@ -76,7 +76,7 @@ class GymInfo extends Component {
           <form>
             <div className="row mb-3">
               <div className="col-12 col-lg-4 px-4">
-                <div className="card my-3 p-2">
+                <div className="card my-3 p-2" style={{width: "250px", boxShadow: "none"}}>
                   <h5 
                     className="card-title mt-3">Bench Press</h5>
                   <img 
@@ -84,7 +84,7 @@ class GymInfo extends Component {
                     src={require('../../../Components/UI/Icons/bench.svg')} 
                     alt="icon" 
                     height="80" width="80"/>
-                  <div className="form-group mt-3">
+                  <div className="form-group">
                     <input
                       onChange={(event) => this.onChangeHandler(event)}
                       min="45" 
@@ -112,14 +112,14 @@ class GymInfo extends Component {
                 </div>
               </div>
               <div className="col-12 col-lg-4 px-4">
-                <div className="card my-3 p-2">
+                <div className="card my-3 p-2" style={{width: "250px", boxShadow: "none"}}>
                   <h5 className="card-title mt-3">Squat</h5>
                   <img 
                     className={classes.Icon}
                     src={require('../../../Components/UI/Icons/squat.svg')} 
                     alt="icon" 
                     height="80" width="80"/>
-                  <div className="form-group mt-3">
+                  <div className="form-group">
                     <input
                       onChange={(event) => this.onChangeHandler(event)} 
                       min="45" 
@@ -147,14 +147,14 @@ class GymInfo extends Component {
                 </div>
               </div>
               <div className="col-12 col-lg-4 px-4">
-                <div className="card my-3 p-2">
+                <div className="card my-3 p-2" style={{width: "250px", boxShadow: "none"}}>
                   <h5 className="card-title mt-3">Deadlift</h5>
                   <img 
                     className={classes.Icon}
                     src={require('../../../Components/UI/Icons/deadlift.svg')} 
                     alt="icon" 
                     height="80" width="80"/>
-                  <div className="form-group mt-3">
+                  <div className="form-group">
                     <input
                       onChange={(event) => this.onChangeHandler(event)} 
                       min="45" 

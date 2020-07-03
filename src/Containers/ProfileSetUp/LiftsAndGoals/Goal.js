@@ -22,7 +22,7 @@ class Goal extends Component {
     const {isSelected} = this.state;
     return (
       <div
-        className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+        className="d-flex col-12 col-md-6 col-lg-4 mb-3" style={{maxWidth: "200px"}}>
         <div
           onClick={() => {this.props.click(this.props.goal); this.changeColor()}}
           className={`card card-body flex-fill ${isSelected ? 'selected' : 'notSelected'}`}

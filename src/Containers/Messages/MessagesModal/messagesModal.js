@@ -130,9 +130,9 @@ class MessagesModal extends Component {
       }
       return (
         <div style={{padding: '10px 10px'}}>
-          <h3 className="sendTitle my-3 ml-3">Leave feedback for {name}</h3>
+          <h3 className="sendTitle mb-3 ml-3">Leave Feedback</h3>
           {errorMsg}
-          <div className="d-flex mt-5">
+          <div className="d-flex mt-3">
             <span>What did {name} do well?</span>
           </div>
           <ReviewList click={(option) => this.optionsHandler(option)}/>

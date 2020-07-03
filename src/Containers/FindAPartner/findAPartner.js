@@ -157,7 +157,7 @@ class FindAPartner extends Component {
     }
     return (
       <div className="col">
-        <h3>Find A Partner</h3>
+        <h3 className="mb-4">Find A Partner</h3>
         <div className="cards-slider my-3">
           <div className="cards-slider-wrapper" style={{transform: `translateX(-${this.state.nextCount*(200)}%)`}}>
             {showUsers}

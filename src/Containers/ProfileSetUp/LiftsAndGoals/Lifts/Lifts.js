@@ -4,7 +4,7 @@ import Button from '../../../../Components/UI/Button/Button';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import * as actionCreators from '../../../../store/actions/actionSetup';
-
+import './lifts.css';
 class Lifts extends Component {
   state = {
     benchWeight: '',
@@ -67,6 +67,9 @@ class Lifts extends Component {
       console.log('is submit');
       return (<Redirect to="/goals"/>);
     };
+    if (this.props.ownData) {
+      return (<Redirect to="/dashboard" />)
+    }
 
     // Error handling
     let errorMsg = null;
@@ -77,12 +80,12 @@ class Lifts extends Component {
     return (
       <div className="col">
         <form onSubmit={(event) => this.onSubmitHandler(event)}>
-          <h2 className="text-center">Enter your lifts</h2>
-          <small className="form-text text-muted">This data will be used to match you with the right gym partner</small>
-          <small className="form-text text-muted">Feel free to input your one rep max or your general lifts</small>
-          <div className="row mb-3">
+          <h2 className="text-center">enter your lifts</h2>
+          <small className="form-text text-muted">this data will be used to match you with the right gym partner</small>
+          <small className="form-text text-muted">feel free to input your one rep max or your general lifts</small>
+          <div className="row liftsWrapper">
             <div className="col-12 col-lg-4 px-4">
-              <div className="card my-3 p-2">
+              <div className="liftsCard my-3 p-2">
                 <h5 
                   className="card-title mt-3">Bench Press</h5>
                 <img 
@@ -90,7 +93,7 @@ class Lifts extends Component {
                   src={require('../../../../Components/UI/Icons/bench.svg')} 
                   alt="icon" 
                   height="80" width="80"/>
-                <div className="form-group mt-3">
+                <div className="form-group">
                   <input
                     onChange={(event) => this.onChangeHandler(event)}
                     min="45" 
@@ -119,14 +122,14 @@ class Lifts extends Component {
               </div>
             </div>
             <div className="col-12 col-lg-4 px-4">
-              <div className="card my-3 p-2">
+              <div className="liftsCard my-3 p-2">
                 <h5 className="card-title mt-3">Squat</h5>
                 <img 
                   className={classes.Icon}
                   src={require('../../../../Components/UI/Icons/squat.svg')} 
                   alt="icon" 
                   height="80" width="80"/>
-                <div className="form-group mt-3">
+                <div className="form-group">
                   <input
                     onChange={(event) => this.onChangeHandler(event)} 
                     min="45" 
@@ -154,14 +157,14 @@ class Lifts extends Component {
               </div>
             </div>
             <div className="col-12 col-lg-4 px-4">
-              <div className="card my-3 p-2">
+              <div className="liftsCard my-3 p-2">
                 <h5 className="card-title mt-3">Deadlift</h5>
                 <img 
                   className={classes.Icon}
                   src={require('../../../../Components/UI/Icons/deadlift.svg')} 
                   alt="icon" 
                   height="80" width="80"/>
-                <div className="form-group mt-3">
+                <div className="form-group">
                   <input
                     onChange={(event) => this.onChangeHandler(event)} 
                     min="45" 
@@ -197,12 +200,18 @@ class Lifts extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    ownData: state.pumpr.ownData
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     submitLiftsHandler: (lifts) => dispatch(actionCreators.submitLifts(lifts))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Lifts);
+export default connect(mapStateToProps, mapDispatchToProps)(Lifts);
 
 

@@ -58,7 +58,7 @@ class Settings extends Component {
             style={{height: '250px'}}>
               <h3 
                 onClick={() => this.changeInfoDisplay('basic')}
-                className={`settingsNav mb-3 ${this.state.showSettings === 0 ? "activeSet" : ""}`}>Basic Info</h3>
+                className={`settingsNav ${this.state.showSettings === 0 ? "activeSet" : ""}`}>Basic Info</h3>
               <h3 
                 onClick={() => this.changeInfoDisplay('lifts')}
                 className={`settingsNav ${this.state.showSettings === 1 ? "activeSet" : ""}`}>Lifts</h3>

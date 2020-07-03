@@ -121,7 +121,7 @@ class scheduleCalendar extends Component {
       showNext = <Button click={this.submitSchedule}>Next</Button>;
     };
     return (
-      <div className="my-3">
+      <div style={{marginTop: "40px", marginBottom: "16px"}}>
         <table className="table">
           <thead className="thead">
             <tr>

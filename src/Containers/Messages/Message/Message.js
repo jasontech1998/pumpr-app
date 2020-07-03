@@ -300,7 +300,7 @@ class Message extends Component {
                     className="d-flex">
                     <div className="col-6"></div>
                     <div className="col-6 mt-3 d-flex justify-content-end">
-                      <span className="msg">{msgData.content}</span>
+                      <span className="msgSent">{msgData.content}</span>
                     </div>
                   </div>
                 )
@@ -429,7 +429,7 @@ class Message extends Component {
                     className="d-flex">
                     <div className="col-6"></div>
                     <div className="col-6 mt-3 d-flex justify-content-end">
-                      <span className="msg">{msgOfferData.message}</span>
+                      <span className="msgSent">{msgOfferData.message}</span>
                     </div>
                   </div>
                   )

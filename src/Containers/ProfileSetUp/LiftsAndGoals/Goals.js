@@ -145,7 +145,7 @@ class Goals extends Component {
         <div className="experience mb-3">
           <div className="mb-3">
             {errorMsg}
-            <h2 className="text-center">What's your experience level?</h2>
+            <h2 className="text-center">what's your experience level?</h2>
             <small className="text-muted">this data will be used to match you with a partner of a similar experience level</small>
           </div>
             <ExperienceList 
@@ -154,7 +154,7 @@ class Goals extends Component {
         </div>
         <div className="Goals">
           <div className="mb-3">
-            <h2 className="text-center">What are your interests?</h2>
+            <h2 className="text-center">what are your interests?</h2>
             <small className="text-muted">select any that apply to you</small>
           </div>
           <GoalsList

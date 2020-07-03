@@ -175,9 +175,9 @@ class GymSchedule extends Component {
         </Modal>
         <div className={classes.Schedule}>
           <h2>what is your weekly availability?</h2>
-          <small className="text-muted">Click on each table cell to show other users the hours you are available to workout for each day of the week</small>
+          <small className="text-muted">click on each table cell to show other users the hours you are available to workout for each day of the week</small>
           <div>
-            <small className="text-muted">Empty days will be considered as not available</small>
+            <small className="text-muted">empty days will be considered as not available</small>
           </div>
           <ScheduleCalendar
             clearTime={this.hideModalHandler}
@@ -186,8 +186,8 @@ class GymSchedule extends Component {
             history={this.props.history}
             clicked={(day) => this.showModalHandler(day)}/>
           <Button click={this.onSkipHandler}>Skip</Button>
-          <div>
-            <small className="text-muted">Feel free to skip, you can always update your availability later!</small>
+          <div className="mt-3">
+            <small className="text-muted">you can always update your availability later</small>
           </div>
         </div>
       </div>

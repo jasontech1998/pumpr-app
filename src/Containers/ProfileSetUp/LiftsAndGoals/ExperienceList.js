@@ -33,7 +33,7 @@ class ExperienceList extends Component {
             selectExp = 'selected'
           }
           return (
-            <div className="d-flex col-12 col-md-6 col-lg-4 mb-3" key={index}>
+            <div className="d-flex justify-content-center col-12 col-md-6 col-lg-4 mb-3" key={index}>
               <div 
                 className='card card-body flex-fill'
                 id={selectExp}
@@ -48,7 +48,7 @@ class ExperienceList extends Component {
 
     return (
       <div>
-        <div className="d-flex flex-wrap"> 
+        <div className="d-flex flex-wrap" style={{maxWidth: "500px", margin: "auto"}}> 
           {expList}
         </div>
       </div>

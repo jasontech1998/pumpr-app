@@ -126,7 +126,7 @@ class BasicInfo extends Component {
     
     return (
       <>
-        <h1>Edit your info</h1>
+        <h3>Edit your info</h3>
         {/* Edit profile pic */}
         <input 
           onChange={(event) => this.onChooseHandler(event)}
