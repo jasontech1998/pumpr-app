@@ -102,6 +102,7 @@ class scheduleCalendar extends Component {
       fullName: this.props.fullName
     };
     const userProfile = {
+      id: this.props.userKey,
       userSetup: userSetUp,
       userId: this.props.userId
     };

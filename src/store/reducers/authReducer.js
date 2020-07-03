@@ -43,6 +43,7 @@ const authReducer = (state = initialState, action) => {
         userId: null,
         error: null,
         fullName: null,
+        profileKey: null,
         doneSignUp: false
       }
     default:

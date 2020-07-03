@@ -54,6 +54,7 @@ class GymSchedule extends Component {
       fullName: this.props.fullName
     };
     const userProfile = {
+      id: this.props.userKey,
       userSetup: userSetup,
       userId: localStorage.getItem('userId')
     };
