@@ -169,7 +169,6 @@ export const updateProfile = (key, token, userProfile) => {
     dispatch(updateProfileStart());
     axios.put(`https://pumpr-182dc.firebaseio.com/userProfiles/${key}.json?auth=${token}`, userProfile)
       .then(response => {
-        console.log(response.data);
         dispatch(updateProfileSuccess(response.data));
       })
       .catch(error => {

@@ -4,7 +4,7 @@ import './findAPartner.css';
 import Aux from '../../hoc/Aux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actions/actionPumpr';
-
+import verify from '../../Components/UI/Images/pumpr verified.png';
 
 class FindAPartner extends Component {
   state = {
@@ -70,12 +70,19 @@ class FindAPartner extends Component {
     
     // Dynamically generate other profiles
     let showUsers = null;
+    let showVerify = null;
     if (this.state.displayUsers) {
       const displayedUsers = this.state.displayUsers;
       showUsers = (
         <Aux>
           {displayedUsers.map((user,index) => {
-            let userData = user.value.userSetup ;
+            if (user.value.userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || user.value.userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+              showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+            }
+            else {
+              showVerify = null;
+            }
+            let userData = user.value.userSetup;
             const {bench} = userData.lifts[0];
             const {squat} = userData.lifts[1];
             const {deadlift} = userData.lifts[2];
@@ -110,7 +117,10 @@ class FindAPartner extends Component {
                 style={{boxShadow: '0px 5px 10px 1px rgba(0,0,0,0.25)', cursor: `${cursor}`, backgroundColor:'#fff'}}>
                 <div className={classes.Header}></div>
                 {picture}
-                <h5 className="card-title" style={{fontWeight:'600'}}>{name}</h5>
+                <div className="nameWrapper justify-content-center align-items-center">
+                  <h5 className="card-title" style={{fontWeight:'600'}}>{name}</h5>
+                  {showVerify}
+                </div>
                 <span className="experienceCard">{userData.goals.experience}</span>
                 <div className={classes.Location}>
                   <div 

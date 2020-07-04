@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as actionModals from '../../../store/actions/actionSetup';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 import Aux from '../../../hoc/Aux';
+import verify from '../../../Components/UI/Images/pumpr verified.png';
 
 class Message extends Component {
   state = {
@@ -121,13 +122,13 @@ class Message extends Component {
     let allMessages = null;
     let workoutResponse = null;
     let responseStyle = null;
+    let showVerify = null;
     // Beginning of unexpanded messages
     // multiple message
     if (this.props.msgData.length >= 2) {
       // The first message should be a normal message if fetched in order
       // Look at first message sent and store picture, name, date
       this.props.msgData.map(msg => {
-        
         if (msg.data.offerAccepted) {
           workoutResponse = 'Confirmed';
           responseStyle = 'confirm';
@@ -139,12 +140,16 @@ class Message extends Component {
       })
       const {msgData} = this.props.msgData[0].data;
       let userId = msgData.senderUserId;
+      // check if pumpr verified userId
+      if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+        showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+      }
       let date = null;
       let content = '';
       let picture = `/static/media/social.15eeae14.svg`;
       if (msgData.senderPic) {
         picture = msgData.senderPic;
-      }
+      };
       let name = msgData.senderName;
       if (localStorage.getItem('userId') === userId) {
         if (!msgData.receiverPic) {
@@ -154,6 +159,10 @@ class Message extends Component {
           picture = msgData.receiverPic;
         }
         userId = msgData.receiverUserId;
+        // check if pumpr verified userId
+        if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+          showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+        }
         name = msgData.receiverName;
       }
       // store the last message sent
@@ -188,7 +197,10 @@ class Message extends Component {
             height="80" width="80"/>
           </div>
           <div className="col-2 d-flex flex-column align-items-baseline">
-            <span>{name}</span>
+            <div className="nameWrapper align-items-center">
+              <span>{name}</span>
+              {showVerify}
+            </div>
             <span>{date}</span>
           </div>
           <div className="col-5 d-flex">
@@ -203,11 +215,16 @@ class Message extends Component {
     // single message
     else {
       const {msgData} = this.props.msgData[0].data;
-      const userId = localStorage.getItem('userId');
+      let userId = localStorage.getItem('userId');
       let picture = msgData.senderPic;
       let name = msgData.senderName;
       // Change to receiver picture
       if (msgData.senderUserId === userId) {
+        userId = msgData.receiverUserId;
+        // check if pumpr verified userId
+        if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+          showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+        }
         // if no picture, use icon
         if (!msgData.receiverPic) {
           picture = `/static/media/social.15eeae14.svg`;
@@ -216,6 +233,13 @@ class Message extends Component {
           picture = msgData.receiverPic;
         }
         name = msgData.receiverName;
+      }
+      else {
+        // check if pumpr verified userId
+        userId = msgData.senderUserId;
+        if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+          showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+        }
       }
       message = (
         <div 
@@ -229,7 +253,10 @@ class Message extends Component {
             height="80" width="80"/>
           </div>
           <div className="col-2 d-flex flex-column align-items-baseline">
-            <span>{name}</span>
+            <div className="nameWrapper align-items-center">
+              <span>{name}</span>
+              {showVerify}
+            </div>
             <span>{msgData.date}</span>
           </div>
           <div className="col-5 d-flex">
@@ -255,6 +282,10 @@ class Message extends Component {
         date = lastMsg.data.msgOfferData.date;
       }
       let userId = msgData.senderUserId;
+      // check if pumpr verified userId
+      if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+        showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+      }
       let picture = `/static/media/social.15eeae14.svg`;
       if (msgData.senderPic) {
         picture = msgData.senderPic;
@@ -269,6 +300,10 @@ class Message extends Component {
           picture = msgData.receiverPic;
         }
         userId = msgData.receiverUserId;
+        // check if pumpr verified userId
+        if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+          showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+        }
         name = msgData.receiverName;
       }
       // dynamically generate messages
@@ -568,9 +603,12 @@ class Message extends Component {
                   style={{cursor: "pointer"}}/>
               </div>
               <div className="col-2 d-flex flex-column align-items-baseline">
-                <span 
-                  onClick={(event) => this.showProfileHandler(event, userId)}
-                  style={{cursor: "pointer"}}>{name}</span>
+                <div className="nameWrapper align-items-center">
+                  <span 
+                    onClick={(event) => this.showProfileHandler(event, userId)}
+                    style={{cursor: "pointer"}}>{name}</span>
+                  {showVerify}
+                </div>
                 <span>{date}</span>
               </div>
               <div className="col-4"></div>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classes from '../CreateAPost/CreateAPost.module.css';
 import './RecentPosts.css';
 import Aux from '../../../hoc/Aux';
+import verify from '../../../Components/UI/Images/pumpr verified.png';
 
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
@@ -96,11 +97,19 @@ class RecentPosts extends Component {
 
   render () {
     let showPosts = null;
+    let showVerify = null;
     if (this.props.posts) {
       const posts = this.props.posts;
       showPosts = (
         <Aux>
           {posts.map((post) => {
+            // check if pumpr verified userid
+            if (post.value.userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || post.value.userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+              showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+            }
+            else {
+              showVerify = null;
+            };
             let data = post.value;
             let profilePicture = <img 
                                     className='ml-3 mb-3'
@@ -148,12 +157,14 @@ class RecentPosts extends Component {
                     {profilePicture}
                   </div>
                   <div className="col-10 d-flex flex-column">
-                    <div className="d-flex mr-3">
-                      <span 
-                        onClick={() => this.showProfileHandler(data.userId)}
-                        className="mt-3" 
-                        style={{fontWeight: "600", cursor: "pointer"}}>{data.fullName}</span>
-                      <span className="ml-3 mt-3" style={{color: '#818D92'}}>{data.datePosted}</span>
+                    <div className="d-flex align-items-center mr-3 mt-2">
+                      <div className="d-flex align-items-center">
+                        <span 
+                          onClick={() => this.showProfileHandler(data.userId)}
+                          style={{fontWeight: "600", cursor: "pointer"}}>{data.fullName}</span>
+                        {showVerify}
+                      </div>
+                      <span className="ml-3" style={{color: '#818D92'}}>{data.datePosted}</span>
                       {/* Only show Icon if user's post */}
                       {deleteIcon}
                     </div>

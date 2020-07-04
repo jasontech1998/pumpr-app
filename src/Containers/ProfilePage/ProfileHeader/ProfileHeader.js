@@ -3,6 +3,7 @@ import Button from '../../../Components/UI/Button/Button';
 import './ProfileHeader.css';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
+import verify from '../../../Components/UI/Images/pumpr verified.png';
 
 class ProfileHeader extends Component {
 
@@ -23,9 +24,14 @@ class ProfileHeader extends Component {
     if (this.props.hasMessaged) {
       showButton = <Button click={this.goToMessagesHandler}>Message</Button>;
     };
+    let showVerify = null;
     // if location.state is undefined or null, display current user's data
     if (this.props.history.location.state === undefined || this.props.history.location.state === null) {
       if (this.props.ownData) {
+        // check if pumpr verified userid
+        if (this.props.ownData.userId === "YAfsBordplfPmXg0sDh5VV7yiyS2" || this.props.ownData.userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2") {
+          showVerify = <img src={verify} alt="verify-icon" className="pumprVerify"/>;
+        };
         experience = this.props.ownData.userSetup.goals.experience;
         // if viewing own profile, remove message button
         showButton = <button 
@@ -49,6 +55,10 @@ class ProfileHeader extends Component {
     // display other user data
     else if (this.props.history.location.state) {
       if (this.props.data) {
+        // check if pumpr verified userid
+        if (this.props.data.userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || this.props.data.userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+          showVerify = <img src={verify} alt="verify-icon" className="pumprVerify"/>;
+        };
         experience = this.props.data.userSetup.goals.experience;
         const userId = localStorage.getItem('userId');
         // if viewing own profile, remove message button
@@ -77,7 +87,10 @@ class ProfileHeader extends Component {
           {/* Profile Picture */}
           {showProfilePic}
           <div className="nameExp">
-            <h3 className="nameBio">{fullName}</h3>
+            <div className="nameWrapper">
+              <h3 className="nameBio">{fullName}</h3>
+              {showVerify}
+            </div>
             <span className="experienceBio">{experience}</span>
           </div>
         </div>

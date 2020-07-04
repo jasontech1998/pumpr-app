@@ -34,3 +34,13 @@
 .editProfile:hover {
   box-shadow: 0px 20px 40px rgba(0,0,0,0.25);
 }
+
+.nameWrapper {
+  display: flex;
+}
+
+.pumprVerify {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
