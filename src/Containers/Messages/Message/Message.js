@@ -163,6 +163,9 @@ class Message extends Component {
         if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
           showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
         }
+        else {
+          showVerify = null;
+        }
         name = msgData.receiverName;
       }
       // store the last message sent
@@ -217,6 +220,9 @@ class Message extends Component {
       const {msgData} = this.props.msgData[0].data;
       let userId = localStorage.getItem('userId');
       let picture = msgData.senderPic;
+      if (!picture) {
+        picture = `/static/media/social.15eeae14.svg`;
+      };
       let name = msgData.senderName;
       // Change to receiver picture
       if (msgData.senderUserId === userId) {
@@ -282,10 +288,6 @@ class Message extends Component {
         date = lastMsg.data.msgOfferData.date;
       }
       let userId = msgData.senderUserId;
-      // check if pumpr verified userId
-      if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
-        showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
-      }
       let picture = `/static/media/social.15eeae14.svg`;
       if (msgData.senderPic) {
         picture = msgData.senderPic;
@@ -306,6 +308,12 @@ class Message extends Component {
         }
         name = msgData.receiverName;
       }
+      else {
+        // check if pumpr verified userId
+        if (userId === "sqwZZsb64ZR8gqEprgzH22uAf2t2" || userId === "YAfsBordplfPmXg0sDh5VV7yiyS2") {
+          showVerify = <img src={verify} alt="verify-icon" className="pumprVerify" style={{width: "20px", height: "20px"}}/>;
+        };
+      };
       // dynamically generate messages
       allMessages = (
         <Aux>
