@@ -6,6 +6,6 @@ PUMPR is a Fitness Social Media Platform for users to meet workout partners with
 Live Demo: [Click Here](https://pumpr.io/)
 
 ## Contributors
-**Jason Yu** - *Front-end Development* - [linkedin](https://www.linkedin.com/in/jasonyu529/)
+**Jason Yu** - *Software Engineer* - [linkedin](https://www.linkedin.com/in/jasonyu529/)
 
 **Shaun Tan** - *UX Development* - [linkedin](https://www.linkedin.com/in/shaun-tan-0b1a5713a/)
