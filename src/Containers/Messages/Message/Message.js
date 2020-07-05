@@ -70,9 +70,13 @@ class Message extends Component {
   sendOfferHandler = (e) => {
     e.stopPropagation();
     const {msgData} = this.props.msgData[0].data;
+    let receiverName = msgData.receiverName;
+    if (msgData.receiverUserId === localStorage.getItem('userId')) {
+      receiverName = msgData.senderName
+    }
     const modalData = {
       groupId: this.props.msgData[0].data.groupId,
-      receiverName: msgData.receiverName,
+      receiverName: receiverName,
       receiverGym: msgData.receiverGym,
       senderGym: msgData.senderGym
     }

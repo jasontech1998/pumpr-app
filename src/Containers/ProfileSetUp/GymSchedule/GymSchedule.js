@@ -11,8 +11,8 @@ import ScheduleModal from './ScheduleModal';
 
 class GymSchedule extends Component {
   state = {
-    addedInputs: 0,
     day: '',
+    addedInputs: 0,
     fromInput: '',
     toInput: '',
     fromInput2: '',
@@ -89,7 +89,7 @@ class GymSchedule extends Component {
       case 2:
         console.log('2 inputs added');
         if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2 && this.state.fromInput3 && this.state.toInput3) === '') {
-          alert('Please fill out all available inputs');
+          this.setState({missingInputs: true});
           break;
         }
         else {
@@ -101,19 +101,14 @@ class GymSchedule extends Component {
           this.setState({
             ...this.state,
             freeTime,
-            fromInput: '',
-            toInput: '',
-            fromInput2: '',
-            toInput2: '',
-            fromInput3: '',
-            toInput3: '',});
+            missingInputs: false});
           this.props.closeModalHandler();
           break;
         }
       case 1:
         console.log('1 input added');
         if ((this.state.fromInput && this.state.toInput && this.state.fromInput2 && this.state.toInput2) === '') {
-          alert('Please fill out all available inputs');
+          this.setState({missingInputs: true});
           break;
         }
         else {
@@ -124,17 +119,14 @@ class GymSchedule extends Component {
           this.setState({
             ...this.state,
             freeTime,
-            fromInput: '',
-            toInput: '',
-            fromInput2: '',
-            toInput2: ''});
+            missingInputs: false});
           this.props.closeModalHandler();
           break;
         }
       case 0:
         console.log('0 inputs added')
-        if ((this.state.fromInput && this.state.toInput) ==='') {
-          alert('Please fill out all available inputs')
+        if ((this.state.fromInput && this.state.toInput) === '') {
+          this.setState({missingInputs: true});
           break;
         }
         else {
@@ -144,8 +136,8 @@ class GymSchedule extends Component {
           this.setState({
             ...this.state,
             freeTime,
-            fromInput: '',
-            toInput: ''});
+            missingInputs: false});
+          this.props.closeModalHandler();
           break;
         }
       default:
@@ -154,13 +146,18 @@ class GymSchedule extends Component {
   }
 
   render() {
-
+    // Error Handling
+    let errorMsg = null;
+    if (this.state.missingInputs) {
+      errorMsg = true;
+    }
     return (
       <div className="col d-flex">
         <Modal
           closeModal={this.hideModalHandler} 
           show={this.props.submitting}>
           <ScheduleModal
+            error={errorMsg}
             addedInputs={this.state.addedInputs}
             changed={(event) => this.onChangeHandler(event)}
             fromInput={this.state.fromInput}

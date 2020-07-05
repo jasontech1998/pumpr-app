@@ -249,53 +249,94 @@ class OfferModal extends Component {
     let selectGyms = null;
     if (this.props.modalData) {
       // if clicked on send offer, show send offer modal display
-      if (this.props.modalData.receiverGym) {
+      if (this.props.modalData.receiverGym || this.props.modalData.senderGym) {
         name = this.props.modalData.receiverName;
         receiverGym = this.props.modalData.receiverGym;
         senderGym = this.props.modalData.senderGym;
-        // if both users go to the same gym
-        if (receiverGym === senderGym) {
-          selectGyms = (
-            <div className="row justify-content-center mb-3">
-              <div className="col-6">
-                <div 
-                  onClick={() => this.selectedHandler(receiverGym)}
-                  style={{padding: '10px 5px'}}
-                  className={
-                    `card card-body flex-fill 
-                    ${this.state.selectedLocation === receiverGym ? 'selected' : 'notSelected'}`}>
-                  {receiverGym}
+        // check if there are two locations
+        if (receiverGym !== "" && senderGym !== "") {
+          // if both users go to the same gym
+          if (receiverGym === senderGym) {
+            selectGyms = (
+              <div className="row justify-content-center mb-3">
+                <div className="col-6">
+                  <div 
+                    onClick={() => this.selectedHandler(receiverGym)}
+                    style={{padding: '10px 5px'}}
+                    className={
+                      `card card-body flex-fill 
+                      ${this.state.selectedLocation === receiverGym ? 'selected' : 'notSelected'}`}>
+                    {receiverGym}
+                  </div>
                 </div>
               </div>
-            </div>
-          )
+            )
+          }
+          // users have different gym locations
+          else {
+            selectGyms = (
+              <div className="row justify-content-center mb-3">
+                <div className="col-6" style={{maxWidth: '200px', fontSize: '14px'}}>
+                  <div 
+                    onClick={() => this.selectedHandler(receiverGym)}
+                    style={{padding: '10px 5px'}}
+                    className={
+                      `card card-body flex-fill 
+                      ${this.state.selectedLocation === receiverGym ? 'selected' : 'notSelected'}`}>
+                    {receiverGym}
+                  </div>
+                </div>
+                <div className="col-6" style={{maxWidth: '200px', fontSize: '14px'}}>
+                  <div 
+                    onClick={() => this.selectedHandler(senderGym)}
+                    style={{padding: '10px 5px'}}
+                    className={
+                      `card card-body flex-fill 
+                      ${this.state.selectedLocation === senderGym ? 'selected' : 'notSelected'}`}>
+                    {senderGym}
+                  </div>
+                </div>
+              </div>
+            )
+          }
         }
-        // users have different gym locations
-        else {
-          selectGyms = (
-            <div className="row justify-content-center mb-3">
-              <div className="col-6" style={{maxWidth: '200px', fontSize: '14px'}}>
-                <div 
-                  onClick={() => this.selectedHandler(receiverGym)}
-                  style={{padding: '10px 5px'}}
-                  className={
-                    `card card-body flex-fill 
-                    ${this.state.selectedLocation === receiverGym ? 'selected' : 'notSelected'}`}>
-                  {receiverGym}
+        // else, either one of the gym locations is emtpy
+        else if (receiverGym === "" || senderGym === "") {
+          // check to see which gym is empty
+          // if senderGym is empty
+          if (senderGym === "") {
+            selectGyms = (
+              <div className="row justify-content-center mb-3">
+                <div className="col-12" style={{maxWidth: '200px', fontSize: '14px'}}>
+                  <div 
+                    onClick={() => this.selectedHandler(receiverGym)}
+                    style={{padding: '10px 5px'}}
+                    className={
+                      `card card-body flex-fill 
+                      ${this.state.selectedLocation === receiverGym ? 'selected' : 'notSelected'}`}>
+                    {receiverGym}
+                  </div>
                 </div>
               </div>
-              <div className="col-6" style={{maxWidth: '200px', fontSize: '14px'}}>
-                <div 
-                  onClick={() => this.selectedHandler(senderGym)}
-                  style={{padding: '10px 5px'}}
-                  className={
-                    `card card-body flex-fill 
-                    ${this.state.selectedLocation === senderGym ? 'selected' : 'notSelected'}`}>
-                  {senderGym}
+            )
+          }
+          // receiver gym is empty
+          else if (receiverGym === "") {
+            selectGyms = (
+              <div className="row justify-content-center mb-3">
+                <div className="col-12" style={{maxWidth: '200px', fontSize: '14px'}}>
+                  <div 
+                    onClick={() => this.selectedHandler(senderGym)}
+                    style={{padding: '10px 5px'}}
+                    className={
+                      `card card-body flex-fill 
+                      ${this.state.selectedLocation === senderGym ? 'selected' : 'notSelected'}`}>
+                    {senderGym}
+                  </div>
                 </div>
               </div>
-            </div>
-          )
+            )
+          }
         }
         modalDisplay = (
             <div>
@@ -376,7 +417,7 @@ class OfferModal extends Component {
         }
         modalDisplay = (
           <div style={{padding: '10px 10px'}}>
-            <h3 className="sendTitle my-3 ml-3">Leave feedback for {name}</h3>
+            <h3 className="sendTitle my-3 ml-3">Leave feedback</h3>
             {errorMsg}
             <div className="d-flex mt-5">
               <span>What did {name} do well?</span>
