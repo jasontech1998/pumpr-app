@@ -1,5 +1,9 @@
 ![pumpr](https://github.com/jasontech1998/pumpr-app/blob/master/public/landingPage.png)
 
+_Pumpr_ is a Fitness Social Media Platform for users to meet workout partners with similar strength, goals and schedules. Users provide info about themselves to a user profile, and are matched with other users based on their maximum lifts, workout schedule & location, and fitness goals.
+
+Live Demo: [Click Here](https://pumpr.io/)
+
 ## Project Development Plan
 **Phase 1 Minimum Viable Product with key features: Complete**
   * User Authentification
@@ -20,10 +24,6 @@
     * Liked User's Post
   * Optimizing Location input to only show Gym Locations
 
-
-Pumpr is a Fitness Social Media Platform for users to meet workout partners with similar strength, goals and schedules. Users provide info about themselves to a user profile, and are matched with other users based on their maximum lifts, workout schedule & location, and fitness goals.
-
-Live Demo: [Click Here](https://pumpr.io/)
 
 ## Contributors
 **Jason Yu** - *Software Engineer* - [linkedin](https://www.linkedin.com/in/jasonyu529/)
