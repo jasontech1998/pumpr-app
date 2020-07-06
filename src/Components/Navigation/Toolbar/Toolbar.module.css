@@ -28,8 +28,10 @@
 }
 
 @media (max-width: 499px) {
-  .DesktopOnly {
-    display: none;
+  .MobileOnly ul{
+    /* display: none; */
+    flex-flow: inherit;
+    width: 120px;
   }
 }
 

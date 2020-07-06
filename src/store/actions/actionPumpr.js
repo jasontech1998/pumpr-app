@@ -593,7 +593,7 @@ export const fetchReviewFail = (error) => {
     error: error
   }
 }
-// Fetches profile data
+// Fetches profile data of other users
 export const fetchProfile = (token, userId) => {
   return dispatch => {
     // start of fetching user profile data

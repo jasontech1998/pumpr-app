@@ -11,27 +11,25 @@ const initialState = {
 const setupReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SUBMIT_LIFTS:
-      console.log(action.lifts)
       return {
         ...state,
         lifts: action.lifts
       }
     case actionTypes.SUBMIT_GOALS:
-      console.log(action.goals)
       return {
         ...state,
         goals: action.goals
       }
     case actionTypes.SUBMIT_BIO:
-      const copy = Object.assign({}, state.profile)
-      const updateCopy = Object.assign(copy, action.urlBio)
+      const copy = Object.assign({}, state.profile);
+      const updateCopy = Object.assign(copy, action.urlBio);
       return {
         ...state,
         profile: updateCopy
       } 
     case actionTypes.SUBMIT_LOCATION:
-      const profileCopy = Object.assign({}, state.profile)
-      const updateProfile = Object.assign(profileCopy, action.location)
+      const profileCopy = Object.assign({}, state.profile);
+      const updateProfile = Object.assign(profileCopy, action.location);
       return {
         ...state,
         profile: updateProfile

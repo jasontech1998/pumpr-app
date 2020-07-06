@@ -3,7 +3,7 @@ import "firebase/storage";
 import "firebase/database";
   // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyDXRH-yPywgLuHkA1g74H1RnJ9L7rrQU30",
+    apiKey: process.env.REACT_APP_API_KEY,
     authDomain: "pumpr-182dc.firebaseapp.com",
     databaseURL: "https://pumpr-182dc.firebaseio.com",
     projectId: "pumpr-182dc",
@@ -16,4 +16,4 @@ import "firebase/database";
   export default firebase.initializeApp(firebaseConfig);
   export const storage = firebase.storage();
   export const database = firebase.database();
-  // export const messagesRef = firebase.database().ref('messages');
+  

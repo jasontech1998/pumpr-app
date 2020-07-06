@@ -8,7 +8,7 @@ const toolbar = (props) => {
     return (
       <header className={classes.Toolbar}>
         <div className={classes.pumpr}>pumpr</div>
-        <nav className={classes.DesktopOnly}>
+        <nav className={classes.MobileOnly}>
           <NavItems token={props.token}/>
         </nav>
       </header>
@@ -21,7 +21,7 @@ const toolbar = (props) => {
           className={classes.pumpr}
           onClick={props.clicked}
           style={{cursor: 'pointer'}}>pumpr</div>
-        <nav className={classes.DesktopOnly}>
+        <nav className={classes.MobileOnly}>
           <NavItems token={props.token}/>
         </nav>
       </header>

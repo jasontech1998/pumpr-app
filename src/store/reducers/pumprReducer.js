@@ -206,25 +206,24 @@ const pumprReducer = (state = initialState, action) => {
         groupMsgs: action.group
       }
     case actionTypes.FETCH_MESSAGES_SUCCESS:
-      // CONVERT INTO FUNCTION LATER
       // Organize all messages by GroupID
       // initialize array to store all different groupIds
-      let groupIdArray = []
+      let groupIdArray = [];
       // add all groupIds into array
       action.data.map((key) => {
         groupIdArray.push(key.data.groupId)
-      })
+      });
       // Use Set to remove any duplicate groupIds
-      const uniqueId = new Set(groupIdArray)
+      const uniqueId = new Set(groupIdArray);
       // Convert back to array
-      const uniqueIdArray = [...uniqueId]
+      const uniqueIdArray = [...uniqueId];
       // Loop through each id and filter messages array by ID
-      let organizedIds = []
+      let organizedIds = [];
       uniqueIdArray.map(id => {
         organizedIds.push(
           action.data.filter(key => key.data.groupId === id))
-      })
-      organizedIds.reverse()
+      });
+      organizedIds.reverse();
       return {
         ...state,
         loading: false,
