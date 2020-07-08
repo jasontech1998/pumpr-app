@@ -8,6 +8,11 @@
 /.pnp
 .pnp.js
 
+#IDE
+.vscode
+
+#Firebase cache
+.firebase
 # testing
 /coverage
 
