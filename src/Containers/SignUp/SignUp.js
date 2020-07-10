@@ -79,7 +79,10 @@ class SignIn extends Component {
               width={540}/>
             <h4
               className="mt-3 squatText" 
-              style={{display: 'block', fontWeight: "400"}}>find the ones that push you to your limit</h4>
+              style={{display: 'block', fontWeight: "400"}}>Pumpr Minimum Viable Product</h4>
+            <h4
+            className="mt-3 squatText" 
+            style={{display: 'block', fontWeight: "400"}}>Beta Coming Soon...</h4>
           </div>
         </div>
         {/* Right Side */}

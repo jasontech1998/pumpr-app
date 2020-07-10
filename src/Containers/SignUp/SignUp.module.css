@@ -16,7 +16,7 @@
 
 @media (max-width: 499px) {
   .SignIn div{
-    width: 200px !important;
+    width: 300px !important;
     height: 200px !important;
   }
   .SignIn h4 {
