@@ -4,6 +4,8 @@ _Pumpr_ is a Fitness Social Media Platform for users to meet workout partners wi
 
 Live Demo: [Click Here](https://pumpr.io/)
 
+Pumpr Case Study: [Click Here](https://tanshaun.com/pumpr)
+
 ## Project Development Plan
 **Phase 1 Minimum Viable Product with key features: Complete**
   * User Authentification
