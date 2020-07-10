@@ -26,6 +26,9 @@ Pumpr Case Study: [Click Here](https://tanshaun.com/pumpr)
     * Liked User's Post
   * Optimizing Location input to only show Gym Locations
 
+**Phase 3: SaaS Development**
+  * Pumpr Pro
+    * Trainers and Clients
 
 ## Contributors
 **Jason Yu** - *Software Engineer* - [linkedin](https://www.linkedin.com/in/jasonyu529/)
