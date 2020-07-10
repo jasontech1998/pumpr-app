@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.css';
 import * as actionCreators from './store/actions/actionAuth';
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';

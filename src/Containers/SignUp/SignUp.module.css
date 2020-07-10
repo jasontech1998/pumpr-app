@@ -11,3 +11,15 @@
 .SignIn button {
   font-size: smaller;
 }
+
+
+
+@media (max-width: 499px) {
+  .SignIn div{
+    width: 200px !important;
+    height: 200px !important;
+  }
+  .SignIn h4 {
+    font-size: 16px;
+  }
+}

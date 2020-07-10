@@ -83,7 +83,7 @@ class SignIn extends Component {
           </div>
         </div>
         {/* Right Side */}
-        <div className="col col-lg-4" style={{marginTop: '80px'}}>
+        <div className="col col-lg-4 signUpWrapper">
           <div className="card">
             <div className="card-body">
               <form 

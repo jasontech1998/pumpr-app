@@ -25,6 +25,8 @@ const findUserKey = (state, action) => {
             value: value})
         }
       }
+      // Reverse array of users to show newest users first
+      usersArray.reverse();
       // Returns an array of other users
       return {
         ...state,

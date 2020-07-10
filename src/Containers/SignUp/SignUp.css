@@ -32,13 +32,11 @@
 .inputTop {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  /* border: 1px solid rgba(11,32,39,0.5); */
   border-bottom: none;
 }
 
 .inputBot {
   border-top: 1px solid #F3F3F3;
-  /* border: 1px solid rgba(11,32,39,0.5); */
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   margin-bottom: 20px;
@@ -46,19 +44,8 @@
 
 .regInput {
   margin-bottom: 20px;
-  /* border: 1px solid rgba(11,32,39,0.5); */
 }
-/* In case I want to push the Chevron down */
-/* #push {
-  margin-bottom: 50px;
-  height: 100px;
-  width: 100%;
-} */
 
-/* .fa-chevron-down:hover {
-  cursor: pointer;
-  text-decoration: underline;
-} */
 
 .btn {
   background-image: linear-gradient(to right, #7B42F6 0%, #45A1FF 100%);
@@ -74,8 +61,6 @@
 
 .btn:hover {
   color: #ffffff;
-  /* box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.25); */
-  /* transform: scale(1.1); */
   background-position: right center;
 }
 
@@ -89,5 +74,22 @@
 
 
 .logInCard {
-  max-height: 250px;
+  margin: auto;
+}
+
+.signUpWrapper {
+  margin-top: 80px;
+}
+
+@media (max-width: 499px) {
+  .signUpWrapper {
+    margin-top: 0;
+    padding: 30px;
+  }
+  .regInput {
+    margin-bottom: 0;
+  }
+  .form-control {
+    width: 100%;
+  }
 }

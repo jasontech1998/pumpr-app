@@ -64,13 +64,13 @@ class LogIn extends Component {
     }
     return (
       <>
-        <div className="col-7 mt-3">
+        <div className="col-7 d-none d-lg-block mt-3">
           <Lottie 
             options={defaultOptions}
             height={440}
             width={500}/>
         </div>
-        <div className="col-5 d-flex align-items-center">
+        <div className="col-12 col-lg-5 d-flex align-items-center">
           <div className="card logInCard">
             <div className="card-body">
               <form 
@@ -83,14 +83,14 @@ class LogIn extends Component {
                     onChange={(event) => this.onChangeHandler(event)}
                     type="email" 
                     name="email" 
-                    className="form-control regInput mx-sm-3 mb-sm-2" placeholder="Email address"/>
+                    className="form-control regInput" placeholder="Email address"/>
                 </div>
                 <div className="form-group">
                   <input 
                     onChange={(event) => this.onChangeHandler(event)}
                     type="password" 
                     name="password" 
-                    className="form-control regInput mx-sm-3 mb-sm-2" placeholder="Password"/>
+                    className="form-control regInput" placeholder="Password"/>
                 </div>
                 <button 
                   className="btn mt-2 px-4"
