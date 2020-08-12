@@ -14,7 +14,8 @@ class SignIn extends Component {
     email: '',
     password: '',
     fullName: '',
-    isSignUp: true
+    isSignUp: true,
+    isDemoLogIn: false
   };
   
   onSubmitHandler = (event) => {
@@ -40,6 +41,13 @@ class SignIn extends Component {
     });
   }
 
+  demoLogInHandler = () => {
+    const email = "demo@pumpr.com";
+    const password = "123456";
+    this.setState({isDemoLogIn: true});
+    this.props.demoAuth(email, password, false);
+  }
+
   render () {
     // initialize error message variable
     let errorMsg = null;
@@ -53,9 +61,11 @@ class SignIn extends Component {
       }
     };
     // Redirect to lifts if signUp is successful
-    if (this.props.doneSignUp) {
+    if (this.props.doneSignUp && this.state.isDemoLogIn) {
+      return <Redirect to="/dashboard"/>;
+    } else if (this.props.doneSignUp && !this.state.isDemoLogIn){
       return <Redirect to="/lifts"/>;
-    };
+    }
     // Sign Up Error Handling
     if (this.props.error) {
       if (this.props.error.message === "EMAIL_EXISTS") {
@@ -79,10 +89,12 @@ class SignIn extends Component {
               width={540}/>
             <h4
               className="mt-3 squatText" 
-              style={{display: 'block', fontWeight: "400"}}>Pumpr Minimum Viable Product</h4>
-            <h4
-            className="mt-3 squatText" 
-            style={{display: 'block', fontWeight: "400"}}>Beta Coming Soon...</h4>
+              style={{display: 'block', fontWeight: "600"}}>pumpr</h4>
+          </div>
+          <div className="mt-3 demoWrapper">
+            <button 
+              className="demoBtn"
+              onClick={this.demoLogInHandler}>Live Demo</button>
           </div>
         </div>
         {/* Right Side */}
@@ -150,7 +162,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, password, isSignUp, info) => dispatch(actionCreators.auth(email, password, isSignUp, info))
+    onAuth: (email, password, isSignUp, info) => dispatch(actionCreators.auth(email, password, isSignUp, info)),
+    demoAuth: (email, password, isSignUp) => dispatch(actionCreators.auth(email, password, isSignUp))
   }
 }
 

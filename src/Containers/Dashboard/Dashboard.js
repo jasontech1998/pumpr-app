@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import CreateAPost from './CreateAPost/CreateAPost';
 import RecentPosts from './RecentPosts/RecentPosts';
 import PumprSchedule from '../PumprSchedule/pumprSchedule';
+import './Dashboard.css';
 import Aux from '../../hoc/Aux';
 import {connect} from 'react-redux';
 
@@ -33,14 +34,14 @@ class Dashboard extends Component {
     return (
       <Aux>
         <div className="col-12">
-          <h4>Dashboard</h4>
+          <h4 className="dashboardTitle">Dashboard</h4>
           <PumprSchedule
             history={this.props.history}
             ownData={this.props.ownData}
             />
         </div>
         <CreateAPost history={this.props.history} />
-        <div className="col-12 mt-3" style={{padding: '0 90px'}}>
+        <div className="col-12 recentPostsWrapper">
           <RecentPosts history={this.props.history}/>
         </div>
       </Aux>

@@ -14,3 +14,15 @@
   font-weight: 600;
   color: #484252;
 }
+
+@media (max-width: 499px) {
+  .helpTitle {
+    font-size: 32px;
+  }
+  .helpContent {
+    font-size: 16px;
+  }
+  .helpImage {
+    max-width: 80%;
+  }
+}

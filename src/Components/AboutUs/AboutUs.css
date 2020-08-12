@@ -1,0 +1,62 @@
+.aboutUsRow {
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+  margin: auto; 
+}
+
+.aboutUsWrapper {
+  background: #EDF2F4;
+  padding: 50px;
+}
+
+.aboutImage {
+  margin: auto;
+  width: 80%;
+  height: 80%;
+}
+
+.aboutUsBody {
+  margin-top: -30px;
+  height: 176px;
+}
+
+.aboutUsLinks {
+  font-weight: 500;
+  font-size: 18px;
+  color: #45A1FF;
+}
+
+.linksWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#aboutUsCard {
+  background-color: #FFFFFF;
+  box-shadow: 0 10px 20px 0px rgba(0, 0, 0, 0.15);
+  border: 0;
+  border-radius: 1rem;
+}
+
+@media (max-width: 480px) {
+  .aboutUsWrapper {
+    padding: 20px;
+  }
+  
+  .aboutUsTitle {
+    font-size: 28px;
+  }
+
+  .aboutUsRow {
+    width: 80%;
+  }
+
+  .aboutUsCardWrapper {
+    margin-bottom: 20px;
+  }
+
+  .aboutUsBody {
+    height: auto;
+  }
+}

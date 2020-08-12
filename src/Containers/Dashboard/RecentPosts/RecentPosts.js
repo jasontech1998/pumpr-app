@@ -112,7 +112,7 @@ class RecentPosts extends Component {
             };
             let data = post.value;
             let profilePicture = <img 
-                                    className='ml-3 mb-3'
+                                    className='ml-3 mb-3 profilePictureRecentPosts'
                                     onClick={() => this.showProfileHandler(data.userId)}
                                     src={require('../../../Components/UI/Icons/social.svg')} 
                                     alt="icon" 
@@ -120,7 +120,7 @@ class RecentPosts extends Component {
                                     style={{cursor: "pointer"}}/>;
             if (data.userProfilePic !== '') {
               profilePicture = <img
-                              className='ml-3 mb-3 rounded-circle'
+                              className='ml-3 mb-3 rounded-circle profilePictureRecentPosts'
                               onClick={() => this.showProfileHandler(data.userId)}
                               alt="profile-pic" 
                               src={data.userProfilePic} 
@@ -152,7 +152,7 @@ class RecentPosts extends Component {
             };
             return (
               <div key={post.key} style={{borderBottom: "2px solid #EBE8EE"}}>
-                <div className="row">
+                <div className="row postsWrapper">
                   <div className="col-2 d-flex mt-3 justify-content-center">
                     {profilePicture}
                   </div>
@@ -169,10 +169,10 @@ class RecentPosts extends Component {
                       {deleteIcon}
                     </div>
                     <div className="d-flex">
-                      <span>{data.postText}</span>
+                      <span className="recentPostsText">{data.postText}</span>
                     </div>
                     {postPicture}
-                    <div>
+                    <div className="likesWrapper">
                       <i 
                         onClick={() => this.onLikeHandler(post.value, post.value.likes, post.key)}
                         className="fas fa-heart"

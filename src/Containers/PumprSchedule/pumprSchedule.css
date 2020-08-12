@@ -10,3 +10,26 @@
 .settingsTime {
   font-size: 14px;;
 }
+
+@media only screen and (max-width: 480px) {
+  .table th {
+    padding: 0.75rem 0;
+  }
+  .table-input {
+    height: 80px;
+    width: auto;
+  }
+  .table {
+    font-size: 12px;
+    margin-bottom: 0px;
+    box-shadow: none;
+    border-bottom: 1px solid #cac4cb;
+  }
+  .tableWrapper {
+    margin-bottom: 0px !important;
+  }
+  #timeSlot {
+    font-size: 8px;
+    margin-bottom: 0px;
+  }
+}

@@ -16,3 +16,24 @@
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
+
+@media only screen and (max-width: 480px) {
+  .recentPostsCard {
+    font-size: 14px;
+  }
+  .postsWrapper {
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 10px 5px;
+  }
+  .profilePictureRecentPosts {
+    height: 60px;
+    width: 60px;
+  }
+  .recentPostsText {
+    text-align: initial;
+  }
+  .likesWrapper {
+    text-align: initial;
+  }
+}

@@ -1,0 +1,33 @@
+.createAPost {
+  padding: 0 90px;
+  margin-top: -20px;
+  margin-bottom: 35px;
+}
+.profilePic {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .createAPost {
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .profilePic {
+    height: 70px;
+    width: 70px;
+    margin-left: 35px;
+    margin-bottom: 70px;
+  }
+  .leftCol {
+    padding: 0px;
+  }
+  .rightCol {
+    padding: 0px;
+  }
+  .createPostForm {
+    margin-left: 10px;
+  }
+}

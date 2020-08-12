@@ -247,7 +247,7 @@ class PumprSchedule extends Component {
     // if viewing other user's timeline page, display calendar without update functionality
     if (!this.props.profile) {
       calendarDisplay = (
-        <div className="mb-5">
+        <div className="mb-5 tableWrapper">
         <table className="table">
           <thead className="thead">
             <tr>

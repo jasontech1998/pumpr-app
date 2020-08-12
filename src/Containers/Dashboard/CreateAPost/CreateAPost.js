@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import classes from './CreateAPost.module.css';
+import './CreateAPost.css';
 import {storage} from '../../../Firebase/index';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
@@ -69,7 +70,7 @@ class CreateAPost extends Component {
       showSelectedPic = <span className="ml-2" style={{fontWeight: "500"}}>Image Selected</span>;
     };
     let postProfilePic = <img 
-                        className='ml-3 mb-3'
+                        className='profilePic'
                         src={require('../../../Components/UI/Icons/social.svg')} 
                         alt="icon" 
                         height="130" width="130"/>;
@@ -77,7 +78,7 @@ class CreateAPost extends Component {
       const {profile} = this.props.ownData.userSetup;
       if (profile.profileURL !== "") {
         postProfilePic = <img 
-                        className='ml-3 mb-3 rounded-circle'
+                        className='rounded-circle profilePic'
                         src={profile.profileURL}
                         alt="profileImage" 
                         height="130" width="130"/>
@@ -85,17 +86,17 @@ class CreateAPost extends Component {
     };
     
     return (
-      <div className="col-12" style={{padding: '0 90px', marginTop: "-20px", marginBottom: "35px"}}>
-          <div className={classes.PostInputBox} style={{height: '250px'}}>
+      <div className="col-12 createAPost">
+          <div className={classes.PostInputBox}>
             <div className={classes.Header}>
               <span className="ml-3" style={{fontWeight: '500'}}>create a post</span>
             </div>
             <div className="row" style={{height: '250px'}}>
-              <div className="col-3 d-flex justify-content-center align-items-center">
+              <div className="leftCol col-3 d-flex justify-content-center align-items-center">
                 {postProfilePic}
               </div>
-              <div className="col-9 d-flex">
-                <form onSubmit={(event) => this.onSubmitHandler(event)}>
+              <div className="rightCol col-9 d-flex">
+                <form className="createPostForm"onSubmit={(event) => this.onSubmitHandler(event)}>
                   <textarea
                     onChange={(event) => this.onChangeHandler(event)}
                     value={this.state.postInput}

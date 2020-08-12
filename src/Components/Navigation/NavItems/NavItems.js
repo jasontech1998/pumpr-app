@@ -52,32 +52,47 @@ class NavItems extends Component {
     };
     // User is logged in
     if (this.props.token && this.props.ownData) {
-      showNavBar = (
-        <>
-          <NavItem link="/find-a-partner">Find a Partner</NavItem> 
-          <NavItem link="/messages"> Messages</NavItem>
-          <li className="nav-item dropdown">
-              <a href="/profile-about" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {/* User Profile Image */}
-                {showProfilePic}
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{transform: "translate3d(-15px, 56px, 0px)"}}>
-                <NavLink
-                  className="dropdown-item"
-                  to={profileTarget}>Profile
-                </NavLink>
-                <NavLink 
-                  to='/profile-settings'
-                  className="dropdown-item">Settings
-                </NavLink>
-                <NavLink 
-                  to='/log-out'
-                  className="dropdown-item">Log Out
-                </NavLink>
-              </div>
-            </li>
+      if (!this.props.showSideDrawer) {
+        showNavBar = (
+          <>
+            <NavItem link="/find-a-partner">Find a Partner</NavItem> 
+            <NavItem link="/messages"> Messages</NavItem>
+            <li className="nav-item dropdown">
+                <a href="/profile-about" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {/* User Profile Image */}
+                  {showProfilePic}
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{transform: "translate3d(-15px, 56px, 0px)"}}>
+                  <NavLink
+                    className="dropdown-item"
+                    to={profileTarget}>Profile
+                  </NavLink>
+                  <NavLink 
+                    to='/profile-settings'
+                    className="dropdown-item">Settings
+                  </NavLink>
+                  <NavLink 
+                    to='/log-out'
+                    className="dropdown-item">Log Out
+                  </NavLink>
+                </div>
+              </li>
+            </>
+        )
+      }
+      // if side drawer is open
+      else {
+        showNavBar = (
+          <>
+            <NavItem link="/dashboard" clicked={this.props.clicked}>Dashboard</NavItem> 
+            <NavItem link="/find-a-partner" clicked={this.props.clicked}>Find a Partner</NavItem> 
+            <NavItem link="/messages" clicked={this.props.clicked}>Messages</NavItem>
+            <NavItem link="/profile-about" clicked={this.props.clicked}>Profile</NavItem> 
+            <NavItem link="/profile-settings" clicked={this.props.clicked}>Settings</NavItem> 
+            <NavItem link="/log-out" clicked={this.props.clicked}>Log Out</NavItem>
           </>
-      )
+        )
+      }
     }
     // if user is on onboarding process
     else if (this.props.token && !this.props.ownData) {

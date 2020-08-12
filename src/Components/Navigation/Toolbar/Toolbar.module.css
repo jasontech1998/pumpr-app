@@ -13,7 +13,30 @@
   box-shadow: 0 5px 10px -5px #080808;
 }
 
+.Burger {
+  display: none;
+  cursor: pointer;
+}
+
+.Burger i {
+  background-image: linear-gradient(125.54deg, #7ADFBB 0%, #45A1FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
 .pumpr {
+  font-weight: 600;
+  font-size: 1.5rem;
+  background-image: linear-gradient(125.54deg, #7ADFBB 0%, #45A1FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.pumprAuth {
   font-weight: 600;
   font-size: 1.5rem;
   background-image: linear-gradient(125.54deg, #7ADFBB 0%, #45A1FF 100%);
@@ -27,11 +50,27 @@
   height: 100%;
 }
 
-@media (max-width: 499px) {
+@media only screen and (max-width: 480px) {
   .MobileOnly ul{
     /* display: none; */
     flex-flow: inherit;
     width: 120px;
+  }
+  .Burger {
+    display: block;
+    padding: 5px 5px;
+  }
+  .pumprAuth {
+    display: none;
+  }
+  .navAuth {
+    display: none;
+  }
+  .Toolbar {
+    padding: 0 10px;
+    position: inherit;
+    box-shadow: none;
+    background: transparent;
   }
 }
 

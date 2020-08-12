@@ -70,7 +70,7 @@ class LogIn extends Component {
             height={440}
             width={500}/>
         </div>
-        <div className="col-12 col-lg-5 d-flex align-items-center">
+        <div className="col-12 col-lg-5 d-flex align-items-center logInCard">
           <div className="card logInCard">
             <div className="card-body">
               <form 

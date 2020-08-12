@@ -14,17 +14,35 @@ const toolbar = (props) => {
       </header>
     )
   }
-  else {
+  // if user is logged in navbar
+  else if (props.token && props.ownData){
     return (
       <header className={classes.Toolbar}>
         <div 
-          className={classes.pumpr}
+          onClick={props.clickedBurger}
+          className={classes.Burger}>
+            <i className="fas fa-bars fa-2x"></i></div>
+        <div 
+          className={classes.pumprAuth}
           onClick={props.clicked}
           style={{cursor: 'pointer'}}>pumpr</div>
-        <nav className={classes.MobileOnly}>
+        <nav className={classes.navAuth}>
           <NavItems token={props.token}/>
         </nav>
       </header>
+    )
+    // landing page navbar
+  } else {
+    return (
+      <header className={classes.Toolbar}>
+          <div 
+            className={classes.pumpr}
+            onClick={props.clicked}
+            style={{cursor: 'pointer'}}>pumpr</div>
+          <nav className={classes.MobileOnly}>
+            <NavItems token={props.token}/>
+          </nav>
+        </header>
     )
   }
 }
