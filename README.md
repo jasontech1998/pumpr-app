@@ -4,6 +4,8 @@ _Pumpr_ is a Fitness Social Media Platform for users to meet workout partners wi
 
 Live Demo: [Click Here](https://pumpr.io/)
 
+Pumpr Case Study: [Click Here](https://tanshaun.com/pumpr)
+
 ## Project Development Plan
 **Phase 1 Minimum Viable Product with key features: Complete**
   * User Authentification
@@ -24,6 +26,9 @@ Live Demo: [Click Here](https://pumpr.io/)
     * Liked User's Post
   * Optimizing Location input to only show Gym Locations
 
+**Phase 3: SaaS Development**
+  * Pumpr Pro
+    * Trainers and Clients
 
 ## Contributors
 **Jason Yu** - *Software Engineer* - [linkedin](https://www.linkedin.com/in/jasonyu529/)
