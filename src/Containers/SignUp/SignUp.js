@@ -99,7 +99,7 @@ class SignIn extends Component {
         </div>
         {/* Right Side */}
         <div className="col col-lg-4 signUpWrapper">
-          <div className="card">
+          <div className="card signUpCard">
             <div className="card-body">
               <form 
                 className="form-inline flex-column justify-content-center"

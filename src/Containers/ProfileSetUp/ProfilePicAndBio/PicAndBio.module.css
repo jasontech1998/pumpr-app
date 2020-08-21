@@ -34,3 +34,9 @@
   width: 450px;
   margin: auto;
 }
+
+@media only screen and (max-width: 480px) {
+  .Bio {
+    width: initial;
+  }
+}

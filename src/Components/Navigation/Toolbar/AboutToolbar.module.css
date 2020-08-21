@@ -59,8 +59,11 @@ li {
   height: 100%;
 }
 
-@media (max-width: 499px) {
-  .DesktopOnly {
+@media only screen and (max-width:480px) {
+  /* .DesktopOnly {
     display: none;
+  } */
+  .aboutToolbar {
+    justify-content: center;
   }
 }

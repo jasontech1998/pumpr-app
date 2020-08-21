@@ -43,3 +43,9 @@
   font-size: 18px;
   border-radius: 0.25rem;
 }
+
+@media only screen and (max-width:480px) {
+  .profileGoalsWrapper {
+    justify-content: center;
+  }
+}

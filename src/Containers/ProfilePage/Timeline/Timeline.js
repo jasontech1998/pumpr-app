@@ -5,6 +5,7 @@ import * as actionCreators from '../../../store/actions/actionPumpr';
 import * as actionModals from '../../../store/actions/actionSetup';
 
 import RecentPosts from '../../Dashboard/RecentPosts/RecentPosts';
+import './Timeline.css';
 
 class Timeline extends Component {
 
@@ -140,7 +141,7 @@ class Timeline extends Component {
 
   render () {
     return (
-      <div className="row" style={{width: "80%", margin: "auto"}}>
+      <div className="timelineWrapper row">
         <div className="col-12">
           <RecentPosts history={this.props.history}/>
         </div>

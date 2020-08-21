@@ -101,6 +101,10 @@
 }
 
 @media (max-width: 480px) {
+  .signUpCard {
+    width: 75%;
+    margin: auto;
+  }
   .signUpWrapper {
     margin-top: 0;
     padding: 30px;

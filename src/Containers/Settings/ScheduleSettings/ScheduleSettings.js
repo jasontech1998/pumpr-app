@@ -159,30 +159,30 @@ class ScheduleSettings extends Component {
         <Modal
           closeModal={this.hideModalHandler} 
           show={this.props.submitting}>
-            <ScheduleModal
-              error={errorMsg}
-              changed={(event) => this.onChangeHandler(event)}
-              fromInput={this.state.fromInput}
-              toInput={this.state.toInput}
-              fromInput2={this.state.fromInput2}
-              toInput2={this.state.toInput2}
-              fromInput3={this.state.fromInput3}
-              toInput3={this.state.toInput3}
-              addedInputs={this.state.addedInputs}
-              day={this.state.day}
-              plusClicked={this.addInputHandler}
-              minusClicked={this.removeInputHandler}
-              onClick={this.onClickSubmit}/>
-          </Modal>
-          <PumprSchedule
-            ownData={this.props.ownData}
-            clicked={(day) => this.showModalHandler(day)} 
-            profile={this.props.profile}
-            history={this.props.history}
+          <ScheduleModal
+            error={errorMsg}
+            changed={(event) => this.onChangeHandler(event)}
+            fromInput={this.state.fromInput}
+            toInput={this.state.toInput}
+            fromInput2={this.state.fromInput2}
+            toInput2={this.state.toInput2}
+            fromInput3={this.state.fromInput3}
+            toInput3={this.state.toInput3}
+            addedInputs={this.state.addedInputs}
             day={this.state.day}
-            freeTime={this.state.freeTime}
-            clearTime={this.hideModalHandler}/>
-          {hasSaved}
+            plusClicked={this.addInputHandler}
+            minusClicked={this.removeInputHandler}
+            onClick={this.onClickSubmit}/>
+        </Modal>
+        <PumprSchedule
+          ownData={this.props.ownData}
+          clicked={(day) => this.showModalHandler(day)} 
+          profile={this.props.profile}
+          history={this.props.history}
+          day={this.state.day}
+          freeTime={this.state.freeTime}
+          clearTime={this.hideModalHandler}/>
+        {hasSaved}
       </>
     )
   }

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import classes from '../../ProfileSetUp/LiftsAndGoals/Lifts/Lifts.module.css';
+import './settingsLifts.css';
+
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 
@@ -27,8 +29,6 @@ class GymInfo extends Component {
     event.preventDefault();
     const userKey = this.props.ownData.id;
     const token = localStorage.getItem('token');
-    console.log(this.state);
-    console.log(this.props.ownData.userSetup.lifts);
     const lifts = [
       {bench: {
         weight: this.state.benchWeight,
@@ -76,7 +76,7 @@ class GymInfo extends Component {
           <form>
             <div className="row mb-3">
               <div className="col-12 col-lg-4 px-4">
-                <div className="card my-3 p-2" style={{width: "250px", boxShadow: "none"}}>
+                <div className="card my-3 p-2 settingsLifts" style={{width: "250px", boxShadow: "none"}}>
                   <h5 
                     className="card-title mt-3">Bench Press</h5>
                   <img 
@@ -112,7 +112,7 @@ class GymInfo extends Component {
                 </div>
               </div>
               <div className="col-12 col-lg-4 px-4">
-                <div className="card my-3 p-2" style={{width: "250px", boxShadow: "none"}}>
+                <div className="card my-3 p-2 settingsLifts" style={{width: "250px", boxShadow: "none"}}>
                   <h5 className="card-title mt-3">Squat</h5>
                   <img 
                     className={classes.Icon}
@@ -147,7 +147,7 @@ class GymInfo extends Component {
                 </div>
               </div>
               <div className="col-12 col-lg-4 px-4">
-                <div className="card my-3 p-2" style={{width: "250px", boxShadow: "none"}}>
+                <div className="card my-3 p-2 settingsLifts" style={{width: "250px", boxShadow: "none"}}>
                   <h5 className="card-title mt-3">Deadlift</h5>
                   <img 
                     className={classes.Icon}

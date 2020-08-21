@@ -83,7 +83,7 @@ class ProfileHeader extends Component {
 
     return (
       <div className="row">
-        <div className="col-9 d-flex">
+        <div className="profileInfoWrapper col-9">
           {/* Profile Picture */}
           {showProfilePic}
           <div className="nameExp">
@@ -94,7 +94,7 @@ class ProfileHeader extends Component {
             <span className="experienceBio">{experience}</span>
           </div>
         </div>
-        <div className="col-3 d-flex">
+        <div className="col-3 editProfileWrapper">
           {showButton}
         </div>
       </div>

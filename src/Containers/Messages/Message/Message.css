@@ -25,6 +25,7 @@
   border-radius: .5rem;
   color: #ffffff;
   background-color: #7ADFBB;
+  margin-right: 1rem;
 }
 
 .declined {
@@ -40,6 +41,7 @@
   border-radius: .5rem;
   color: #ffffff;
   background-color: #E1467C;
+  margin-right: 1rem;
 }
 
 .declineOffer {
@@ -69,6 +71,7 @@
   border-radius: .5rem;
   color: #ffffff;
   background-color: #C3C3C3;
+  margin-right: 1rem;
 }
 
 .sendOfferBtn {
@@ -99,4 +102,70 @@
   border-radius: .5rem;
   color: #484252;
   background-color: transparent;
+}
+
+
+
+@media only screen and (max-width: 480px) {
+  .unopenedPic, .expandedPic {
+    height: 50px;
+    width: 50px;
+  }
+  .messageDate {
+    display: none;
+  }
+  .nameDateWrapper {
+    min-width: 140px;
+    margin-left: 5px;
+  }
+  .nameWrapper {
+    text-align: left;
+  }
+  .confirm{
+    display: none;
+  }
+  .messagesWrapper {
+    font-size: 14px;
+  }
+  .sendOfferBtn, .sendFeedbackBtn {
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-right: 0px;
+  }
+  .sendFeedbackBtn {
+    margin-top: 5px;
+  }
+  .reviewOfferWrapper {
+    flex-direction: column;
+    padding: 10px;
+  }
+  .msgSent,.msg, .msgOffer {
+    padding: 10px;
+  }
+  .accepted, .declined, .offerDisable {
+    margin-right: 0px;
+  }
+  .offerDisable {
+    margin-top: 5px;
+  }
+  .offerWrapper {
+    flex-direction: column;
+    margin: auto;
+    max-width: 100px;
+  }
+  .sendBtn {
+    color: #70A9A1;
+    background-color: transparent;
+    padding: 0px;
+    box-shadow: none;
+    margin-right: 10px;
+  }
+  .msgInput {
+    font-size: 14px;
+  }
+  .expandMsg {
+    box-shadow: none;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #cac4cb;
+  }
 }

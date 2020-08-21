@@ -25,4 +25,7 @@
   .helpImage {
     max-width: 80%;
   }
+  .helpWrapper {
+    padding: 30px 15px;
+  }
 }

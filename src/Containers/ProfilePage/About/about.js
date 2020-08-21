@@ -154,7 +154,7 @@ class About extends Component {
             <Aux>
               {goals.goals.map((goal, index) => {
                 return (
-                  <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                  <div key={index} className="profileGoalsWrapper d-flex col-12 col-md-6 col-lg-3 mb-3">
                     <div className="cardProfile card-body flex-fill">{goal}
                     </div>
                   </div>
@@ -201,7 +201,7 @@ class About extends Component {
             <Aux>
               {goals.goals.map((goal, index) => {
                 return (
-                  <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                  <div key={index} className="profileGoalsWrapper d-flex col-12 col-md-6 col-lg-3 mb-3">
                     <div className="cardProfile card-body flex-fill">{goal}
                     </div>
                   </div>
@@ -250,7 +250,7 @@ class About extends Component {
               <Aux>
                 {goals.goals.map((goal, index) => {
                   return (
-                    <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                    <div key={index} className="profileGoalsWrapper d-flex col-12 col-md-6 col-lg-3 mb-3">
                       <div className="cardProfile card-body flex-fill">{goal}
                       </div>
                     </div>
@@ -297,7 +297,7 @@ class About extends Component {
               <Aux>
                 {goals.goals.map((goal, index) => {
                   return (
-                    <div key={index} className="d-flex col-12 col-md-6 col-lg-3 mb-3">
+                    <div key={index} className="profileGoalsWrapper d-flex col-12 col-md-6 col-lg-3 mb-3">
                       <div className="cardProfile card-body flex-fill">{goal}
                       </div>
                     </div>
@@ -327,7 +327,7 @@ class About extends Component {
     }    
     return (
       <div className="row about">
-        <div className="col">
+        <div className="aboutWrapper col">
           {/* User Join Date and Location */}
           <div className={classes.joinLocation}>
             <span className="mr-auto">Joined in 2020</span>

@@ -23,7 +23,7 @@
     font-size: 12px;
     margin-bottom: 0px;
     box-shadow: none;
-    border-bottom: 1px solid #cac4cb;
+    border: 1px solid #cac4cb;
   }
   .tableWrapper {
     margin-bottom: 0px !important;
@@ -31,5 +31,11 @@
   #timeSlot {
     font-size: 8px;
     margin-bottom: 0px;
+  }
+  .settingsTime {
+    font-size: 8px;
+  }
+  .tableHeader {
+    min-width: auto;
   }
 }

@@ -13,7 +13,7 @@ const aboutToolbar = (props) => {
   };
   return (
     <header className={classes.aboutToolbar}>
-      <div></div>
+      {/* <div></div> */}
       <nav className={classes.DesktopOnly}>
         <ul>
           <li>

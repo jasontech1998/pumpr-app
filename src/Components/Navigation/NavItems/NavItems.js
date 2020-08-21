@@ -5,7 +5,9 @@ import NavItem from '../NavItem/NavItem';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
-class NavItems extends Component {
+
+
+export class NavItems extends Component {
 
   componentDidMount = () => {
     // user is logged in
@@ -45,6 +47,7 @@ class NavItems extends Component {
         )
       };
     };
+    // When on other user profile, this makes profile dropdown to still work correctly
     const profileTarget = {
       pathname: "/profile-about",
       key: Math.random,
@@ -52,6 +55,7 @@ class NavItems extends Component {
     };
     // User is logged in
     if (this.props.token && this.props.ownData) {
+      // if sidedrawer is not open
       if (!this.props.showSideDrawer) {
         showNavBar = (
           <>
@@ -129,6 +133,7 @@ class NavItems extends Component {
     )
   }
 }
+
 const mapStateToProps = state => {
   return {
     ownData: state.pumpr.ownData,

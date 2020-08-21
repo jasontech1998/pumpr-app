@@ -25,3 +25,40 @@
   border-radius: 0.25rem;
   border: 1px solid #CAC4CB;
 }
+
+.settingsNavBarWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 250px;
+}
+
+@media only screen and (max-width:480px) {
+  .settingsNavBarWrapper {
+    flex-direction: initial;
+    justify-content: space-evenly;
+    height: auto;
+    max-width: inherit;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .settingsNav {
+    font-size: 16px;
+  }
+  .settingsWrapper {
+    flex-direction: column;
+  }
+  .settingPagesWrapper {
+    flex: auto;
+    max-width: initial;
+    margin-bottom: 40px;
+  }
+  .settingsTitle {
+    margin: auto;
+  }
+  .settingsInput {
+    margin: auto;
+    width: 80%;
+    text-align: center;
+  }
+}

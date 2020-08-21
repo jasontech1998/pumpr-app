@@ -7,7 +7,7 @@ import './Help.css';
 
 const help = () => {
   return (
-    <div>
+    <div className="helpWrapper">
       <h3 className="helpTitle">create your profile</h3>
       <p className="helpContent mb-5">enter your lifts, set your schedule, and select your goals</p>
       <img 

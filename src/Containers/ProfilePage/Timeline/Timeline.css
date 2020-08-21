@@ -1,0 +1,11 @@
+.timelineWrapper {
+  width: 80%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 480px) {
+  .timelineWrapper {
+    width: auto;
+    margin: 0 -15px;
+  }
+}

@@ -248,80 +248,80 @@ class PumprSchedule extends Component {
     if (!this.props.profile) {
       calendarDisplay = (
         <div className="mb-5 tableWrapper">
-        <table className="table">
-          <thead className="thead">
-            <tr>
-              <th scope="col">Monday</th>
-              <th scope="col">Tuesday</th>
-              <th scope="col">Wednesday</th>
-              <th scope="col">Thursday</th>
-              <th scope="col">Friday</th>
-              <th scope="col">Saturday</th>
-              <th scope="col">Sunday</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {/* Monday */}
-              <th scope="row" 
-                className="table-input"
-                style={{cursor: "default"}}>
-                <p id="timeSlot">{this.state.monFreeTime}</p>
-                <p id="timeSlot">{this.state.monFreeTime2}</p>
-                <p id="timeSlot">{this.state.monFreeTime3}</p>
-              </th>
-              {/* Tuesday */}
-              <th className="table-input"
-              style={{cursor: "default"}}>
-                <p id="timeSlot">{this.state.tuesFreeTime}</p>
-                <p id="timeSlot">{this.state.tuesFreeTime2}</p>
-                <p id="timeSlot">{this.state.tuesFreeTime3}</p>
-              </th>
-              {/* Wednesday */}
-              <th className="table-input"
-              style={{cursor: "default"}}>
-                <p id="timeSlot">{this.state.wedFreeTime}</p>
-                <p id="timeSlot">{this.state.wedFreeTime2}</p>
-                <p id="timeSlot">{this.state.wedFreeTime3}</p>
-              </th>
-              {/* Thursday */}
-              <th className="table-input"
-              style={{cursor: "default"}}>
-                <p id="timeSlot">{this.state.thurFreeTime}</p>
-                <p id="timeSlot">{this.state.thurFreeTime2}</p>
-                <p id="timeSlot">{this.state.thurFreeTime3}</p>
-              </th>
-              {/* Friday */}
-              <th className="table-input"
-              style={{cursor: "default"}}>
-                <p id="timeSlot">{this.state.friFreeTime}</p>
-                <p id="timeSlot">{this.state.friFreeTime2}</p>
-                <p id="timeSlot">{this.state.friFreeTime3}</p>
-              </th>
-              {/* Saturday */}
-              <th className="table-input"
-              style={{cursor: "default"}}>
-                <p id="timeSlot">{this.state.satFreeTime}</p>
-                <p id="timeSlot">{this.state.satFreeTime2}</p>
-                <p id="timeSlot">{this.state.satFreeTime3}</p>
-              </th>
-              {/* Sunday */}
-              <th className="table-input border-right-0"
-                style={{cursor: "default"}}>
-                <p id="timeSlot">{this.state.sunFreeTime}</p>
-                <p id="timeSlot">{this.state.sunFreeTime2}</p>
-                <p id="timeSlot">{this.state.sunFreeTime3}</p>
+          <table className="table">
+            <thead className="thead">
+              <tr>
+                <th scope="col">Monday</th>
+                <th scope="col">Tuesday</th>
+                <th scope="col">Wednesday</th>
+                <th scope="col">Thursday</th>
+                <th scope="col">Friday</th>
+                <th scope="col">Saturday</th>
+                <th scope="col">Sunday</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {/* Monday */}
+                <th scope="row" 
+                  className="table-input"
+                  style={{cursor: "default"}}>
+                  <p id="timeSlot">{this.state.monFreeTime}</p>
+                  <p id="timeSlot">{this.state.monFreeTime2}</p>
+                  <p id="timeSlot">{this.state.monFreeTime3}</p>
                 </th>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                {/* Tuesday */}
+                <th className="table-input"
+                style={{cursor: "default"}}>
+                  <p id="timeSlot">{this.state.tuesFreeTime}</p>
+                  <p id="timeSlot">{this.state.tuesFreeTime2}</p>
+                  <p id="timeSlot">{this.state.tuesFreeTime3}</p>
+                </th>
+                {/* Wednesday */}
+                <th className="table-input"
+                style={{cursor: "default"}}>
+                  <p id="timeSlot">{this.state.wedFreeTime}</p>
+                  <p id="timeSlot">{this.state.wedFreeTime2}</p>
+                  <p id="timeSlot">{this.state.wedFreeTime3}</p>
+                </th>
+                {/* Thursday */}
+                <th className="table-input"
+                style={{cursor: "default"}}>
+                  <p id="timeSlot">{this.state.thurFreeTime}</p>
+                  <p id="timeSlot">{this.state.thurFreeTime2}</p>
+                  <p id="timeSlot">{this.state.thurFreeTime3}</p>
+                </th>
+                {/* Friday */}
+                <th className="table-input"
+                style={{cursor: "default"}}>
+                  <p id="timeSlot">{this.state.friFreeTime}</p>
+                  <p id="timeSlot">{this.state.friFreeTime2}</p>
+                  <p id="timeSlot">{this.state.friFreeTime3}</p>
+                </th>
+                {/* Saturday */}
+                <th className="table-input"
+                style={{cursor: "default"}}>
+                  <p id="timeSlot">{this.state.satFreeTime}</p>
+                  <p id="timeSlot">{this.state.satFreeTime2}</p>
+                  <p id="timeSlot">{this.state.satFreeTime3}</p>
+                </th>
+                {/* Sunday */}
+                <th className="table-input border-right-0"
+                  style={{cursor: "default"}}>
+                  <p id="timeSlot">{this.state.sunFreeTime}</p>
+                  <p id="timeSlot">{this.state.sunFreeTime2}</p>
+                  <p id="timeSlot">{this.state.sunFreeTime3}</p>
+                  </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       );
     }
-    // else, viewing own timeline, calendarDisplay has update calendar functionality
+    // else, viewing in settings, calendarDisplay has update calendar functionality
     else {
       calendarDisplay = (
-        <div className="my-3">
+        <div className="my-3 tableWrapper">
         <table className="table">
           <thead className="thead">
             <tr>

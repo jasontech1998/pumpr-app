@@ -32,12 +32,12 @@ class Layout extends Component {
   }
   render () {
     let showAboutUs = null;
+    let showMobileLogo = null;
     if (this.props.history.location.pathname === "/") {
       showAboutUs = <AboutUs />
     }
-    console.log(this.props.history)
-    let showMobileLogo = null;
-    if (this.props.hasToken && this.props.ownData) {
+
+    if (this.props.history.location.pathname === "/dashboard") {
       showMobileLogo = <h4 className="mobileLogo">pumpr</h4>
     }
     return (

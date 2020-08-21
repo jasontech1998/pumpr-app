@@ -72,7 +72,7 @@ class Messages extends Component {
     }
     return (
       <div className="col-12">
-        <h4>Messages</h4>
+        <h4 className="messagesTitle">Messages</h4>
         <Modal 
           closeModal={this.hideModalHandler}
           show={this.props.submitting}>
