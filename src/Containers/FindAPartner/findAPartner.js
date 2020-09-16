@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classes from './findAPartner.module.css';
 import './findAPartner.css';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Auxiliary';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actions/actionPumpr';
 import verify from '../../Components/UI/Images/pumpr verified.png';

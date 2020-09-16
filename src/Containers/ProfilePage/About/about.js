@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classes from './about.module.css';
 import './about.css';
 import Reviews from '../../Reviews/ShowReviews/Reviews';
-import Aux from '../../../hoc/Aux';
+import Aux from '../../../hoc/Auxiliary';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/actionPumpr';
 import * as actionModals from '../../../store/actions/actionSetup';

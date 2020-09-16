@@ -3,7 +3,7 @@ import './Messages.css';
 import Modal from '../../Components/UI/Modal/Modal';
 import OfferModal from './OfferModal/OfferModal';
 import Message from './Message/Message';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Auxiliary';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actions/actionPumpr';
 import * as actionModals from '../../store/actions/actionSetup';

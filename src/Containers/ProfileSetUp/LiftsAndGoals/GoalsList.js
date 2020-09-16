@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from './GoalsList.module.css';
-import Aux from '../../../hoc/Aux';
+import Aux from '../../../hoc/Auxiliary';
 import Goal from './Goal';
 
 class GoalsList extends Component {

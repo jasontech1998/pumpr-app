@@ -3,7 +3,7 @@ import './Message.css';
 import {connect} from 'react-redux';
 import * as actionModals from '../../../store/actions/actionSetup';
 import * as actionCreators from '../../../store/actions/actionPumpr';
-import Aux from '../../../hoc/Aux';
+import Aux from '../../../hoc/Auxiliary';
 import verify from '../../../Components/UI/Images/pumpr verified.png';
 
 class Message extends Component {

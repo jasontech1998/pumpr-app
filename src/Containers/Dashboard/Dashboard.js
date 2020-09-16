@@ -3,7 +3,7 @@ import CreateAPost from './CreateAPost/CreateAPost';
 import RecentPosts from './RecentPosts/RecentPosts';
 import PumprSchedule from '../PumprSchedule/pumprSchedule';
 import './Dashboard.css';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Auxiliary';
 import {connect} from 'react-redux';
 
 import * as actionCreators from '../../store/actions/actionPumpr';

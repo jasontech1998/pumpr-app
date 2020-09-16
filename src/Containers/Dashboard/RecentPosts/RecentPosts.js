@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classes from '../CreateAPost/CreateAPost.module.css';
 import './RecentPosts.css';
-import Aux from '../../../hoc/Aux';
+import Aux from '../../../hoc/Auxiliary';
 import verify from '../../../Components/UI/Images/pumpr verified.png';
 
 import {connect} from 'react-redux';
